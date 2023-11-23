@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/FunctionCalculator/FunctionCalculator.iml" filepath="$PROJECT_DIR$/FunctionCalculator/FunctionCalculator.iml" />
+      <module fileurl="file://$PROJECT_DIR$/GroupDataAnalyzer/GroupDataAnalyzer.iml" filepath="$PROJECT_DIR$/GroupDataAnalyzer/GroupDataAnalyzer.iml" />
+      <module fileurl="file://$PROJECT_DIR$/MathToolkit.iml" filepath="$PROJECT_DIR$/MathToolkit.iml" />
+      <module fileurl="file://$PROJECT_DIR$/core/core.iml" filepath="$PROJECT_DIR$/core/core.iml" />
+    </modules>
+  </component>
+</project>

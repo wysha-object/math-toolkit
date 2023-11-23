@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<form xmlns="http://www.intellij.com/uidesigner/form/" version="1" bind-to-class="FunctionCalulatorMain.edit.EditMultivariateFunction">
+  <grid id="27dc6" binding="contentPane" layout-manager="GridLayoutManager" row-count="2" column-count="2" same-size-horizontally="false" same-size-vertically="false" hgap="-1" vgap="-1">
+    <margin top="0" left="0" bottom="0" right="0"/>
+    <constraints>
+      <xy x="20" y="20" width="500" height="400"/>
+    </constraints>
+    <properties/>
+    <border type="none"/>
+    <children>
+      <component id="5607" class="javax.swing.JLabel" binding="jLabel">
+        <constraints>
+          <grid row="1" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties>
+          <text value="请输入函数解析式"/>
+        </properties>
+      </component>
+      <component id="f1df9" class="javax.swing.JTextField" binding="textField">
+        <constraints>
+          <grid row="1" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="6" anchor="8" fill="1" indent="0" use-parent-layout="false">
+            <preferred-size width="150" height="-1"/>
+          </grid>
+        </constraints>
+        <properties/>
+      </component>
+      <scrollpane id="fd14b" binding="jScrollPane">
+        <constraints>
+          <grid row="0" column="0" row-span="1" col-span="2" vsize-policy="7" hsize-policy="7" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+        </constraints>
+        <properties/>
+        <border type="none"/>
+        <children>
+          <component id="582ef" class="javax.swing.JTextArea" binding="jTextArea">
+            <constraints/>
+            <properties>
+              <text value="注意事项:&#10;&#9;1.格式:&#10;&#9;&#9;&quot;函数名&quot;+&quot;=&quot;+&quot;初始值(变量)&quot;+&quot;运算操作1&quot;+&quot;值(变量)1&quot;+&quot;运算操作2&quot;+&quot;值(变量)2&quot;+&quot;...&quot;+&quot;运算操作n&quot;+&quot;值(变量)n&quot;;&#10;&#9;2.运算符号支支持英文符号,支持运算优先级,目前只支持:&#10;&#9;&#9;&quot;+&quot;(加),&quot;-&quot;(减),&quot;*&quot;(乘),&quot;/&quot;(除);&#10;&#9;3.不支持用括号表示优先级;&#10;&#9;4.表示负号时不支持括号.&#10;&#9;&#10;&#9;关于运算符号的示例:&#10;&#9;&#9;错误示例:f=xy.违反了第二条.&#10;&#9;&#9;正确示例:f=x*y.&#10;                        &#10;&#9;关于获取平方差的示例:&#10;&#9;&#9;错误示例:f=(x+y)(x-y).违反了第三条&#10;&#9;&#9;正确示例:f=a*a-b*b;"/>
+            </properties>
+          </component>
+        </children>
+      </scrollpane>
+    </children>
+  </grid>
+</form>
