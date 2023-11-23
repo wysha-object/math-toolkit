@@ -1,5 +1,5 @@
 
-# MathToolkit<a href='https://gitee.com/wysha-object/math-toolkit'><img src='https://gitee.com/wysha-object/math-toolkit/widgets/widget_5.svg' alt='Fork me on Gitee'></img></a>
+# MathToolkit
 
 #### 介绍
 当前版本1.0,jar包在out/artifacts目录下,使用JDK8开发,建议用IDEA查看源码
