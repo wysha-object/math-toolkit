@@ -71,7 +71,7 @@
                   <grid row="0" column="0" row-span="1" col-span="1" vsize-policy="0" hsize-policy="3" anchor="0" fill="1" indent="0" use-parent-layout="false"/>
                 </constraints>
                 <properties>
-                  <text value="运行操作系统内置计算器"/>
+                  <text value="运行Windows计算器"/>
                 </properties>
               </component>
             </children>
@@ -91,7 +91,7 @@
           <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
         <properties>
-          <text value="版本号:1.0"/>
+          <text value="版本号:1.0.0"/>
         </properties>
       </component>
       <component id="82ff6" class="javax.swing.JButton" binding="set">

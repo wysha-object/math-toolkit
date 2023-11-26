@@ -34,10 +34,8 @@ public abstract class AbstractWrittenData implements Serializable {
      *
      * @throws Throwable 可能的异常
      */
-    public void write() throws Throwable{
-        new ObjectOutputStream(Files.newOutputStream(
-                file.toPath()
-        )).writeObject(this);
+    public void write() throws Throwable {
+        new ObjectOutputStream(Files.newOutputStream(file.toPath())).writeObject(this);
         new Prompt("已保存至" + file).setVisible(true);
     }
 }

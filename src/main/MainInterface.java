@@ -59,7 +59,7 @@ public class MainInterface extends JFrame{
                 throw new RuntimeException(ex);
             }
         });
-        setTitle("数学工具包1.0");
+        setTitle("数学工具包");
         setSize(
                 (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()*2/3),
                 (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()*2/3)
@@ -113,16 +113,8 @@ public class MainInterface extends JFrame{
         flush.addActionListener(e -> flush());
         calculator.addActionListener(e -> {
             try {
-                if (System.getProperty("os.name").contains("Windows")) {
-                    ProcessBuilder processBuilder = new ProcessBuilder("calc.exe");
-                    processBuilder.start();
-                } else if (System.getProperty("os.name").contains("Linux")) {
-                    ProcessBuilder processBuilder = new ProcessBuilder("gnome-calculator");
-                    processBuilder.start();
-                } else if (System.getProperty("os.name").contains("Darwin") || System.getProperty("os.name").contains("Mac")) {
-                    ProcessBuilder processBuilder = new ProcessBuilder("open -a /Applications/Calculator.app");
-                    processBuilder.start();
-                }
+                ProcessBuilder processBuilder = new ProcessBuilder("calc.exe");
+                processBuilder.start();
             } catch (Exception exception) {
                 ErrorInterface errorInterface = new ErrorInterface(
                         "计算器启动失败,操作系统不支持或计算器已损坏\n",
