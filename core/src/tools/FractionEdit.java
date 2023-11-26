@@ -5,25 +5,35 @@
 
 package tools;
 
-import date.Style;
+import data.Style;
 import math.Fraction;
 
 import javax.swing.*;
 import java.util.HashSet;
 
+/**
+ * @author wysha
+ */
 public class FractionEdit extends JPanel {
+    @Override
+    public boolean equals(Object o) {
+        return super.equals(o);
+    }
+
+    @Override
+    public int hashCode() {
+        return super.hashCode();
+    }
+
     private JPanel contentPane;
     private JSpinner up;
     private JSpinner down;
     private JLabel jLabel;
     private JLabel left;
-    private JLabel downJLabel;
-    private JLabel upJLabel;
-    public FractionEdit(){
-        add(contentPane);
-        setStyle();
-        up.setValue(1);
-        down.setValue(1);
+    private JLabel downLabel;
+    private JLabel upLabel;
+    public FractionEdit() throws Throwable {
+        this(null,new Fraction(1,1));
     }
     public void setText(String s){
         left.setText(s);
@@ -52,8 +62,8 @@ public class FractionEdit extends JPanel {
         buttons.add(down);
         buttons.add(jLabel);
         buttons.add(left);
-        buttons.add(upJLabel);
-        buttons.add(downJLabel);
+        buttons.add(upLabel);
+        buttons.add(downLabel);
         Style.setStyle(null,buttons,null);
     }
 }

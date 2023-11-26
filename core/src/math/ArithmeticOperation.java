@@ -5,40 +5,49 @@
 
 package math;
 
+/**
+ * @author wysha
+ */
+
 public enum ArithmeticOperation {
-    add(1),subtract(1),multiply(2),divide(2);
+    /*
+
+     */
+    ADD(1), SUBTRACT(1), MULTIPLY(2), DIVIDE(2);
     public final int Priority;
-    public static final int max=2;
+    public static final int MAX = 2;
     ArithmeticOperation(int priority){
         Priority=priority;
     }
+
+    public static Fraction operation(ArithmeticOperation arithmeticOperation, Fraction theValueBeingManipulated, Fraction operationValue) throws Throwable {
+        switch (arithmeticOperation) {
+            case ADD:
+                return new Fraction(theValueBeingManipulated.numerator * operationValue.denominator + operationValue.numerator * theValueBeingManipulated.denominator, theValueBeingManipulated.denominator * operationValue.denominator);
+            case SUBTRACT:
+                return new Fraction(theValueBeingManipulated.numerator * operationValue.denominator - operationValue.numerator * theValueBeingManipulated.denominator, theValueBeingManipulated.denominator * operationValue.denominator);
+            case MULTIPLY:
+                return new Fraction(theValueBeingManipulated.numerator * operationValue.numerator, theValueBeingManipulated.denominator * operationValue.denominator);
+            case DIVIDE:
+                return new Fraction(theValueBeingManipulated.numerator * operationValue.denominator, theValueBeingManipulated.denominator * operationValue.numerator);
+            default:
+                return theValueBeingManipulated;
+        }
+    }
+
     @Override
     public String toString() {
         switch (this) {
-            case add:
+            case ADD:
                 return "+";
-            case subtract:
+            case SUBTRACT:
                 return "-";
-            case multiply:
+            case MULTIPLY:
                 return "*";
-            case divide:
+            case DIVIDE:
                 return "/";
             default:
                 throw new NullPointerException();
         }
-    }
-
-    public static Fraction operation(ArithmeticOperation arithmeticOperation, Fraction TheValueBeingManipulated, Fraction OperationValue) throws Throwable {
-        switch (arithmeticOperation) {
-            case add:
-                return new Fraction(TheValueBeingManipulated.numerator * OperationValue.denominator + OperationValue.numerator * TheValueBeingManipulated.denominator, TheValueBeingManipulated.denominator * OperationValue.denominator);
-            case subtract:
-                return new Fraction(TheValueBeingManipulated.numerator * OperationValue.denominator - OperationValue.numerator * TheValueBeingManipulated.denominator, TheValueBeingManipulated.denominator * OperationValue.denominator);
-            case multiply:
-                return new Fraction(TheValueBeingManipulated.numerator * OperationValue.numerator, TheValueBeingManipulated.denominator * OperationValue.denominator);
-            case divide:
-                return new Fraction(TheValueBeingManipulated.numerator * OperationValue.denominator, TheValueBeingManipulated.denominator * OperationValue.numerator);
-        }
-        return TheValueBeingManipulated;
     }
 }
