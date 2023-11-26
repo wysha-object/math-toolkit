@@ -5,7 +5,7 @@
 
 package tools;
 
-import date.Style;
+import data.Style;
 
 import javax.swing.*;
 import java.awt.*;
@@ -30,9 +30,9 @@ public class Prompt extends JDialog {
         setAlwaysOnTop(true);
         setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 3, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 3);
         setLocationRelativeTo(null);
-        buttonOkay.addActionListener(e -> onOK());
+        buttonOkay.addActionListener(e -> onOkay());
         contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        contentPane.registerKeyboardAction(e -> onOK(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onOkay(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
     public void setStyle() {
@@ -45,7 +45,7 @@ public class Prompt extends JDialog {
         Style.setStyle(jPanels,buttons,null);
     }
 
-    private void onOK() {
+    private void onOkay() {
         dispose();
     }
 }

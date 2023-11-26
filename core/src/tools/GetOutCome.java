@@ -5,7 +5,7 @@
 
 package tools;
 
-import date.Style;
+import data.Style;
 
 import javax.swing.*;
 import java.awt.event.KeyEvent;
@@ -13,7 +13,7 @@ import java.util.HashSet;
 
 public class GetOutCome extends JDialog {
     private JPanel contentPane;
-    private JButton buttonOK;
+    private JButton buttonOkay;
     private JLabel jLabel;
 
     public GetOutCome(String title, String s) {
@@ -23,21 +23,21 @@ public class GetOutCome extends JDialog {
         setModal(true);
         setTitle(title);
         setStyle();
-        buttonOK.addActionListener(e -> onOK());
+        buttonOkay.addActionListener(e -> onOkay());
         contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        contentPane.registerKeyboardAction(e -> onOK(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onOkay(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
     public void setStyle() {
         HashSet<JComponent> jPanels = new HashSet<>();
         HashSet<JComponent> buttons = new HashSet<>();
         jPanels.add(contentPane);
-        buttons.add(buttonOK);
+        buttons.add(buttonOkay);
         buttons.add(jLabel);
         Style.setStyle(jPanels,buttons,null);
     }
 
-    private void onOK() {
+    private void onOkay() {
         dispose();
     }
 }

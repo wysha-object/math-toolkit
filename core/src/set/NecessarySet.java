@@ -5,40 +5,37 @@
 
 package set;
 
-import date.NecessaryData;
-import date.Style;
+import data.NecessaryData;
+import data.Style;
 import set.settings.AppearanceSetting;
-import set.settings.DefaultPage;
-import set.settings.Settings;
-import tools.Choose;
 import tools.ErrorInterface;
 
 import javax.swing.*;
-import java.awt.*;
 import java.util.HashSet;
 
-public class NecessarySet extends JDialog {
-    final CardLayout cardLayout=new CardLayout();
+/**
+ * @author wysha
+ */
+public class NecessarySet extends Set {
     private JPanel contentPane;
     private JButton style;
-    private JButton buttonOK;
+    private JButton buttonOkay;
     private JPanel right;
-    private Settings current;
-    final DefaultPage defaultPage=new DefaultPage(this);
     final AppearanceSetting appearanceSetting =new AppearanceSetting(this);
     private JButton buttonCancel;
     private JPanel up;
     private JPanel down;
 
     public NecessarySet() {
+        super.show = right;
         setContentPane(contentPane);
         right.setLayout(cardLayout);
         right.add(defaultPage.contentPane,defaultPage.name);
         right.add(appearanceSetting.contentPane,appearanceSetting.name);
         setCurrent(defaultPage);
-        buttonOK.addActionListener(ee -> {
+        buttonOkay.addActionListener(ee -> {
             if (current!=defaultPage){
-                current.onOK();
+                current.onOkay();
                 try {
                     NecessaryData.necessaryData.write();
                 } catch (Throwable e) {
@@ -55,25 +52,11 @@ public class NecessarySet extends JDialog {
         setTitle("核心设置");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setStyle();
-        buttonOK.addActionListener(ee -> dispose());
+        buttonOkay.addActionListener(ee -> dispose());
         buttonCancel.addActionListener(ee -> dispose());
         style.addActionListener(e -> setCurrent(appearanceSetting));
-        buttonOK.addActionListener(e -> current.onOK());
+        buttonOkay.addActionListener(e -> current.onOkay());
         buttonCancel.addActionListener(e -> current.onCancel());
-    }
-
-    private void setCurrent(Settings set){
-        if (current != set){
-            if (current!=defaultPage&&current!=null){
-                Choose choose=new Choose("是否保存设置");
-                choose.setVisible(true);
-                if (choose.choose){
-                    current.save();
-                }
-            }
-            cardLayout.show(right,set.name);
-            current=set;
-        }
     }
 
     public void setStyle() {
@@ -84,7 +67,7 @@ public class NecessarySet extends JDialog {
         jPanels.add(down);
         jPanels.add(right);
         buttons.add(style);
-        buttons.add(buttonOK);
+        buttons.add(buttonOkay);
         buttons.add(buttonCancel);
         Style.setStyle(jPanels,buttons,null);
     }

@@ -8,6 +8,9 @@ import tools.Tools;
 
 import java.io.Serializable;
 
+/**
+ * @author wysha
+ */
 public class Fraction implements Serializable {
     public final int numerator;
     public final int denominator;

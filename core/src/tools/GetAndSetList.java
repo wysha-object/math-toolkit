@@ -3,18 +3,24 @@
  * 开发者邮箱:wyshazhisishen@yeah.net
  */
 package tools;
-import date.Style;
+
+import data.Style;
+
 import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
-import java.util.*;
+import java.util.HashSet;
+import java.util.List;
 
+/**
+ * @author wysha
+ */
 public class GetAndSetList extends JDialog {
-    private final List<Object> date;
+    private final List<Object> data;
     private final List<Object> chooseDate;
     private JPanel contentPane;
-    private JButton buttonOK;
+    private JButton buttonOkay;
     private JButton buttonCancel;
     private JPanel down;
     private JScrollPane right;
@@ -27,11 +33,11 @@ public class GetAndSetList extends JDialog {
     private JLabel jLabel;
     private JPanel panel;
 
-    public GetAndSetList(String text, List<Object> es,List<Object> choose) {
+    public GetAndSetList(String text, List<Object> data, List<Object> choose) {
         setTitle(text);
-        date=es;
+        this.data = data;
         chooseDate=choose;
-        list.setListData(date.toArray());
+        list.setListData(this.data.toArray());
         if (choose!=null) {
             add.setEnabled(false);
             remove.setEnabled(false);
@@ -41,30 +47,30 @@ public class GetAndSetList extends JDialog {
                 int[] ints=list.getSelectedIndices();
                 if (ints.length==1){
                     Object o=list.getSelectedValue();
-                    date.remove(o);
+                    this.data.remove(o);
                     chooseDate.add(o);
                 }else {
                     for (int j = ints.length-1; j >=0; j--) {
                         int i = ints[j];
-                        chooseDate.add(date.remove(i));
+                        chooseDate.add(this.data.remove(i));
                     }
                 }
-                list.setListData(date.toArray());
+                list.setListData(this.data.toArray());
                 chooseList.setListData(chooseDate.toArray());
             });
             remove.addActionListener(e -> {
                 int[] ints=chooseList.getSelectedIndices();
                 if (ints.length==1){
                     Object o=chooseList.getSelectedValue();
-                    date.add(o);
+                    this.data.add(o);
                     chooseDate.remove(o);
                 }else {
                     for (int j = ints.length-1; j >=0; j--) {
                         int i = ints[j];
-                        date.add(chooseDate.remove(i));
+                        this.data.add(chooseDate.remove(i));
                     }
                 }
-                list.setListData(date.toArray());
+                list.setListData(this.data.toArray());
                 chooseList.setListData(chooseDate.toArray());
             });
             chooseList.setListData(chooseDate.toArray());
@@ -79,16 +85,17 @@ public class GetAndSetList extends JDialog {
         jLabel.setText(text);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setStyle();
-        buttonOK.addActionListener(e -> onOK());
+        buttonOkay.addActionListener(e -> onOkay());
         buttonCancel.addActionListener(e -> onCancel());
         addWindowListener(new WindowAdapter() {
+            @Override
             public void windowClosing(WindowEvent e) {
                 onCancel();
             }
         });
 
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        contentPane.registerKeyboardAction(e -> onOK(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onOkay(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
     public void setStyle() {
         HashSet<JComponent> jPanels = new HashSet<>();
@@ -98,7 +105,7 @@ public class GetAndSetList extends JDialog {
         jPanels.add(down);
         jPanels.add(right);
         jPanels.add(panel);
-        buttons.add(buttonOK);
+        buttons.add(buttonOkay);
         buttons.add(buttonCancel);
         buttons.add(leftLabel);
         buttons.add(rightLabel);
@@ -112,13 +119,14 @@ public class GetAndSetList extends JDialog {
     public List<Object> getChoose(){
         return chooseDate;
     }
-    private void onOK() {
+
+    private void onOkay() {
         dispose();
     }
     private void onCancel() {
-        date.addAll(chooseDate);
+        data.addAll(chooseDate);
         if (!chooseDate.isEmpty()) {
-            chooseDate.subList(0, chooseDate.size()).clear();
+            chooseDate.clear();
         }
         dispose();
     }

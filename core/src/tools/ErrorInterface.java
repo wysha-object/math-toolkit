@@ -5,27 +5,32 @@
 
 package tools;
 
-import date.Style;
+import data.Style;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 
+/**
+ * @author wysha
+ */
 public class ErrorInterface extends JDialog {
     final boolean report;
     private JPanel contentPane;
-    private JButton buttonOK;
-    private JTextArea JTextArea;
+    private JButton buttonOkay;
+    private JTextArea textArea;
     private JScrollPane jScrollPane;
+    final Throwable error;
 
     public ErrorInterface(String description, Throwable error, boolean report) {
+        this.error=error;
         this.report=report;
-        JTextArea.setLineWrap(true);
-        JTextArea.setEditable(false);
-        JTextArea.setText("遇到了一个异常:\n" + description + "\n" + error.toString());
+        textArea.setLineWrap(true);
+        textArea.setEditable(false);
+        textArea.setText("遇到了一个异常:\n" + description + "\n" + error.toString());
         if (report){
-            JTextArea.append("\n待用户确认后此错误将自动发送给开发者");
+            textArea.append("\n待用户确认后此错误将自动发送给开发者");
         }
         setContentPane(contentPane);
         setModal(true);
@@ -35,9 +40,9 @@ public class ErrorInterface extends JDialog {
         setAlwaysOnTop(true);
         setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 3, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 3);
         setLocationRelativeTo(null);
-        buttonOK.addActionListener(e -> onOK());
+        buttonOkay.addActionListener(e -> onOkay());
         contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
-        contentPane.registerKeyboardAction(e -> onOK(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
+        contentPane.registerKeyboardAction(e -> onOkay(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
 
     public void setStyle() {
@@ -45,15 +50,15 @@ public class ErrorInterface extends JDialog {
         HashSet<JComponent> buttons = new HashSet<>();
         jPanels.add(contentPane);
         jPanels.add(jScrollPane);
-        buttons.add(buttonOK);
-        buttons.add(JTextArea);
+        buttons.add(buttonOkay);
+        buttons.add(textArea);
         Style.setStyle(jPanels,buttons,null);
     }
 
-    private void onOK() {
+    private void onOkay() {
         dispose();
         if (report){
-            //未完待续......
+            throw new RuntimeException(error);
         }
     }
 }

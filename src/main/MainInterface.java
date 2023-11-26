@@ -5,26 +5,26 @@
 
 package main;
 
-import FunctionCalulatorMain.FunctionCalculatorMainInterface;
-import GroupDataAnalyzerMain.GroupDataAnalyzerMainInterface;
-import date.NecessaryData;
-import date.Style;
+import data.NecessaryData;
+import data.Style;
 import set.NecessarySet;
 import tools.ErrorInterface;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ComponentAdapter;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 
+/**
+ * @author wysha
+ */
 public class MainInterface extends JFrame{
     private JPanel contentPane;
-    private JButton runFC;
+    private JButton runFunctionCalculator;
     private JPanel left;
     private JButton set;
-    private JButton runGDA;
-    private JLabel downJLabel;
+    private JButton runGroupDataAnalyzer;
+    private JLabel downLabel;
     private JButton flush;
     private JButton calculator;
     private JLabel v;
@@ -45,14 +45,14 @@ public class MainInterface extends JFrame{
             ).setVisible(true);
         }
         setContentPane(contentPane);
-        runFC.addActionListener(e -> {
+        runFunctionCalculator.addActionListener(e -> {
             try {
                 FunctionCalculatorMainInterface.main(null);
             } catch (Throwable ex) {
                 throw new RuntimeException(ex);
             }
         });
-        runGDA.addActionListener(e -> {
+        runGroupDataAnalyzer.addActionListener(e -> {
             try {
                 GroupDataAnalyzerMainInterface.main(null);
             } catch (Throwable ex) {
@@ -110,8 +110,6 @@ public class MainInterface extends JFrame{
                 KeyStroke.getKeyStroke(KeyEvent.VK_F11,0),
                 JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT
         );
-        flush.addComponentListener(new ComponentAdapter() {
-        });
         flush.addActionListener(e -> flush());
         calculator.addActionListener(e -> {
             try {
@@ -146,11 +144,11 @@ public class MainInterface extends JFrame{
         HashSet<JList<?>> jLists=new HashSet<>();
         jPanels.add(contentPane);
         jPanels.add(left);
-        buttons.add(runFC);
-        buttons.add(runGDA);
+        buttons.add(runFunctionCalculator);
+        buttons.add(runGroupDataAnalyzer);
         buttons.add(calculator);
         buttons.add(set);
-        buttons.add(downJLabel);
+        buttons.add(downLabel);
         buttons.add(flush);
         buttons.add(v);
         Style.setStyle(jPanels,buttons,jLists);

@@ -5,15 +5,18 @@
 
 package set.settings;
 
-import date.NecessaryData;
-import date.Setting;
-import date.Style;
+import data.NecessaryData;
+import data.Setting;
+import data.Style;
 
 import javax.swing.*;
 import java.util.HashSet;
 import java.util.Objects;
 
-public class AppearanceSetting extends Settings {
+/**
+ * @author wysha
+ */
+public class AppearanceSetting extends AbstractSettings {
     public JPanel contentPane;
     private JComboBox<Style> comboBox;
     private JLabel jLabel;
