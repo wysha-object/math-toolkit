@@ -28,6 +28,10 @@ public class MainInterface extends JFrame{
     private JButton flush;
     private JButton calculator;
     private JLabel v;
+    private JScrollPane r;
+    private JTextArea textArea;
+    private JLabel show;
+    private JScrollPane l;
 
     public static void main(String[] args) {
         home.setVisible(true);
@@ -136,6 +140,8 @@ public class MainInterface extends JFrame{
         HashSet<JList<?>> jLists=new HashSet<>();
         jPanels.add(contentPane);
         jPanels.add(left);
+        jPanels.add(r);
+        jPanels.add(l);
         buttons.add(runFunctionCalculator);
         buttons.add(runGroupDataAnalyzer);
         buttons.add(calculator);
@@ -143,6 +149,8 @@ public class MainInterface extends JFrame{
         buttons.add(downLabel);
         buttons.add(flush);
         buttons.add(v);
+        buttons.add(textArea);
+        buttons.add(show);
         Style.setStyle(jPanels,buttons,jLists);
     }
 }

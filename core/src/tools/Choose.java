@@ -24,6 +24,7 @@ public class Choose extends JDialog {
     public Choose(String s) {
         textArea.setText(s);
         textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
         textArea.setEditable(false);
         setContentPane(contentPane);
         setModal(true);

@@ -20,6 +20,7 @@ public class Prompt extends JDialog {
 
     public Prompt(String prompt) {
         jTextArea.setLineWrap(true);
+        jTextArea.setWrapStyleWord(true);
         jTextArea.setEditable(false);
         jTextArea.setText("提示:\n" + prompt);
         setContentPane(contentPane);

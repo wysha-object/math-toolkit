@@ -27,6 +27,7 @@ public class GroupDataAnalyzerGet extends JDialog {
     public GroupDataAnalyzerGet(GroupData groupData) throws Throwable {
         values.setLineWrap(true);
         values.setWrapStyleWord(true);
+        values.setEditable(false);
         setContentPane(contentPane);
         button.addActionListener(e -> dispose());
         name.setText(groupData.toString());

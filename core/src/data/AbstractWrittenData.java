@@ -11,6 +11,7 @@ import java.io.File;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.nio.file.Files;
+import java.nio.file.Paths;
 
 /**
  * @author wysha
@@ -35,7 +36,7 @@ public abstract class AbstractWrittenData implements Serializable {
      * @throws Throwable 可能的异常
      */
     public void write() throws Throwable {
-        new ObjectOutputStream(Files.newOutputStream(file.toPath())).writeObject(this);
-        new Prompt("已保存至" + file.toPath()).setVisible(true);
+        new ObjectOutputStream(Files.newOutputStream(Paths.get(file.getAbsolutePath()))).writeObject(this);
+        new Prompt("已保存至" + file.getAbsolutePath()).setVisible(true);
     }
 }

@@ -48,6 +48,9 @@ public class GroupDataEdit extends JDialog {
     FractionEdit[] fractionEdits;
 
     public GroupDataEdit(GroupData groupData) throws Throwable {
+        textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
+        textArea.setEditable(false);
         edit.setText("默认添加:");
         setContentPane(contentPane);
         setModal(true);

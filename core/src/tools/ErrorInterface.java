@@ -27,6 +27,7 @@ public class ErrorInterface extends JDialog {
         this.error=error;
         this.report=report;
         textArea.setLineWrap(true);
+        textArea.setWrapStyleWord(true);
         textArea.setEditable(false);
         textArea.setText("遇到了一个异常:\n" + description + "\n" + error.toString());
         if (report){
