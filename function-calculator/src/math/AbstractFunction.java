@@ -1,7 +1,3 @@
-/*
- * 开发者:熊锦枫
- * 开发者邮箱:wyshazhisishen@yeah.net
- */
 
 package math;
 
@@ -9,6 +5,9 @@ import main.FunctionCalculatorData;
 
 import java.util.*;
 
+/**
+ * @author wysha
+ */
 public abstract class AbstractFunction extends Variable {
     protected AbstractFunction(String name, List<Fraction> fractions, List<Variable> variables, List<ArithmeticOperation> arithmeticOperations) {
         super(name);

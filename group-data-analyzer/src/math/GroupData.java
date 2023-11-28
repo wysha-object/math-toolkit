@@ -1,7 +1,3 @@
-/*
- * 开发者:熊锦枫
- * 开发者邮箱:wyshazhisishen@yeah.net
- */
 
 package math;
 
@@ -11,6 +7,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
+/**
+ * @author wysha
+ */
 public class GroupData implements Serializable {
     public final String name;
     public final Fraction[] fractions;

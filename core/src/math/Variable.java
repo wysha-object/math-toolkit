@@ -1,12 +1,14 @@
-/*
- * 开发者:熊锦枫
- * 开发者邮箱:wyshazhisishen@yeah.net
- */
+
 package math;
 
-import java.util.*;
 import java.io.Serializable;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Objects;
 
+/**
+ * @author wysha
+ */
 public class Variable implements Serializable {
     public final LinkedList<Fraction> valueLL=new LinkedList<>();
     public String name;

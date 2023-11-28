@@ -1,7 +1,3 @@
-/*
- * 开发者:熊锦枫
- * 开发者邮箱:wyshazhisishen@yeah.net
- */
 
 package tools;
 
@@ -11,6 +7,9 @@ import javax.swing.*;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 
+/**
+ * @author wysha
+ */
 public class GetOutCome extends JDialog {
     private JPanel contentPane;
     private JButton buttonOkay;

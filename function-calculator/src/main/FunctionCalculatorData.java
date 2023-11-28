@@ -1,12 +1,3 @@
-/*
- * 开发者:熊锦枫
- * 开发者邮箱:wyshazhisishen@yeah.net
- */
-
-/*
- * 开发者:熊锦枫
- * 开发者邮箱:wyshazhisishen@yeah.net
- */
 
 package main;
 
@@ -18,6 +9,9 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author wysha
+ */
 public class FunctionCalculatorData extends AbstractWrittenData {
     public static FunctionCalculatorData functionCalculatorDate = new FunctionCalculatorData();
     public final List<AbstractFunction> abstractFunctions = new ArrayList<>();

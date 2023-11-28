@@ -1,10 +1,9 @@
-/*
- * 开发者:熊锦枫
- * 开发者邮箱:wyshazhisishen@yeah.net
- */
 
 package tools;
 
+/**
+ * @author wysha
+ */
 public class Tools {
     public static double gcd(double num1, double num2) {
         //辗转相除法(欧几里得算法)

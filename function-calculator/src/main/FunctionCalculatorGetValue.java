@@ -1,12 +1,3 @@
-/*
- * 开发者:熊锦枫
- * 开发者邮箱:wyshazhisishen@yeah.net
- */
-
-/*
- * 开发者:熊锦枫
- * 开发者邮箱:wyshazhisishen@yeah.net
- */
 
 package main;
 
@@ -25,6 +16,9 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
+/**
+ * @author wysha
+ */
 public class FunctionCalculatorGetValue extends JDialog {
     private final AbstractFunction abstractFunction;
     private JPanel contentPane;
