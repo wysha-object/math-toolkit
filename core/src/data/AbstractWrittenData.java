@@ -36,6 +36,6 @@ public abstract class AbstractWrittenData implements Serializable {
      */
     public void write() throws Throwable {
         new ObjectOutputStream(Files.newOutputStream(file.toPath())).writeObject(this);
-        new Prompt("已保存至" + file).setVisible(true);
+        new Prompt("已保存至" + file.toPath()).setVisible(true);
     }
 }
