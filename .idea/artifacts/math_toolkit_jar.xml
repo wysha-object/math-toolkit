@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="math-toolkit:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/math_toolkit_jar</output-path>
+    <root id="archive" name="math-toolkit.jar">
+      <element id="module-output" name="math-toolkit" />
+      <element id="module-output" name="core" />
+      <element id="module-output" name="group-data-analyzer" />
+      <element id="module-output" name="function-calculator" />
+    </root>
+  </artifact>
+</component>
