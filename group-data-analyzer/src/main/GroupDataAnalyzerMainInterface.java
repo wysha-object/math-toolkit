@@ -3,7 +3,7 @@ package main;
 
 import data.NecessaryData;
 import data.Style;
-import math.GroupData;
+import math.groupdata.GroupData;
 import set.GroupDataAnalyzerSet;
 import tools.ErrorInterface;
 
@@ -192,7 +192,7 @@ public class GroupDataAnalyzerMainInterface extends JFrame{
                                         ).readObject();
                         for (GroupData f : GroupDataAnalyzerData.groupDataAnalyzerDate.groupData) {
                             if (f.name.equals(groupData.name)) {
-                                throw new RuntimeException("数据组列表中已有同名函数");
+                                throw new RuntimeException("数据组列表中已有同名数据组");
                             }
                         }
                         GroupDataAnalyzerData.groupDataAnalyzerDate.groupData.add(

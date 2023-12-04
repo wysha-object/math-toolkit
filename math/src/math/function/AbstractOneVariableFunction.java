@@ -1,5 +1,6 @@
+package math.function;
 
-package math;
+import math.Variable;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +9,8 @@ import java.util.List;
  * @author wysha
  */
 public abstract class AbstractOneVariableFunction extends AbstractFunction {
-    public AbstractOneVariableFunction(String name) {
-        super(name);
+    public AbstractOneVariableFunction(String name,List<AbstractFunction> functions) {
+        super(name,functions);
     }
 
     @Override

@@ -2,7 +2,7 @@
 package main;
 
 import data.AbstractWrittenData;
-import math.AbstractFunction;
+import math.function.AbstractFunction;
 
 import java.io.ObjectInputStream;
 import java.nio.file.Files;

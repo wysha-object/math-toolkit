@@ -2,7 +2,7 @@
 package main;
 
 import data.Style;
-import math.GroupData;
+import math.groupdata.GroupData;
 
 import javax.swing.*;
 import java.util.Arrays;
@@ -21,6 +21,7 @@ public class GroupDataAnalyzerGet extends JDialog {
     private JLabel median;
 
     public GroupDataAnalyzerGet(GroupData groupData) throws Throwable {
+        setTitle("详情");
         values.setLineWrap(true);
         values.setWrapStyleWord(true);
         values.setEditable(false);

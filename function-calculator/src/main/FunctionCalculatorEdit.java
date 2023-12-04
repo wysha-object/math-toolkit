@@ -4,10 +4,10 @@ package main;
 import data.Style;
 import main.edit.AbstractFunctionCalculatorEdits;
 import main.edit.EditMultivariateFunction;
-import main.edit.EditOneVariable_OneDegree_Function;
-import math.AbstractFunction;
-import math.MultivariateFunction;
-import math.OneVariableOneDegreeFunction;
+import main.edit.EditOneVariableOneDegreeFunction;
+import math.function.AbstractFunction;
+import math.function.multivariate.MultivariateFunction;
+import math.function.onevariable.OneVariableOneDegreeFunction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -26,7 +26,7 @@ public class FunctionCalculatorEdit extends JDialog {
     private JPanel down;
     private AbstractFunctionCalculatorEdits current;
     final EditMultivariateFunction editMultivariateFunction=new EditMultivariateFunction(this);
-    final EditOneVariable_OneDegree_Function editOneVariableOneDegreeFunction=new EditOneVariable_OneDegree_Function(this);
+    final EditOneVariableOneDegreeFunction editOneVariableOneDegreeFunction=new EditOneVariableOneDegreeFunction(this);
     private JPanel up;
     public FunctionCalculatorEdit(AbstractFunction abstractFunction) {
         up.setLayout(cardLayout);

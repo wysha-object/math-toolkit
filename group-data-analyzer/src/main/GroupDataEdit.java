@@ -3,7 +3,7 @@ package main;
 
 import data.Style;
 import math.Fraction;
-import math.GroupData;
+import math.groupdata.GroupData;
 import tools.ErrorInterface;
 import tools.FractionEdit;
 import tools.GetAndSetList;
@@ -44,6 +44,7 @@ public class GroupDataEdit extends JDialog {
     FractionEdit[] fractionEdits;
 
     public GroupDataEdit(GroupData groupData) throws Throwable {
+        setTitle("创建数据组");
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setEditable(false);
@@ -134,7 +135,7 @@ public class GroupDataEdit extends JDialog {
             for (int i=0;i<groupDates.size();i++){
                 groupDataArray[i]=(GroupData) groupDates.get(i);
             }
-            new GroupData(fractions, groupDataArray, textField.getText());
+            new GroupData(fractions, groupDataArray, textField.getText(),GroupDataAnalyzerData.groupDataAnalyzerDate.groupData);
             dispose();
         } catch (Throwable e) {
             ErrorInterface errorInterface = new ErrorInterface(

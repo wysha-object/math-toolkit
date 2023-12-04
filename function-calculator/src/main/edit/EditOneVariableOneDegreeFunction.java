@@ -2,7 +2,8 @@
 package main.edit;
 
 import data.Style;
-import math.OneVariableOneDegreeFunction;
+import main.FunctionCalculatorData;
+import math.function.onevariable.OneVariableOneDegreeFunction;
 import tools.ErrorInterface;
 import tools.FractionEdit;
 
@@ -12,7 +13,7 @@ import java.util.HashSet;
 /**
  * @author wysha
  */
-public class EditOneVariable_OneDegree_Function extends AbstractFunctionCalculatorEdits {
+public class EditOneVariableOneDegreeFunction extends AbstractFunctionCalculatorEdits {
     public JPanel contentPane;
     private JLabel leftLabel;
     private JLabel rightLabel;
@@ -22,8 +23,8 @@ public class EditOneVariable_OneDegree_Function extends AbstractFunctionCalculat
     private JLabel bLabel;
     private FractionEdit kEdit;
     private FractionEdit bEdit;
-    public EditOneVariable_OneDegree_Function(JDialog jDialog) {
-        super(EditOneVariable_OneDegree_Function.class.toString(), jDialog);
+    public EditOneVariableOneDegreeFunction(JDialog jDialog) {
+        super(EditOneVariableOneDegreeFunction.class.toString(), jDialog);
         kEdit.setText("k:");
         bEdit.setText("b:");
         setStyle();
@@ -34,7 +35,8 @@ public class EditOneVariable_OneDegree_Function extends AbstractFunctionCalculat
             new OneVariableOneDegreeFunction(
                     textField.getText(),
                     kEdit.getFraction(),
-                    bEdit.getFraction()
+                    bEdit.getFraction(),
+                    FunctionCalculatorData.functionCalculatorDate.abstractFunctions
             );
             jDialog.dispose();
         } catch (Throwable e) {

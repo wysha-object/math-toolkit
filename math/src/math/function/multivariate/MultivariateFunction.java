@@ -1,17 +1,20 @@
+package math.function.multivariate;
 
-package math;
-
-import main.FunctionCalculatorData;
+import math.ArithmeticOperation;
+import math.Fraction;
+import math.Variable;
+import math.function.AbstractFunction;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
  * @author wysha
  */
 public class MultivariateFunction extends AbstractFunction implements Serializable {
-    public static void valueOf(String function) throws Throwable {
+    public static void valueOf(String function,List<AbstractFunction> functions) throws Throwable {
         String[] str=function.split("=");
         boolean subtractB=false;
         if (Objects.equals(str[1].charAt(0),'-')){
@@ -77,7 +80,7 @@ public class MultivariateFunction extends AbstractFunction implements Serializab
             }catch (Throwable e){
                 fractionArrayList.add(null);
                 boolean b=true;
-                for (AbstractFunction f : FunctionCalculatorData.functionCalculatorDate.abstractFunctions) {
+                for (AbstractFunction f : functions) {
                     if (f.name.equals(s)){
                         variableArrayList.add(f);
                         b=false;
@@ -92,10 +95,10 @@ public class MultivariateFunction extends AbstractFunction implements Serializab
             fractionArrayList.add(0, new Fraction(0, 1));
             arithmeticOperationArrayList.add(0, ArithmeticOperation.SUBTRACT);
         }
-        new MultivariateFunction(str[0], fractionArrayList, variableArrayList, arithmeticOperationArrayList);
+        new MultivariateFunction(str[0], fractionArrayList, variableArrayList, arithmeticOperationArrayList,functions);
     }
 
-    public MultivariateFunction(String name, ArrayList<Fraction> fractions, ArrayList<Variable> variables, ArrayList<ArithmeticOperation> arithmeticOperations){
-        super(name,fractions,variables,arithmeticOperations);
+    public MultivariateFunction(String name, ArrayList<Fraction> fractions, ArrayList<Variable> variables, ArrayList<ArithmeticOperation> arithmeticOperations, List<AbstractFunction> functions){
+        super(name,fractions,variables,arithmeticOperations,functions);
     }
 }

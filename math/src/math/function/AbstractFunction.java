@@ -1,7 +1,9 @@
+package math.function;
 
-package math;
-
-import main.FunctionCalculatorData;
+import math.ArithmeticOperation;
+import math.Fraction;
+import math.Variable;
+import math.function.multivariate.MultivariateFunction;
 
 import java.util.*;
 
@@ -9,9 +11,9 @@ import java.util.*;
  * @author wysha
  */
 public abstract class AbstractFunction extends Variable {
-    protected AbstractFunction(String name, List<Fraction> fractions, List<Variable> variables, List<ArithmeticOperation> arithmeticOperations) {
+    protected AbstractFunction(String name, List<Fraction> fractions, List<Variable> variables, List<ArithmeticOperation> arithmeticOperations, List<AbstractFunction> functions) {
         super(name);
-        for (AbstractFunction f : FunctionCalculatorData.functionCalculatorDate.abstractFunctions) {
+        for (AbstractFunction f : functions) {
             if (f.name.equals(name)){
                 throw new RuntimeException("函数名重复");
             }
@@ -19,11 +21,11 @@ public abstract class AbstractFunction extends Variable {
         this.fractions=fractions;
         this.variables=variables;
         this.arithmeticOperations=arithmeticOperations;
-        FunctionCalculatorData.functionCalculatorDate.abstractFunctions.add(this);
+        functions.add(this);
     }
 
-    protected AbstractFunction(String name) {
-        this(name,new ArrayList<>(),new ArrayList<>(),new ArrayList<>());
+    protected AbstractFunction(String name,List<AbstractFunction> functions) {
+        this(name,new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),functions);
     }
 
     @Override

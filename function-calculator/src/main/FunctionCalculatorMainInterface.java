@@ -3,7 +3,7 @@ package main;
 
 import data.NecessaryData;
 import data.Style;
-import math.AbstractFunction;
+import math.function.AbstractFunction;
 import math.Fraction;
 import set.FunctionCalculatorSet;
 import tools.ErrorInterface;
@@ -195,7 +195,7 @@ public class FunctionCalculatorMainInterface extends JFrame {
         in.addActionListener(e -> {
             JFileChooser jFileChooser=new JFileChooser();
             jFileChooser.setFont(NecessaryData.necessaryData.setting.font);
-            jFileChooser.setFileFilter(new FileNameExtensionFilter("函数文件", "AbstractFunction"));
+            jFileChooser.setFileFilter(new FileNameExtensionFilter("函数文件", "Function"));
             jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             jFileChooser.setMultiSelectionEnabled(true);
             if (
@@ -243,7 +243,7 @@ public class FunctionCalculatorMainInterface extends JFrame {
                 try {
                     for (AbstractFunction abstractFunction : current) {
                         new ObjectOutputStream(
-                                Files.newOutputStream(Paths.get(jFileChooser.getSelectedFile().getPath() + "\\" + abstractFunction.name + ".AbstractFunction"))
+                                Files.newOutputStream(Paths.get(jFileChooser.getSelectedFile().getPath() + "\\" + abstractFunction.name + ".Function"))
                         ).writeObject(abstractFunction);
                     }
                     ProcessBuilder processBuilder = new ProcessBuilder("explorer", jFileChooser.getSelectedFile().getPath());

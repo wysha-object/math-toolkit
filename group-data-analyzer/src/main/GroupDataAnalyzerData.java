@@ -2,7 +2,7 @@
 package main;
 
 import data.AbstractWrittenData;
-import math.GroupData;
+import math.groupdata.GroupData;
 
 import java.io.ObjectInputStream;
 import java.nio.file.Files;

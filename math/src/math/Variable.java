@@ -1,4 +1,3 @@
-
 package math;
 
 import java.io.Serializable;
@@ -9,9 +8,8 @@ import java.util.Objects;
 /**
  * @author wysha
  */
-public class Variable implements Serializable {
+public class Variable extends MathObject{
     public final LinkedList<Fraction> valueLL=new LinkedList<>();
-    public String name;
     public String getName() {
         return name;
     }

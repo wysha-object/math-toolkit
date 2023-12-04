@@ -40,7 +40,7 @@ public class GroupDataAnalyzerSet extends Set {
         });
         buttonCancel.addActionListener(ee -> defaultPage.onCancel());
         setModal(true);
-        setTitle("函数计算器设置");
+        setTitle("数据分析器设置");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setStyle();
         buttonOkay.addActionListener(e -> current.onOkay());

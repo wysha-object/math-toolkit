@@ -2,7 +2,8 @@
 package main.edit;
 
 import data.Style;
-import math.MultivariateFunction;
+import main.FunctionCalculatorData;
+import math.function.multivariate.MultivariateFunction;
 import tools.ErrorInterface;
 
 import javax.swing.*;
@@ -29,7 +30,7 @@ public class EditMultivariateFunction extends AbstractFunctionCalculatorEdits {
     @Override
     public void onOkay() {
         try {
-            MultivariateFunction.valueOf(textField.getText());
+            MultivariateFunction.valueOf(textField.getText(), FunctionCalculatorData.functionCalculatorDate.abstractFunctions);
             jDialog.dispose();
         } catch (Throwable e) {
             ErrorInterface errorInterface = new ErrorInterface(

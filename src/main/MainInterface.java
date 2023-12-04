@@ -1,15 +1,14 @@
 
 package main;
 
-import data.NecessaryData;
-import data.Style;
-import set.NecessarySet;
-import tools.ErrorInterface;
-
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
+
+import data.*;
+import set.*;
+import tools.*;
 
 /**
  * @author wysha
@@ -28,6 +27,7 @@ public class MainInterface extends JFrame{
     private JTextArea textArea;
     private JLabel show;
     private JScrollPane l;
+    private JButton runEquationSolver;
 
     public static void main(String[] args) {
         home.setVisible(true);
@@ -55,6 +55,13 @@ public class MainInterface extends JFrame{
         runGroupDataAnalyzer.addActionListener(e -> {
             try {
                 GroupDataAnalyzerMainInterface.main(null);
+            } catch (Throwable ex) {
+                throw new RuntimeException(ex);
+            }
+        });
+        runEquationSolver.addActionListener(e -> {
+            try {
+                EquationSolverMainInterface.main(null);
             } catch (Throwable ex) {
                 throw new RuntimeException(ex);
             }
@@ -140,6 +147,7 @@ public class MainInterface extends JFrame{
         jPanels.add(l);
         buttons.add(runFunctionCalculator);
         buttons.add(runGroupDataAnalyzer);
+        buttons.add(runEquationSolver);
         buttons.add(calculator);
         buttons.add(set);
         buttons.add(downLabel);

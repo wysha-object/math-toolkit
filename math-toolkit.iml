@@ -7,8 +7,10 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module" module-name="math" />
     <orderEntry type="module" module-name="core" />
-    <orderEntry type="module" module-name="group-data-analyzer" />
     <orderEntry type="module" module-name="function-calculator" />
+    <orderEntry type="module" module-name="equation-solver" />
+    <orderEntry type="module" module-name="group-data-analyzer" />
   </component>
 </module>

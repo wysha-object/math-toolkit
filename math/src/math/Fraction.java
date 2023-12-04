@@ -1,7 +1,4 @@
-
 package math;
-
-import tools.Tools;
 
 import java.io.Serializable;
 
@@ -18,7 +15,7 @@ public class Fraction implements Serializable {
             }
             throw new Exception("分母不能为0");
         }
-        double rs= Tools.gcd(numerator,denominator);
+        double rs= Math.gcd(numerator,denominator);
         numerator=numerator/rs;
         denominator=denominator/rs;
         this.numerator= (int) numerator;
