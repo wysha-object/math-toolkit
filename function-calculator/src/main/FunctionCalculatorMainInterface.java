@@ -183,7 +183,7 @@ public class FunctionCalculatorMainInterface extends JFrame {
                 current = new AbstractFunction[list.getSelectedIndices().length];
                 int[] selectedIndices = list.getSelectedIndices();
                 for (int j = 0; j < selectedIndices.length; j++) {
-                    current[j] = FunctionCalculatorData.functionCalculatorDate.abstractFunctions.get(j);
+                    current[j] = FunctionCalculatorData.functionCalculatorDate.abstractFunctions.get(selectedIndices[j]);
                 }
                 delete.setEnabled(true);
                 edit.setEnabled(false);

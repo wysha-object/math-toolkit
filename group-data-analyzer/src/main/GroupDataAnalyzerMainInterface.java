@@ -160,7 +160,7 @@ public class GroupDataAnalyzerMainInterface extends JFrame{
                 current = new GroupData[list.getSelectedIndices().length];
                 int[] selectedIndices = list.getSelectedIndices();
                 for (int j = 0; j < selectedIndices.length; j++) {
-                    current[j] = GroupDataAnalyzerData.groupDataAnalyzerDate.groupData.get(j);
+                    current[j] = GroupDataAnalyzerData.groupDataAnalyzerDate.groupData.get(selectedIndices[j]);
                 }
                 delete.setEnabled(true);
                 edit.setEnabled(false);
