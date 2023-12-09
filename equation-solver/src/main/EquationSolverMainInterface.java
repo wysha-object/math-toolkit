@@ -1,7 +1,7 @@
 
 package main;
 
-import data.NecessaryData;
+import data.MathToolkitNecessaryData;
 import data.Style;
 import math.equation.AbstractEquation;
 import set.EquationSolverSet;
@@ -44,7 +44,7 @@ public class EquationSolverMainInterface extends JFrame {
     public EquationSolverMainInterface() {
         home=this;
         try {
-            NecessaryData.necessaryData.read();
+            MathToolkitNecessaryData.mathToolkitNecessaryData.read();
             EquationSolverData.equationSolverData.read();
         } catch (Throwable e) {
             new ErrorInterface(
@@ -149,7 +149,7 @@ public class EquationSolverMainInterface extends JFrame {
         });
         in.addActionListener(e -> {
             JFileChooser jFileChooser=new JFileChooser();
-            jFileChooser.setFont(NecessaryData.necessaryData.setting.font);
+            jFileChooser.setFont(MathToolkitNecessaryData.mathToolkitNecessaryData.setting.font);
             jFileChooser.setFileFilter(new FileNameExtensionFilter("方程文件", "Equation"));
             jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             jFileChooser.setMultiSelectionEnabled(true);
@@ -190,7 +190,7 @@ public class EquationSolverMainInterface extends JFrame {
         });
         out.addActionListener(e -> {
             JFileChooser jFileChooser=new JFileChooser();
-            jFileChooser.setFont(NecessaryData.necessaryData.setting.font);
+            jFileChooser.setFont(MathToolkitNecessaryData.mathToolkitNecessaryData.setting.font);
             jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             if (
                     jFileChooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION

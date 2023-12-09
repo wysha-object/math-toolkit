@@ -8,17 +8,18 @@ import java.nio.file.Files;
 /**
  * @author wysha
  */
-public class NecessaryData extends AbstractWrittenData {
-    public static NecessaryData necessaryData=new NecessaryData();
+public class MathToolkitNecessaryData extends AbstractWrittenData {
+    public static MathToolkitNecessaryData mathToolkitNecessaryData =new MathToolkitNecessaryData();
 
-    public NecessaryData() {super("NecessaryData");necessaryData=this;}
+    public MathToolkitNecessaryData() {super("MathToolkitNecessaryData");
+        mathToolkitNecessaryData =this;}
     public final Style[] styles=new Style[4];
     public final Setting setting = new Setting();
 
     @Override
     public void read() throws Throwable{
         if (file.exists()){
-            necessaryData= (NecessaryData) new ObjectInputStream(Files.newInputStream(file.toPath())).readObject();
+            mathToolkitNecessaryData = (MathToolkitNecessaryData) new ObjectInputStream(Files.newInputStream(file.toPath())).readObject();
         }else {
             styles[0]=new Style(
                     "炫酷白",

@@ -14,10 +14,10 @@ public class Setting implements Serializable {
     public Color foreground;
     public Font font;
     public static void setStyle(Style style) {
-        NecessaryData.necessaryData.setting.style=style;
-        NecessaryData.necessaryData.setting.jPanelBackground = style.jPanelBackground;
-        NecessaryData.necessaryData.setting.foreground = style.foreground;
-        NecessaryData.necessaryData.setting.background = style.background;
-        NecessaryData.necessaryData.setting.font = style.font;
+        MathToolkitNecessaryData.mathToolkitNecessaryData.setting.style=style;
+        MathToolkitNecessaryData.mathToolkitNecessaryData.setting.jPanelBackground = style.jPanelBackground;
+        MathToolkitNecessaryData.mathToolkitNecessaryData.setting.foreground = style.foreground;
+        MathToolkitNecessaryData.mathToolkitNecessaryData.setting.background = style.background;
+        MathToolkitNecessaryData.mathToolkitNecessaryData.setting.font = style.font;
     }
 }

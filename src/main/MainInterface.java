@@ -1,14 +1,15 @@
 
 package main;
 
+import data.MathToolkitNecessaryData;
+import data.Style;
+import set.NecessarySet;
+import tools.ErrorInterface;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
-
-import data.*;
-import set.*;
-import tools.*;
 
 /**
  * @author wysha
@@ -36,7 +37,7 @@ public class MainInterface extends JFrame{
     public MainInterface(){
         home=this;
         try {
-            NecessaryData.necessaryData.read();
+            MathToolkitNecessaryData.mathToolkitNecessaryData.read();
         } catch (Throwable e) {
             new ErrorInterface(
                     "读取失败",

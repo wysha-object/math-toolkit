@@ -1,7 +1,7 @@
 
 package main;
 
-import data.NecessaryData;
+import data.MathToolkitNecessaryData;
 import data.Style;
 import math.function.AbstractFunction;
 import math.Fraction;
@@ -49,7 +49,7 @@ public class FunctionCalculatorMainInterface extends JFrame {
     public FunctionCalculatorMainInterface() {
         home=this;
         try {
-            NecessaryData.necessaryData.read();
+            MathToolkitNecessaryData.mathToolkitNecessaryData.read();
             FunctionCalculatorData.functionCalculatorDate.read();
         } catch (Throwable e) {
             new ErrorInterface(
@@ -194,7 +194,7 @@ public class FunctionCalculatorMainInterface extends JFrame {
         });
         in.addActionListener(e -> {
             JFileChooser jFileChooser=new JFileChooser();
-            jFileChooser.setFont(NecessaryData.necessaryData.setting.font);
+            jFileChooser.setFont(MathToolkitNecessaryData.mathToolkitNecessaryData.setting.font);
             jFileChooser.setFileFilter(new FileNameExtensionFilter("函数文件", "Function"));
             jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             jFileChooser.setMultiSelectionEnabled(true);
@@ -235,7 +235,7 @@ public class FunctionCalculatorMainInterface extends JFrame {
         });
         out.addActionListener(e -> {
             JFileChooser jFileChooser=new JFileChooser();
-            jFileChooser.setFont(NecessaryData.necessaryData.setting.font);
+            jFileChooser.setFont(MathToolkitNecessaryData.mathToolkitNecessaryData.setting.font);
             jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             if (
                     jFileChooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION

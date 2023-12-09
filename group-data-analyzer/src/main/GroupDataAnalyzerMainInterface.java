@@ -1,7 +1,7 @@
 
 package main;
 
-import data.NecessaryData;
+import data.MathToolkitNecessaryData;
 import data.Style;
 import math.groupdata.GroupData;
 import set.GroupDataAnalyzerSet;
@@ -46,7 +46,7 @@ public class GroupDataAnalyzerMainInterface extends JFrame{
     public GroupDataAnalyzerMainInterface(){
         home=this;
         try {
-            NecessaryData.necessaryData.read();
+            MathToolkitNecessaryData.mathToolkitNecessaryData.read();
             GroupDataAnalyzerData.groupDataAnalyzerDate.read();
         } catch (Throwable e) {
             new ErrorInterface(
@@ -170,7 +170,7 @@ public class GroupDataAnalyzerMainInterface extends JFrame{
         });
         in.addActionListener(e -> {
             JFileChooser jFileChooser=new JFileChooser();
-            jFileChooser.setFont(NecessaryData.necessaryData.setting.font);
+            jFileChooser.setFont(MathToolkitNecessaryData.mathToolkitNecessaryData.setting.font);
             jFileChooser.setFileFilter(new FileNameExtensionFilter("数据组文件", "GroupData"));
             jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             jFileChooser.setMultiSelectionEnabled(true);
@@ -211,7 +211,7 @@ public class GroupDataAnalyzerMainInterface extends JFrame{
         });
         out.addActionListener(e -> {
             JFileChooser jFileChooser=new JFileChooser();
-            jFileChooser.setFont(NecessaryData.necessaryData.setting.font);
+            jFileChooser.setFont(MathToolkitNecessaryData.mathToolkitNecessaryData.setting.font);
             jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             if (
                     jFileChooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION

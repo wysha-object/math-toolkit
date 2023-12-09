@@ -1,7 +1,7 @@
 
 package set;
 
-import data.NecessaryData;
+import data.MathToolkitNecessaryData;
 import data.Style;
 import set.settings.AppearanceSetting;
 import tools.ErrorInterface;
@@ -33,7 +33,7 @@ public class NecessarySet extends Set {
             if (current!=defaultPage){
                 current.onOkay();
                 try {
-                    NecessaryData.necessaryData.write();
+                    MathToolkitNecessaryData.mathToolkitNecessaryData.write();
                 } catch (Throwable e) {
                     new ErrorInterface(
                             "写入失败",

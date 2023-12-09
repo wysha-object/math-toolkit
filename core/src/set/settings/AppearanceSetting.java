@@ -1,7 +1,7 @@
 
 package set.settings;
 
-import data.NecessaryData;
+import data.MathToolkitNecessaryData;
 import data.Setting;
 import data.Style;
 
@@ -21,8 +21,8 @@ public class AppearanceSetting extends AbstractSettings {
     public AppearanceSetting(JDialog jDialog) {
         super(AppearanceSetting.class.toString(),jDialog);
         setStyle();
-        comboBox.setModel(new  DefaultComboBoxModel<>(NecessaryData.necessaryData.styles));
-        comboBox.setSelectedItem(NecessaryData.necessaryData.setting.style);
+        comboBox.setModel(new  DefaultComboBoxModel<>(MathToolkitNecessaryData.mathToolkitNecessaryData.styles));
+        comboBox.setSelectedItem(MathToolkitNecessaryData.mathToolkitNecessaryData.setting.style);
     }
     @Override
     public void onCancel() {
