@@ -21,8 +21,8 @@ public class Fraction implements Serializable {
         this.numerator= (int) numerator;
         this.denominator= (int) denominator;
     }
-    public boolean isMoreThan(Fraction f){
-        return  this.numerator*f.denominator>this.denominator*f.numerator;
+    public int isMoreThan(Fraction f){
+        return  this.numerator*f.denominator>this.denominator*f.numerator?1:-1;
     }
     @Override
     public boolean equals(Object o) {

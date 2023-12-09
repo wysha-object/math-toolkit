@@ -11,5 +11,6 @@
     <orderEntry type="module" module-name="function-calculator" />
     <orderEntry type="module" module-name="group-data-analyzer" />
     <orderEntry type="module" module-name="core" />
+    <orderEntry type="library" name="dom4j-2.1.4" level="project" />
   </component>
 </module>

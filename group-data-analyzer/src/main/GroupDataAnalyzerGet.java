@@ -29,7 +29,9 @@ public class GroupDataAnalyzerGet extends JDialog {
         button.addActionListener(e -> dispose());
         name.setText(groupData.toString());
         StringBuilder stringBuilder=new StringBuilder("所选数组包含的数据:" + Arrays.toString(groupData.fractions));
-        stringBuilder.append("\n已添加数组列表:").append(Arrays.toString(groupData.groupData)).append('\n');
+        if (groupData.groupData.length>0){
+            stringBuilder.append("\n已添加数组列表:").append(Arrays.toString(groupData.groupData)).append('\n');
+        }
         for (GroupData g:groupData.groupData){
             stringBuilder.append(g.name).append("包含的数据:").append(Arrays.toString(g.fractions)).append('\n');
         }

@@ -4,9 +4,7 @@ import math.ArithmeticOperation;
 import math.Fraction;
 import math.MathObject;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 /**
  * @author wysha
@@ -27,30 +25,10 @@ public class GroupData extends MathObject {
                 throw new RuntimeException("数据组名重复");
             }
         }
-        Fraction[] array=new Fraction[fractions.length];
-        for (int i = 0; i < array.length; i++) {
-            Fraction f=fractions[0];
-            int n=i;
-            for (int j = 0; j < fractions.length; j++) {
-                Fraction value = fractions[j];
-                if (value != null) {
-                    f = value;
-                    n=j;
-                    break;
-                }
-            }
-            for (int j = 0; j < fractions.length; j++) {
-                Fraction fraction = fractions[j];
-                if (f != null && fraction != null && f.isMoreThan(fraction)) {
-                    f = fraction;
-                    n = j;
-                }
-            }
-            fractions[n]=null;
-            array[i]=f;
-        }
         this.name = name;
-        this.fractions=array;
+        List<Fraction> list=Arrays.asList(fractions);
+        list.sort(Fraction::isMoreThan);
+        this.fractions= list.toArray(new Fraction[0]);
         groupDataList.add(this);
     }
 
