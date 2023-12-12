@@ -4,13 +4,11 @@ package main;
 import data.MathToolkitNecessaryData;
 import data.Style;
 import math.groupdata.GroupData;
-import set.GroupDataAnalyzerSet;
 import tools.ErrorInterface;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -23,7 +21,7 @@ import java.util.HashSet;
 /**
  * @author wysha
  */
-public class GroupDataAnalyzerMainInterface extends JFrame{
+public class GroupDataAnalyzerMainInterface extends MathGroupView {
     GroupData[] current;
     private JPanel contentPane;
     private JList<GroupData> list;
@@ -31,30 +29,15 @@ public class GroupDataAnalyzerMainInterface extends JFrame{
     private JLabel downLabel;
     private JPanel left;
     private JScrollPane right;
-    private JButton set;
     private JButton delete;
     private JButton edit;
-    private JButton flush;
     private JButton in;
     private JButton out;
     private JButton get;
     private JLabel jLabel;
 
-    public static void main(String[] args) {
-        home.setVisible(true);
-    }
-    public GroupDataAnalyzerMainInterface(){
-        home=this;
-        try {
-            MathToolkitNecessaryData.mathToolkitNecessaryData.read();
-            GroupDataAnalyzerData.groupDataAnalyzerDate.read();
-        } catch (Throwable e) {
-            new ErrorInterface(
-                    "读取失败",
-                    e,
-                    false
-            ).setVisible(true);
-        }
+    public GroupDataAnalyzerMainInterface(MathGroupMainInterface mathGroupMainInterface) {
+        super(mathGroupMainInterface);
         delete.setEnabled(false);
         edit.setEnabled(false);
         out.setEnabled(false);
@@ -66,28 +49,16 @@ public class GroupDataAnalyzerMainInterface extends JFrame{
                 (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2
         );
         setLocationRelativeTo(null);
-        flush();
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent event) {
-                try {
-                    GroupDataAnalyzerData.groupDataAnalyzerDate.write();
-                } catch (Throwable e) {
-                    new ErrorInterface(
-                            "写入失败",
-                            e,
-                            false
-                    ).setVisible(true);
-                }
-                dispose();
+                setVisible(false);
             }
         });
-        home=this;
-        flush.addActionListener(e -> flush());
         add.addActionListener(e -> {
             try {
-                GroupDataEdit add = new GroupDataEdit(null);
+                GroupDataEdit add = new GroupDataEdit(mathGroupMainInterface, null);
                 add.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
                 add.setVisible(true);
             } catch (Throwable ex) {
@@ -97,19 +68,19 @@ public class GroupDataAnalyzerMainInterface extends JFrame{
                         true
                 ).setVisible(true);
             }
-            list.setListData(GroupDataAnalyzerData.groupDataAnalyzerDate.groupData.toArray(new GroupData[0]));
+            list.setListData(mathGroupMainInterface.mathGroup.groupData.toArray(new GroupData[0]));
         });
         delete.addActionListener(e -> {
             for (GroupData groupData : current) {
-                GroupDataAnalyzerData.groupDataAnalyzerDate.groupData.remove(
+                mathGroupMainInterface.mathGroup.groupData.remove(
                         groupData
                 );
             }
-            list.setListData(GroupDataAnalyzerData.groupDataAnalyzerDate.groupData.toArray(new GroupData[0]));
+            list.setListData(mathGroupMainInterface.mathGroup.groupData.toArray(new GroupData[0]));
         });
         edit.addActionListener(e -> {
             try {
-                GroupDataEdit add = new GroupDataEdit(current[0]);
+                GroupDataEdit add = new GroupDataEdit(mathGroupMainInterface, current[0]);
                 add.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
                 add.setVisible(true);
             } catch (Throwable ex) {
@@ -119,14 +90,7 @@ public class GroupDataAnalyzerMainInterface extends JFrame{
                         true
                 ).setVisible(true);
             }
-            list.setListData(GroupDataAnalyzerData.groupDataAnalyzerDate.groupData.toArray(new GroupData[0]));
-        });
-        set.addActionListener(e -> {
-            GroupDataAnalyzerSet groupDataAnalyzerSet=new GroupDataAnalyzerSet();
-            groupDataAnalyzerSet.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2);
-            groupDataAnalyzerSet.setLocationRelativeTo(null);
-            groupDataAnalyzerSet.setVisible(true);
-            flush();
+            list.setListData(mathGroupMainInterface.mathGroup.groupData.toArray(new GroupData[0]));
         });
         get.addActionListener(e -> {
             try {
@@ -160,7 +124,7 @@ public class GroupDataAnalyzerMainInterface extends JFrame{
                 current = new GroupData[list.getSelectedIndices().length];
                 int[] selectedIndices = list.getSelectedIndices();
                 for (int j = 0; j < selectedIndices.length; j++) {
-                    current[j] = GroupDataAnalyzerData.groupDataAnalyzerDate.groupData.get(selectedIndices[j]);
+                    current[j] = mathGroupMainInterface.mathGroup.groupData.get(selectedIndices[j]);
                 }
                 delete.setEnabled(true);
                 edit.setEnabled(false);
@@ -190,15 +154,13 @@ public class GroupDataAnalyzerMainInterface extends JFrame{
                                                         file.toPath()
                                                 )
                                         ).readObject();
-                        for (GroupData f : GroupDataAnalyzerData.groupDataAnalyzerDate.groupData) {
-                            if (f.name.equals(groupData.name)) {
-                                throw new RuntimeException("数据组列表中已有同名数据组");
-                            }
+                        if (mathGroupMainInterface.mathGroup.checkName(groupData)) {
+                            throw new RuntimeException("数据组列表中已有同名数据组");
                         }
-                        GroupDataAnalyzerData.groupDataAnalyzerDate.groupData.add(
+                        mathGroupMainInterface.mathGroup.groupData.add(
                                 groupData
                         );
-                    }catch (Exception exception){
+                    } catch (Throwable exception) {
                         new ErrorInterface(
                                 file+"读取失败",
                                 exception,
@@ -206,8 +168,8 @@ public class GroupDataAnalyzerMainInterface extends JFrame{
                         ).setVisible(true);
                     }
                 }
-                list.setListData(GroupDataAnalyzerData.groupDataAnalyzerDate.groupData.toArray(new GroupData[0]));
             }
+            list.setListData(mathGroupMainInterface.mathGroup.groupData.toArray(new GroupData[0]));
         });
         out.addActionListener(e -> {
             JFileChooser jFileChooser=new JFileChooser();
@@ -233,29 +195,11 @@ public class GroupDataAnalyzerMainInterface extends JFrame{
                 }
             }
         });
-        contentPane.registerKeyboardAction(
-                e -> {
-                    if (getExtendedState()==MAXIMIZED_BOTH){
-                        setSize(
-                                (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2,
-                                (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2
-                        );
-                        setLocationRelativeTo(null);
-                    }else {
-                        setVisible(false);
-                        setExtendedState(MAXIMIZED_BOTH);
-                        setLocationRelativeTo(null);
-                        setVisible(true);
-                    }
-                },
-                KeyStroke.getKeyStroke(KeyEvent.VK_F11,0),
-                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT
-        );
-    }
-    public static GroupDataAnalyzerMainInterface home=new GroupDataAnalyzerMainInterface();
-    public void flush(){
-        setStyle();
-        list.setListData(GroupDataAnalyzerData.groupDataAnalyzerDate.groupData.toArray(new GroupData[0]));
+        list.setListData(mathGroupMainInterface.mathGroup.groupData.toArray(new GroupData[0]));
+        new Thread(() -> {
+            this.setStyle();
+            this.repaint();
+        }).start();
     }
     public void setStyle() {
         HashSet<JComponent> jPanels = new HashSet<>();
@@ -264,14 +208,12 @@ public class GroupDataAnalyzerMainInterface extends JFrame{
         jPanels.add(contentPane);
         jPanels.add(left);
         jPanels.add(right);
-        buttons.add(flush);
         buttons.add(add);
         buttons.add(delete);
         buttons.add(edit);
         buttons.add(in);
         buttons.add(out);
         buttons.add(get);
-        buttons.add(set);
         buttons.add(downLabel);
         buttons.add(jLabel);
         jLists.add(list);

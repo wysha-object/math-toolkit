@@ -1,35 +1,38 @@
 package math.groupdata;
 
-import math.ArithmeticOperation;
-import math.Fraction;
-import math.MathObject;
+import math.MathGroup;
+import math.MathObjects;
+import math.math.math.ArithmeticOperation;
+import math.math.object.Fraction;
 
-import java.util.*;
+import java.math.BigDecimal;
+import java.math.BigInteger;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * @author wysha
  */
-public class GroupData extends MathObject {
+public class GroupData extends MathObjects {
     public final Fraction[] fractions;
     transient private ArrayList<Fraction> all;
     public final GroupData[] groupData;
 
-    public GroupData(Fraction[] fractions, GroupData[] groupDataArray, String name, List<GroupData> groupDataList) {
+    public GroupData(Fraction[] fractions, GroupData[] groupDataArray, String name, MathGroup mathGroup) throws Throwable {
+        super(name);
         if (groupDataArray != null) {
             this.groupData = groupDataArray;
         }else {
             this.groupData = new GroupData[]{};
         }
-        for (GroupData groupData : groupDataList) {
-            if (name.equals(groupData.name)) {
-                throw new RuntimeException("数据组名重复");
-            }
+        if (!mathGroup.checkName(this)) {
+            throw new Throwable("数据组名重复");
         }
-        this.name = name;
         List<Fraction> list=Arrays.asList(fractions);
         list.sort(Fraction::isMoreThan);
         this.fractions= list.toArray(new Fraction[0]);
-        groupDataList.add(this);
+        mathGroup.groupData.add(this);
     }
 
     @Override
@@ -46,17 +49,17 @@ public class GroupData extends MathObject {
     Fraction average;
     public Fraction getAverage() throws Throwable {
         flush();
-        Fraction fraction=new Fraction(0,1);
+        Fraction fraction = new Fraction(BigDecimal.valueOf(0), BigDecimal.valueOf(1));
         for (Fraction f:all){
             fraction = ArithmeticOperation.operation(ArithmeticOperation.ADD, fraction, f);
         }
-        fraction=new Fraction(fraction.numerator,fraction.denominator*all.size());
+        fraction = new Fraction(new BigDecimal(fraction.numerator), new BigDecimal(fraction.denominator.multiply(BigInteger.valueOf(all.size()))));
         average=fraction;
         return fraction;
     }
     Fraction variance;
     public Fraction getVariance() throws Throwable {
-        Fraction rs=new Fraction(0,1);
+        Fraction rs = new Fraction(BigDecimal.valueOf(0), BigDecimal.valueOf(1));
         for (Fraction f:all){
             Fraction s = ArithmeticOperation.operation(ArithmeticOperation.SUBTRACT, f, average);
             rs=ArithmeticOperation.operation(
@@ -65,7 +68,7 @@ public class GroupData extends MathObject {
                     ArithmeticOperation.operation(ArithmeticOperation.MULTIPLY, s, s)
             );
         }
-        rs=new Fraction(rs.numerator,rs.denominator*all.size());
+        rs = new Fraction(new BigDecimal(rs.numerator), new BigDecimal(rs.denominator.multiply(BigInteger.valueOf(all.size()))));
         variance=rs;
         return rs;
     }
@@ -80,7 +83,7 @@ public class GroupData extends MathObject {
                             all.get((all.size() - 1) / 2 - 1),
                             all.get((all.size() + 1) / 2 - 1)
                     ),
-                    new Fraction(2, 1)
+                    new Fraction(BigDecimal.valueOf(2), BigDecimal.valueOf(1))
             );
         }else {
             fraction= all.get((all.size() + 1) / 2 - 1);

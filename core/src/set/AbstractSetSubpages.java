@@ -1,16 +1,16 @@
 
 package set;
 
-import tools.AbstractSubpages;
+import tools.AbstractSubpage;
 
 import javax.swing.*;
 
 /**
  * @author wysha
  */
-public abstract class AbstractSetSubpages extends AbstractSubpages {
+public abstract class AbstractSetSubpages extends AbstractSubpage {
     protected AbstractSetSubpages(String name, JDialog jDialog) {
-        super(name, jDialog);
+        super(jDialog, name);
     }
     @Override
     public void onOkay(){

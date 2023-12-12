@@ -1,7 +1,4 @@
 package math;
 
-import java.io.Serializable;
-
-public class MathObject implements Serializable {
-    public String name;
+public class MathObject implements Math {
 }

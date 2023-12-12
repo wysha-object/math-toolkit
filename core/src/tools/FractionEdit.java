@@ -2,9 +2,10 @@
 package tools;
 
 import data.Style;
-import math.Fraction;
+import math.math.object.Fraction;
 
 import javax.swing.*;
+import java.math.BigDecimal;
 import java.util.HashSet;
 
 /**
@@ -29,7 +30,7 @@ public class FractionEdit extends JPanel {
     private JLabel downLabel;
     private JLabel upLabel;
     public FractionEdit() throws Throwable {
-        this(null,new Fraction(1,1));
+        this(null, new Fraction(BigDecimal.valueOf(1), BigDecimal.valueOf(1)));
     }
     public void setText(String s){
         left.setText(s);
@@ -49,7 +50,7 @@ public class FractionEdit extends JPanel {
         down.setValue(fraction.denominator);
     }
     public Fraction getFraction() throws Throwable {
-        return new Fraction((int) up.getValue(),(int) down.getValue());
+        return new Fraction(new BigDecimal(String.valueOf(up.getValue())), new BigDecimal(String.valueOf(down.getValue())));
     }
     private void setStyle() {
         HashSet<JComponent> buttons = new HashSet<>();

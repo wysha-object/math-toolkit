@@ -18,17 +18,19 @@ import java.util.Objects;
 /**
  * @author wysha
  */
-public class FunctionCalculatorEdit extends JDialog {
+public class FunctionCalculatorEdit extends MathGroupView {
     final CardLayout cardLayout=new CardLayout();
     private JPanel contentPane;
     private JButton buttonOkay;
     private JButton buttonCancel;
     private JPanel down;
     private AbstractFunctionCalculatorEdits current;
-    final EditMultivariateFunction editMultivariateFunction=new EditMultivariateFunction(this);
-    final EditOneVariableOneDegreeFunction editOneVariableOneDegreeFunction=new EditOneVariableOneDegreeFunction(this);
+    final EditMultivariateFunction editMultivariateFunction = new EditMultivariateFunction(this, mathGroupMainInterface);
+    final EditOneVariableOneDegreeFunction editOneVariableOneDegreeFunction = new EditOneVariableOneDegreeFunction(this, mathGroupMainInterface);
     private JPanel up;
-    public FunctionCalculatorEdit(AbstractFunction abstractFunction) {
+
+    public FunctionCalculatorEdit(MathGroupMainInterface mathGroupMainInterface, AbstractFunction abstractFunction) {
+        super(mathGroupMainInterface);
         up.setLayout(cardLayout);
         if (abstractFunction != null) {
             comboBox.setVisible(false);

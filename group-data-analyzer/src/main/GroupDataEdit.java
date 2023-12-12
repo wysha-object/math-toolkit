@@ -2,8 +2,8 @@
 package main;
 
 import data.Style;
-import math.Fraction;
 import math.groupdata.GroupData;
+import math.math.object.Fraction;
 import tools.ErrorInterface;
 import tools.FractionEdit;
 import tools.GetAndSetList;
@@ -20,9 +20,9 @@ import java.util.List;
 /**
  * @author wysha
  */
-public class GroupDataEdit extends JDialog {
+public class GroupDataEdit extends MathGroupView {
     List<Object> groupDates=new ArrayList<>();
-    final List<Object> remove = new ArrayList<>(GroupDataAnalyzerData.groupDataAnalyzerDate.groupData);
+    final List<Object> remove = new ArrayList<>(mathGroupMainInterface.mathGroup.groupData);
     final GridLayout gridLayout=new GridLayout(
             -1,
             (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/100)
@@ -43,7 +43,8 @@ public class GroupDataEdit extends JDialog {
     private JTextArea textArea;
     FractionEdit[] fractionEdits;
 
-    public GroupDataEdit(GroupData groupData) throws Throwable {
+    public GroupDataEdit(MathGroupMainInterface mathGroupMainInterface, GroupData groupData) throws Throwable {
+        super(mathGroupMainInterface);
         setTitle("创建数据组");
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
@@ -135,7 +136,7 @@ public class GroupDataEdit extends JDialog {
             for (int i=0;i<groupDates.size();i++){
                 groupDataArray[i]=(GroupData) groupDates.get(i);
             }
-            new GroupData(fractions, groupDataArray, textField.getText(),GroupDataAnalyzerData.groupDataAnalyzerDate.groupData);
+            new GroupData(fractions, groupDataArray, textField.getText(), mathGroupMainInterface.mathGroup);
             dispose();
         } catch (Throwable e) {
             ErrorInterface errorInterface = new ErrorInterface(

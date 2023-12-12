@@ -2,7 +2,7 @@
 package main.edit;
 
 import data.Style;
-import main.FunctionCalculatorData;
+import main.MathGroupMainInterface;
 import math.function.onevariable.OneVariableOneDegreeFunction;
 import tools.ErrorInterface;
 import tools.FractionEdit;
@@ -23,8 +23,9 @@ public class EditOneVariableOneDegreeFunction extends AbstractFunctionCalculator
     private JLabel bLabel;
     private FractionEdit kEdit;
     private FractionEdit bEdit;
-    public EditOneVariableOneDegreeFunction(JDialog jDialog) {
-        super(EditOneVariableOneDegreeFunction.class.toString(), jDialog);
+
+    public EditOneVariableOneDegreeFunction(JDialog jDialog, MathGroupMainInterface mathGroupMainInterface) {
+        super(EditOneVariableOneDegreeFunction.class.toString(), jDialog, mathGroupMainInterface);
         kEdit.setText("k:");
         bEdit.setText("b:");
         setStyle();
@@ -36,9 +37,9 @@ public class EditOneVariableOneDegreeFunction extends AbstractFunctionCalculator
                     textField.getText(),
                     kEdit.getFraction(),
                     bEdit.getFraction(),
-                    FunctionCalculatorData.functionCalculatorDate.abstractFunctions
+                    mathGroupMainInterface.mathGroup
             );
-            jDialog.dispose();
+            mathGroupMainInterface.dispose();
         } catch (Throwable e) {
             ErrorInterface errorInterface = new ErrorInterface(
                     "函数创建失败,请检查\n",
@@ -50,7 +51,7 @@ public class EditOneVariableOneDegreeFunction extends AbstractFunctionCalculator
 
     @Override
     public void onCancel() {
-        jDialog.dispose();
+        mathGroupMainInterface.dispose();
     }
 
     private void setStyle() {
@@ -68,7 +69,7 @@ public class EditOneVariableOneDegreeFunction extends AbstractFunctionCalculator
 
     public void setFunction(OneVariableOneDegreeFunction oneVariableOneDegreeFunction) {
         textField.setText(oneVariableOneDegreeFunction.name+"'");
-        kEdit.setFraction(oneVariableOneDegreeFunction.fractions.get(0));
-        bEdit.setFraction(oneVariableOneDegreeFunction.fractions.get(2));
+        kEdit.setFraction(oneVariableOneDegreeFunction.formula.fractions.get(0));
+        bEdit.setFraction(oneVariableOneDegreeFunction.formula.fractions.get(2));
     }
 }

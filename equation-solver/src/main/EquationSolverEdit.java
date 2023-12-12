@@ -18,17 +18,19 @@ import java.util.Objects;
 /**
  * @author wysha
  */
-public class EquationSolverEdit extends JDialog {
+public class EquationSolverEdit extends MathGroupView {
     final CardLayout cardLayout=new CardLayout();
     private JPanel contentPane;
     private JButton buttonOkay;
     private JButton buttonCancel;
     private JPanel down;
     private AbstractEquationSolverEdits current;
-    final EditMultivariateEquation editMultivariateFunction=new EditMultivariateEquation(this);
-    final EditOneVariableEquation editOneVariableOneDegreeFunction=new EditOneVariableEquation(this);
+    final EditMultivariateEquation editMultivariateFunction = new EditMultivariateEquation(this, mathGroupMainInterface);
+    final EditOneVariableEquation editOneVariableOneDegreeFunction = new EditOneVariableEquation(this, mathGroupMainInterface);
     private JPanel up;
-    public EquationSolverEdit(AbstractEquation abstractFunction) {
+
+    public EquationSolverEdit(MathGroupMainInterface mathGroupMainInterface, AbstractEquation abstractFunction) {
+        super(mathGroupMainInterface);
         up.setLayout(cardLayout);
         if (abstractFunction != null) {
             comboBox.setVisible(false);

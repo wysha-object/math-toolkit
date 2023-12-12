@@ -1,18 +1,19 @@
 
 package tools;
 
+import main.MathGroupMainInterface;
+
 import javax.swing.*;
 
 /**
  * @author wysha
  */
-public abstract class AbstractSubpages {
-    public final JDialog jDialog;
-    public final String name;
+public abstract class AbstractSubpages extends AbstractSubpage {
+    public final MathGroupMainInterface mathGroupMainInterface;
 
-    protected AbstractSubpages(String name, JDialog jDialog) {
-        this.name = name;
-        this.jDialog = jDialog;
+    protected AbstractSubpages(JDialog jDialog, String name, MathGroupMainInterface mathGroupMainInterface) {
+        super(jDialog, name);
+        this.mathGroupMainInterface = mathGroupMainInterface;
     }
 
     /**

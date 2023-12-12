@@ -1,13 +1,23 @@
 package math;
 
-public class Math {
-    public static double gcd(double num1, double num2) {
-        //辗转相除法(欧几里得算法)
-        while (num2 != 0) {
-            double temp = num1 % num2;
-            num1 = num2;
-            num2 = temp;
+import math.math.math.ArithmeticOperation;
+import math.math.math.Braces;
+
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Objects;
+
+public interface Math extends Serializable {
+    static Math valueOf(String string) {
+        ArrayList<Math> mathArrayList = new ArrayList<>();
+        mathArrayList.addAll(Arrays.asList(ArithmeticOperation.values()));
+        mathArrayList.addAll(Arrays.asList(Braces.values()));
+        for (Math math : mathArrayList) {
+            if (Objects.equals(math.toString(), string)) {
+                return math;
+            }
         }
-        return num1;
+        return null;
     }
 }

@@ -4,13 +4,11 @@ package main;
 import data.MathToolkitNecessaryData;
 import data.Style;
 import math.equation.AbstractEquation;
-import set.EquationSolverSet;
 import tools.ErrorInterface;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import java.awt.*;
-import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.io.File;
@@ -23,8 +21,7 @@ import java.util.HashSet;
 /**
  * @author wysha
  */
-public class EquationSolverMainInterface extends JFrame {
-    public static EquationSolverMainInterface home=new EquationSolverMainInterface();
+public class EquationSolverMainInterface extends MathGroupView {
     private JPanel contentPane;
     private JList<AbstractEquation> list;
     private AbstractEquation[] current;
@@ -38,21 +35,9 @@ public class EquationSolverMainInterface extends JFrame {
     private JButton out;
     private JButton in;
     private JLabel downLabel;
-    private JButton set;
-    private JButton flush;
 
-    public EquationSolverMainInterface() {
-        home=this;
-        try {
-            MathToolkitNecessaryData.mathToolkitNecessaryData.read();
-            EquationSolverData.equationSolverData.read();
-        } catch (Throwable e) {
-            new ErrorInterface(
-                    "读取失败",
-                    e,
-                    false
-            ).setVisible(true);
-        }
+    public EquationSolverMainInterface(MathGroupMainInterface mathGroupMainInterface) {
+        super(mathGroupMainInterface);
         delete.setEnabled(false);
         edit.setEnabled(false);
         out.setEnabled(false);
@@ -67,24 +52,13 @@ public class EquationSolverMainInterface extends JFrame {
         addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent event) {
-                try {
-                    EquationSolverData.equationSolverData.write();
-                } catch (Throwable e) {
-                    new ErrorInterface(
-                            "写入失败",
-                            e,
-                            false
-                    ).setVisible(true);
-                }
-                dispose();
+                setVisible(false);
             }
         });
         setLocationRelativeTo(null);
-        home = this;
-        flush();
         add.addActionListener(e -> {
             try {
-                EquationSolverEdit add = new EquationSolverEdit(null);
+                EquationSolverEdit add = new EquationSolverEdit(mathGroupMainInterface, null);
                 add.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
                 add.setVisible(true);
             } catch (Throwable ex) {
@@ -94,23 +68,23 @@ public class EquationSolverMainInterface extends JFrame {
                         true
                 ).setVisible(true);
             }
-            list.setListData(EquationSolverData.equationSolverData.abstractEquations.toArray(new AbstractEquation[0]));
+            list.setListData(mathGroupMainInterface.mathGroup.equations.toArray(new AbstractEquation[0]));
         });
         delete.addActionListener(e -> {
             for (AbstractEquation abstractEquation : current) {
-                EquationSolverData.equationSolverData.abstractEquations.remove(
+                mathGroupMainInterface.mathGroup.equations.remove(
                         abstractEquation
                 );
             }
-            list.setListData(EquationSolverData.equationSolverData.abstractEquations.toArray(new AbstractEquation[0]));
+            list.setListData(mathGroupMainInterface.mathGroup.equations.toArray(new AbstractEquation[0]));
         });
         operation.addActionListener(e -> {
             new EquationSolverGetValue(current[0]);
-            list.setListData(EquationSolverData.equationSolverData.abstractEquations.toArray(new AbstractEquation[0]));
+            list.setListData(mathGroupMainInterface.mathGroup.equations.toArray(new AbstractEquation[0]));
         });
         edit.addActionListener(e -> {
             try {
-                EquationSolverEdit add = new EquationSolverEdit(current[0]);
+                EquationSolverEdit add = new EquationSolverEdit(mathGroupMainInterface, current[0]);
                 add.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
                 add.setVisible(true);
             } catch (Throwable ex) {
@@ -120,7 +94,7 @@ public class EquationSolverMainInterface extends JFrame {
                         true
                 ).setVisible(true);
             }
-            list.setListData(EquationSolverData.equationSolverData.abstractEquations.toArray(new AbstractEquation[0]));
+            list.setListData(mathGroupMainInterface.mathGroup.equations.toArray(new AbstractEquation[0]));
         });
         list.addListSelectionListener(e -> {
             if (list.getSelectedIndex() == -1) {
@@ -139,7 +113,7 @@ public class EquationSolverMainInterface extends JFrame {
                 current = new AbstractEquation[list.getSelectedIndices().length];
                 int[] selectedIndices = list.getSelectedIndices();
                 for (int j = 0; j < selectedIndices.length; j++) {
-                    current[j] = EquationSolverData.equationSolverData.abstractEquations.get(j);
+                    current[j] = mathGroupMainInterface.mathGroup.equations.get(j);
                 }
                 delete.setEnabled(true);
                 edit.setEnabled(false);
@@ -169,12 +143,12 @@ public class EquationSolverMainInterface extends JFrame {
                                                 file.toPath()
                                         )
                                 ).readObject();
-                        for (AbstractEquation f : EquationSolverData.equationSolverData.abstractEquations) {
+                        for (AbstractEquation f : mathGroupMainInterface.mathGroup.equations) {
                             if (f.name.equals(abstractEquation.name)) {
                                 throw new RuntimeException("列表中已有同名方程");
                             }
                         }
-                        EquationSolverData.equationSolverData.abstractEquations.add(
+                        mathGroupMainInterface.mathGroup.equations.add(
                                 abstractEquation
                         );
                     }catch (Exception exception){
@@ -185,8 +159,8 @@ public class EquationSolverMainInterface extends JFrame {
                         ).setVisible(true);
                     }
                 }
-                list.setListData(EquationSolverData.equationSolverData.abstractEquations.toArray(new AbstractEquation[0]));
             }
+            list.setListData(mathGroupMainInterface.mathGroup.equations.toArray(new AbstractEquation[0]));
         });
         out.addActionListener(e -> {
             JFileChooser jFileChooser=new JFileChooser();
@@ -212,42 +186,13 @@ public class EquationSolverMainInterface extends JFrame {
                 }
             }
         });
-        contentPane.registerKeyboardAction(
-                e -> {
-                    if (getExtendedState()==MAXIMIZED_BOTH){
-                        setSize(
-                                (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2,
-                                (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2
-                        );
-                        setLocationRelativeTo(null);
-                    }else {
-                        setVisible(false);
-                        setExtendedState(MAXIMIZED_BOTH);
-                        setLocationRelativeTo(null);
-                        setVisible(true);
-                    }
-                },
-                KeyStroke.getKeyStroke(KeyEvent.VK_F11,0),
-                JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT
-        );
-        set.addActionListener(e -> {
-            EquationSolverSet functionCalculatorSet = new EquationSolverSet();
-            functionCalculatorSet.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2);
-            functionCalculatorSet.setLocationRelativeTo(null);
-            functionCalculatorSet.setVisible(true);
-            flush();
-        });
-        flush.addActionListener(e -> flush());
+        list.setListData(mathGroupMainInterface.mathGroup.equations.toArray(new AbstractEquation[0]));
+        new Thread(() -> {
+            list.setListData(mathGroupMainInterface.mathGroup.equations.toArray(new AbstractEquation[0]));
+            this.setStyle();
+            this.repaint();
+        }).start();
     }
-
-    public void flush(){
-        list.setListData(EquationSolverData.equationSolverData.abstractEquations.toArray(new AbstractEquation[0]));
-        setStyle();
-    }
-    public static void main(String[] args) {
-        home.setVisible(true);
-    }
-
     public void setStyle() {
         HashSet<JComponent> jPanels = new HashSet<>();
         HashSet<JComponent> buttons = new HashSet<>();
@@ -263,8 +208,6 @@ public class EquationSolverMainInterface extends JFrame {
         buttons.add(operation);
         buttons.add(jLabel);
         buttons.add(downLabel);
-        buttons.add(set);
-        buttons.add(flush);
         jLists.add(list);
         Style.setStyle(jPanels,buttons,jLists);
     }

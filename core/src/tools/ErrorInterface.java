@@ -20,15 +20,14 @@ public class ErrorInterface extends JDialog {
     final Throwable error;
 
     public ErrorInterface(String description, Throwable error, boolean report) {
+        error.printStackTrace();
         this.error=error;
         this.report=report;
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setEditable(false);
-        textArea.setText("遇到了一个异常:\n" + description + "\n" + error.toString());
-        if (report){
-            textArea.append("\n待用户确认后此错误将自动发送给开发者");
-        }
+        textArea.setText("遇到了一个异常:\n" + description + "\n" + error);
+        //if (report){textArea.append("\n待用户确认后此错误将自动发送给开发者");}
         setContentPane(contentPane);
         setModal(true);
         setTitle("异常");

@@ -2,6 +2,7 @@
 package main.edit;
 
 import data.Style;
+import main.MathGroupMainInterface;
 import math.equation.multivariate.MultivariateEquation;
 
 import javax.swing.*;
@@ -13,13 +14,14 @@ import java.util.HashSet;
 public class EditMultivariateEquation extends AbstractEquationSolverEdits {
     public JPanel contentPane;
 
-    public EditMultivariateEquation(JDialog jDialog) {
-        super(EditMultivariateEquation.class.toString(), jDialog);
+    public EditMultivariateEquation(JDialog jDialog, MathGroupMainInterface mathGroupMainInterface) {
+        super(EditMultivariateEquation.class.toString(), jDialog, mathGroupMainInterface);
         setStyle();
     }
 
     @Override
     public void onOkay() {
+        jDialog.dispose();
     }
 
     @Override

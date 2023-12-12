@@ -2,15 +2,16 @@
 package main;
 
 import data.Style;
-import math.Fraction;
-import math.Variable;
 import math.function.AbstractFunction;
+import math.math.object.Fraction;
+import math.math.objects.Variable;
 import tools.ErrorInterface;
 import tools.GetOutCome;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -38,7 +39,7 @@ public class FunctionCalculatorGetValue extends JDialog {
         List<Variable> variables = abstractFunction.getVariables();
         jLabels=new JLabel[variables.size()];
         textFields=new JTextField[variables.size()];
-        if (abstractFunction.variables.isEmpty()) {
+        if (abstractFunction.formula.variables.isEmpty()) {
             onOkay();
             return;
         }
@@ -95,10 +96,10 @@ public class FunctionCalculatorGetValue extends JDialog {
                 String s=jTextField.getText();
                 Fraction fraction;
                 try {
-                    fraction = new Fraction(Double.parseDouble(s), 1);
+                    fraction = new Fraction(new BigDecimal(s), BigDecimal.valueOf(1));
                 } catch (Throwable e) {
                     String[] ss = s.split("/");
-                    fraction = new Fraction(Double.parseDouble(ss[0]), Double.parseDouble(ss[1]));
+                    fraction = new Fraction(new BigDecimal(ss[0]), new BigDecimal(ss[1]));
                 }
                 fractions.add(fraction);
             }

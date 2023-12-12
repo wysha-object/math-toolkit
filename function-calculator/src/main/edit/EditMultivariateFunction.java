@@ -2,7 +2,7 @@
 package main.edit;
 
 import data.Style;
-import main.FunctionCalculatorData;
+import main.MathGroupMainInterface;
 import math.function.multivariate.MultivariateFunction;
 import tools.ErrorInterface;
 
@@ -13,15 +13,14 @@ import java.util.HashSet;
  * @author wysha
  */
 public class EditMultivariateFunction extends AbstractFunctionCalculatorEdits {
-
     private JTextField textField;
     private JLabel jLabel;
     public JPanel contentPane;
     private JScrollPane jScrollPane;
     private JTextArea jTextArea;
 
-    public EditMultivariateFunction(JDialog jDialog) {
-        super(EditMultivariateFunction.class.toString(), jDialog);
+    public EditMultivariateFunction(JDialog jDialog, MathGroupMainInterface mathGroupMainInterface) {
+        super(EditMultivariateFunction.class.toString(), jDialog, mathGroupMainInterface);
         setStyle();
         jTextArea.setLineWrap(true);
         jTextArea.setEditable(false);
@@ -30,7 +29,7 @@ public class EditMultivariateFunction extends AbstractFunctionCalculatorEdits {
     @Override
     public void onOkay() {
         try {
-            MultivariateFunction.valueOf(textField.getText(), FunctionCalculatorData.functionCalculatorDate.abstractFunctions);
+            MultivariateFunction.valueOf(textField.getText(), mathGroupMainInterface.mathGroup);
             jDialog.dispose();
         } catch (Throwable e) {
             ErrorInterface errorInterface = new ErrorInterface(
@@ -60,7 +59,7 @@ public class EditMultivariateFunction extends AbstractFunctionCalculatorEdits {
 
     public void setFunction(MultivariateFunction multivariateFunction) {
         if (multivariateFunction!=null){
-            textField.setText(multivariateFunction.name+"'="+multivariateFunction.halfToString());
+            textField.setText(multivariateFunction.name + "'=" + multivariateFunction.formula.toString());
         }
     }
 }

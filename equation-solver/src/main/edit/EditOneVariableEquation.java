@@ -2,8 +2,8 @@
 package main.edit;
 
 import data.Style;
+import main.MathGroupMainInterface;
 import math.equation.oneVariable.OneVariableOneDegreeEquation;
-import tools.FractionEdit;
 
 import javax.swing.*;
 import java.util.HashSet;
@@ -14,8 +14,8 @@ import java.util.HashSet;
 public class EditOneVariableEquation extends AbstractEquationSolverEdits {
     public JPanel contentPane;
 
-    public EditOneVariableEquation(JDialog jDialog) {
-        super(EditOneVariableEquation.class.toString(), jDialog);
+    public EditOneVariableEquation(JDialog jDialog, MathGroupMainInterface mathGroupMainInterface) {
+        super(EditOneVariableEquation.class.toString(), jDialog, mathGroupMainInterface);
         setStyle();
     }
     @Override
@@ -24,7 +24,7 @@ public class EditOneVariableEquation extends AbstractEquationSolverEdits {
 
     @Override
     public void onCancel() {
-        jDialog.dispose();
+        mathGroupMainInterface.dispose();
     }
 
     private void setStyle() {
