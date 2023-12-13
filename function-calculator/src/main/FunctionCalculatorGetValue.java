@@ -5,8 +5,8 @@ import data.Style;
 import math.function.AbstractFunction;
 import math.math.object.Fraction;
 import math.math.objects.Variable;
-import tools.ErrorInterface;
-import tools.GetOutCome;
+import view.ErrorInterface;
+import view.GetOutCome;
 
 import javax.swing.*;
 import java.awt.*;
@@ -31,6 +31,7 @@ public class FunctionCalculatorGetValue extends JDialog {
     private JLabel jLabel;
     private JButton buttonCancel;
     private JPanel jTextFields;
+    private JScrollPane js;
     private final JLabel[] jLabels;
     private final JTextField[] textFields;
 
@@ -77,6 +78,7 @@ public class FunctionCalculatorGetValue extends JDialog {
         buttons.addAll(Arrays.asList(jLabels));
         buttons.addAll(Arrays.asList(textFields));
         HashSet<JList<?>> jLists=new HashSet<>();
+        jPanels.add(js);
         jPanels.add(contentPane);
         jPanels.add(down);
         jPanels.add(up);

@@ -1,5 +1,5 @@
 
-package tools;
+package view;
 
 import data.Style;
 

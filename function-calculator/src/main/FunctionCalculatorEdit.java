@@ -29,7 +29,7 @@ public class FunctionCalculatorEdit extends MathGroupView {
     final EditOneVariableOneDegreeFunction editOneVariableOneDegreeFunction = new EditOneVariableOneDegreeFunction(this, mathGroupMainInterface);
     private JPanel up;
 
-    public FunctionCalculatorEdit(MathGroupMainInterface mathGroupMainInterface, AbstractFunction abstractFunction) {
+    public FunctionCalculatorEdit(MathGroupMainInterface mathGroupMainInterface, AbstractFunction abstractFunction) throws Throwable {
         super(mathGroupMainInterface);
         up.setLayout(cardLayout);
         if (abstractFunction != null) {

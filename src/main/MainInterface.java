@@ -13,14 +13,17 @@ public class MainInterface extends JFrame {
     private JButton set;
 
     private MainInterface() {
+        setSize(
+                (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 4),
+                (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2)
+        );
+        setLocationRelativeTo(null);
         setContentPane(contentPane);
         set.addActionListener(e -> {
             NecessarySet set = new NecessarySet();
             set.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2);
             set.setLocationRelativeTo(null);
             set.setVisible(true);
-            dispose();
-            new MathGroupMainInterface().setVisible(true);
         });
     }
 }

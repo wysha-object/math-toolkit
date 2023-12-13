@@ -4,10 +4,12 @@ package main.edit;
 import data.Style;
 import main.MathGroupMainInterface;
 import math.function.onevariable.OneVariableOneDegreeFunction;
-import tools.ErrorInterface;
-import tools.FractionEdit;
+import math.math.object.Fraction;
+import view.ErrorInterface;
+import view.FractionEdit;
 
 import javax.swing.*;
+import java.math.BigInteger;
 import java.util.HashSet;
 
 /**
@@ -39,7 +41,7 @@ public class EditOneVariableOneDegreeFunction extends AbstractFunctionCalculator
                     bEdit.getFraction(),
                     mathGroupMainInterface.mathGroup
             );
-            mathGroupMainInterface.dispose();
+            jDialog.dispose();
         } catch (Throwable e) {
             ErrorInterface errorInterface = new ErrorInterface(
                     "函数创建失败,请检查\n",
@@ -51,7 +53,7 @@ public class EditOneVariableOneDegreeFunction extends AbstractFunctionCalculator
 
     @Override
     public void onCancel() {
-        mathGroupMainInterface.dispose();
+        jDialog.dispose();
     }
 
     private void setStyle() {
@@ -67,9 +69,13 @@ public class EditOneVariableOneDegreeFunction extends AbstractFunctionCalculator
         Style.setStyle(jPanels,buttons,null);
     }
 
-    public void setFunction(OneVariableOneDegreeFunction oneVariableOneDegreeFunction) {
+    public void setFunction(OneVariableOneDegreeFunction oneVariableOneDegreeFunction) throws Throwable {
         textField.setText(oneVariableOneDegreeFunction.name+"'");
-        kEdit.setFraction(oneVariableOneDegreeFunction.formula.fractions.get(0));
-        bEdit.setFraction(oneVariableOneDegreeFunction.formula.fractions.get(2));
+        BigInteger n = oneVariableOneDegreeFunction.formula.bigIntegers.get(0);
+        BigInteger d = oneVariableOneDegreeFunction.formula.bigIntegers.get(1);
+        kEdit.setFraction(new Fraction(n, d));
+        n = oneVariableOneDegreeFunction.formula.bigIntegers.get(3);
+        d = oneVariableOneDegreeFunction.formula.bigIntegers.get(4);
+        bEdit.setFraction(new Fraction(n, d));
     }
 }

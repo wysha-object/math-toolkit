@@ -26,9 +26,7 @@ public class GroupData extends MathObjects {
         }else {
             this.groupData = new GroupData[]{};
         }
-        if (!mathGroup.checkName(this)) {
-            throw new Throwable("数据组名重复");
-        }
+        mathGroup.checkName(this);
         List<Fraction> list=Arrays.asList(fractions);
         list.sort(Fraction::isMoreThan);
         this.fractions= list.toArray(new Fraction[0]);

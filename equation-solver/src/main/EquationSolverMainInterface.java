@@ -4,7 +4,7 @@ package main;
 import data.MathToolkitNecessaryData;
 import data.Style;
 import math.equation.AbstractEquation;
-import tools.ErrorInterface;
+import view.ErrorInterface;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;

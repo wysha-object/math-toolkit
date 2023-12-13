@@ -1,7 +1,7 @@
 
 package set;
 
-import tools.Choose;
+import view.Choose;
 
 import javax.swing.*;
 import java.awt.*;

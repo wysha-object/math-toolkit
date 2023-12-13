@@ -79,12 +79,12 @@
           <text value="请在下方输入b的值"/>
         </properties>
       </component>
-      <nested-form id="afd0" form-file="tools/FractionEdit.form" binding="kEdit">
+      <nested-form id="afd0" form-file="view/FractionEdit.form" binding="kEdit">
         <constraints>
           <grid row="1" column="3" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>
       </nested-form>
-      <nested-form id="d60a5" form-file="tools/FractionEdit.form" binding="bEdit">
+      <nested-form id="d60a5" form-file="view/FractionEdit.form" binding="bEdit">
         <constraints>
           <grid row="1" column="5" row-span="1" col-span="1" vsize-policy="3" hsize-policy="3" anchor="0" fill="0" indent="0" use-parent-layout="false"/>
         </constraints>

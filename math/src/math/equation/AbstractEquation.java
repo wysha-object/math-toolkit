@@ -17,9 +17,7 @@ public class AbstractEquation extends MathObjects {
         super(name);
         this.left = left;
         this.right = right;
-        if (!mathGroup.checkName(this)) {
-            throw new Throwable("函数名重复");
-        }
+        mathGroup.checkName(this);
         mathGroup.equations.add(this);
     }
 }

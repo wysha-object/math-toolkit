@@ -1,7 +1,7 @@
 
 package data;
 
-import tools.Prompt;
+import view.Prompt;
 
 import java.io.File;
 import java.io.ObjectOutputStream;
