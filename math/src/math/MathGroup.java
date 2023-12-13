@@ -23,19 +23,15 @@ public class MathGroup {
         this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
-    /**
-     * @return "true"则合规 "false"则不合规
-     */
-    public boolean checkName(MathObjects mathObject) throws Throwable {
+    public void checkName(MathObjects mathObject) throws Throwable {
         ArrayList<MathObjects> mathObjects = new ArrayList<>();
         mathObjects.addAll(functions);
         mathObjects.addAll(equations);
         mathObjects.addAll(groupData);
         for (MathObjects mo : mathObjects) {
-            if (!Objects.equals(mo.name, mathObject.name)) {
-                return false;
+            if (Objects.equals(mo.name, mathObject.name)) {
+                throw new Throwable(mo.getClass() + "\t" + mo + "," + mathObject.getClass() + "\t" + mathObject + "重名");
             }
         }
-        return true;
     }
 }

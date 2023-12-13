@@ -5,6 +5,7 @@ import math.MathTools;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Objects;
 
 /**
  * @author wysha
@@ -27,6 +28,10 @@ final public class Fraction extends MathObject {
         this.denominator = denominator.toBigInteger();
     }
 
+    public Fraction(BigInteger numerator, BigInteger denominator) throws Throwable {
+        this(new BigDecimal(numerator), new BigDecimal(denominator));
+    }
+
     public int isMoreThan(Fraction f) {
         return this.numerator.multiply(f.denominator).compareTo(this.denominator.multiply(f.numerator));
     }
@@ -40,12 +45,24 @@ final public class Fraction extends MathObject {
             return false;
         }
         Fraction fraction = (Fraction) o;
-        return numerator == fraction.numerator && denominator == fraction.denominator;
+        return Objects.equals(numerator, fraction.numerator) && Objects.equals(denominator, fraction.denominator);
     }
 
     @Override
     public String toString() {
         if (denominator.compareTo(BigInteger.valueOf(1)) != 0) {
+            int i;
+            try {
+                i = MathTools.isPowerOf(new BigDecimal(denominator), BigDecimal.valueOf(10));
+                StringBuilder stringBuilder = new StringBuilder(String.valueOf(numerator));
+                int k = i + 1 - stringBuilder.length();
+                for (int j = 0; j < k; j++) {
+                    stringBuilder.insert(0, '0');
+                }
+                stringBuilder.insert(stringBuilder.length() - i, '.');
+                return String.valueOf(stringBuilder);
+            } catch (Throwable ignored) {
+            }
             return numerator + "/" + denominator;
         } else {
             return String.valueOf(numerator);

@@ -4,6 +4,7 @@ import math.Math;
 import math.math.object.Fraction;
 
 import java.math.BigDecimal;
+import java.math.RoundingMode;
 
 /**
  * @author wysha
@@ -26,53 +27,86 @@ public enum ArithmeticOperation implements Math {
         Priority = priority;
     }
 
-    public static Fraction operation(ArithmeticOperation arithmeticOperation, Fraction theValueBeingManipulated, Fraction operationValue) throws Throwable {
-        BigDecimal denominator = new BigDecimal(
-                theValueBeingManipulated.denominator.multiply(operationValue.denominator)
+    public static Fraction operation(ArithmeticOperation arithmeticOperation, Fraction left, Fraction right) throws Throwable {
+        BigDecimal denominator;
+        BigDecimal bigDecimal = new BigDecimal(
+                left.denominator.multiply(right.denominator)
         );
+        double d;
         switch (arithmeticOperation) {
             case ADD:
+                denominator = bigDecimal;
                 return new Fraction(
                         new BigDecimal((
-                                theValueBeingManipulated.numerator.multiply(
-                                        operationValue.denominator
+                                left.numerator.multiply(
+                                        right.denominator
                                 )).add((
-                                operationValue.numerator.multiply(
-                                        theValueBeingManipulated.denominator
+                                right.numerator.multiply(
+                                        left.denominator
                                 )))
                         ),
                         denominator
                 );
             case SUBTRACT:
+                denominator = bigDecimal;
                 return new Fraction(
                         new BigDecimal((
-                                theValueBeingManipulated.numerator.multiply(
-                                        operationValue.denominator
+                                left.numerator.multiply(
+                                        right.denominator
                                 )).subtract((
-                                operationValue.numerator.multiply(
-                                        theValueBeingManipulated.denominator
+                                right.numerator.multiply(
+                                        left.denominator
                                 )))
                         ),
                         denominator
                 );
             case MULTIPLY:
+                denominator = bigDecimal;
                 return new Fraction(
                         new BigDecimal(
-                                theValueBeingManipulated.numerator.multiply(operationValue.numerator)
+                                left.numerator.multiply(right.numerator)
                         )
                         ,
                         denominator
                 );
             case DIVIDE:
                 return new Fraction(
-                        new BigDecimal(theValueBeingManipulated.numerator.multiply(operationValue.denominator))
+                        new BigDecimal(
+                                left.numerator.multiply(right.denominator)
+                        )
                         ,
-                        new BigDecimal(theValueBeingManipulated.denominator.multiply(operationValue.numerator))
+                        new BigDecimal(
+                                left.denominator.multiply(right.numerator)
+                        )
                 );
             case POWERED:
+                d = Double.parseDouble(String.valueOf(new BigDecimal(right.numerator).divide(new BigDecimal(right.denominator), 10, RoundingMode.HALF_DOWN)));
+                return new Fraction(
+                        BigDecimal.valueOf(java.lang.Math.pow(
+                                Double.parseDouble(String.valueOf(left.numerator)),
+                                d
+                        ))
+                        ,
+                        BigDecimal.valueOf(java.lang.Math.pow(
+                                Double.parseDouble(String.valueOf(left.denominator)),
+                                d
+                        ))
+                );
             case ROOTING:
+                d = Double.parseDouble(String.valueOf(new BigDecimal(left.numerator).divide(new BigDecimal(left.denominator), 10, RoundingMode.HALF_DOWN)));
+                return new Fraction(
+                        BigDecimal.valueOf(java.lang.Math.pow(
+                                Double.parseDouble(String.valueOf(right.numerator)),
+                                1.0 / d
+                        ))
+                        ,
+                        BigDecimal.valueOf(java.lang.Math.pow(
+                                Double.parseDouble(String.valueOf(right.denominator)),
+                                1.0 / d
+                        ))
+                );
             default:
-                return theValueBeingManipulated;
+                return left;
         }
     }
 

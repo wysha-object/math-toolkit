@@ -7,20 +7,20 @@ import math.math.math.ArithmeticOperation;
 import math.math.math.Braces;
 import math.math.objects.Variable;
 
-import java.math.BigDecimal;
+import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
 final public class Formula extends MathObject {
-    public final List<Fraction> fractions;
+    public final List<BigInteger> bigIntegers;
     public final List<Variable> variables;
     public final List<ArithmeticOperation> arithmeticOperations;
     public final List<Brace> braces;
 
-    public Formula(List<Fraction> fractions, List<Variable> variables, List<ArithmeticOperation> arithmeticOperations, List<Brace> braces) {
-        this.fractions = fractions;
+    public Formula(List<BigInteger> bigIntegers, List<Variable> variables, List<ArithmeticOperation> arithmeticOperations, List<Brace> braces) {
+        this.bigIntegers = bigIntegers;
         this.variables = variables;
         this.arithmeticOperations = arithmeticOperations;
         this.braces = braces;
@@ -34,7 +34,7 @@ final public class Formula extends MathObject {
             string = string.substring(1);
             subtractB = true;
         }
-        ArrayList<Fraction> fractionArrayList = new ArrayList<>();
+        ArrayList<BigInteger> fractionArrayList = new ArrayList<>();
         ArrayList<Variable> variableArrayList = new ArrayList<>();
         ArrayList<ArithmeticOperation> arithmeticOperationArrayList = new ArrayList<>();
         ArrayList<Brace> bracesArrayList = new ArrayList<>();
@@ -71,7 +71,7 @@ final public class Formula extends MathObject {
             }
             if (!b) {
                 if (Objects.equals(anEnum, Enum.NUMBER)) {
-                    fractionArrayList.add(new Fraction(new BigDecimal(stringBuilder.toString()), BigDecimal.valueOf(1)));
+                    fractionArrayList.add(new BigInteger(stringBuilder.toString()));
                 } else {
                     fractionArrayList.add(null);
                     new Variable(stringBuilder.toString(), variableArrayList);
@@ -82,7 +82,7 @@ final public class Formula extends MathObject {
         }
         if (!stringBuilder.toString().isEmpty()) {
             if (Objects.equals(anEnum, Enum.NUMBER)) {
-                fractionArrayList.add(new Fraction(new BigDecimal(stringBuilder.toString()), BigDecimal.valueOf(1)));
+                fractionArrayList.add(new BigInteger(stringBuilder.toString()));
             } else {
                 fractionArrayList.add(null);
                 new Variable(stringBuilder.toString(), variableArrayList);
@@ -91,7 +91,7 @@ final public class Formula extends MathObject {
         int i = 0;
         if (subtractB) {
             i = 1;
-            fractionArrayList.add(0, new Fraction(BigDecimal.valueOf(0), BigDecimal.valueOf(1)));
+            fractionArrayList.add(0, BigInteger.valueOf(0));
             arithmeticOperationArrayList.add(0, ArithmeticOperation.SUBTRACT);
         }
         for (int j = 0; j < leftBrace.size(); j++) {
@@ -146,9 +146,9 @@ final public class Formula extends MathObject {
         setValues(values);
         ArrayList<Fraction> numbers = new ArrayList<>();
         int i = 0;
-        for (Fraction bigDecimal : fractions) {
-            if (bigDecimal != null) {
-                numbers.add(bigDecimal);
+        for (BigInteger bigInteger : bigIntegers) {
+            if (bigInteger != null) {
+                numbers.add(new Fraction(bigInteger, BigInteger.valueOf(1)));
             } else {
                 numbers.add(variables.get(i).valueLL.get(0));
                 i++;
@@ -167,22 +167,22 @@ final public class Formula extends MathObject {
                 }
             }
         }
-        numbers.set(0, new Fraction(new BigDecimal(numbers.get(0).numerator), new BigDecimal(numbers.get(0).denominator)));
+        numbers.set(0, new Fraction(numbers.get(0).numerator, numbers.get(0).denominator));
         return numbers.get(0);
     }
 
     public String toString() {
         StringBuilder s = new StringBuilder();
         int i = 0;
-        for (int j = 0; j < fractions.size(); j++) {
-            Fraction fraction = fractions.get(j);
+        for (int j = 0; j < bigIntegers.size(); j++) {
+            BigInteger fraction = bigIntegers.get(j);
             if (fraction != null) {
                 s.append(fraction);
             } else {
                 s.append(variables.get(i).getName());
                 i++;
             }
-            if (j < fractions.size() - 1) {
+            if (j < bigIntegers.size() - 1) {
                 ArithmeticOperation arithmeticOperation = arithmeticOperations.get(j);
                 s.append(arithmeticOperation.toString());
             }

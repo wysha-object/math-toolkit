@@ -4,7 +4,7 @@ package set;
 import data.MathToolkitNecessaryData;
 import data.Style;
 import set.settings.AppearanceSetting;
-import tools.ErrorInterface;
+import view.ErrorInterface;
 
 import javax.swing.*;
 import java.util.HashSet;

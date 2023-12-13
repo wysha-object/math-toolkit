@@ -1,35 +1,27 @@
 
-package tools;
+package view;
 
 import data.Style;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.util.HashSet;
 
 /**
  * @author wysha
  */
-public class Prompt extends JDialog {
+public class GetOutCome extends JDialog {
     private JPanel contentPane;
     private JButton buttonOkay;
-    private javax.swing.JTextArea jTextArea;
-    private JScrollPane jScrollPane;
+    private JLabel jLabel;
 
-    public Prompt(String prompt) {
-        jTextArea.setLineWrap(true);
-        jTextArea.setWrapStyleWord(true);
-        jTextArea.setEditable(false);
-        jTextArea.setText("提示:\n" + prompt);
+    public GetOutCome(String title, String s) {
+        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        jLabel.setText(s);
         setContentPane(contentPane);
         setModal(true);
-        setTitle("提示");
-        setDefaultCloseOperation(DISPOSE_ON_CLOSE);
+        setTitle(title);
         setStyle();
-        setAlwaysOnTop(true);
-        setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 3, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 3);
-        setLocationRelativeTo(null);
         buttonOkay.addActionListener(e -> onOkay());
         contentPane.registerKeyboardAction(e -> dispose(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         contentPane.registerKeyboardAction(e -> onOkay(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
@@ -39,9 +31,8 @@ public class Prompt extends JDialog {
         HashSet<JComponent> jPanels = new HashSet<>();
         HashSet<JComponent> buttons = new HashSet<>();
         jPanels.add(contentPane);
-        jPanels.add(jScrollPane);
         buttons.add(buttonOkay);
-        buttons.add(jTextArea);
+        buttons.add(jLabel);
         Style.setStyle(jPanels,buttons,null);
     }
 

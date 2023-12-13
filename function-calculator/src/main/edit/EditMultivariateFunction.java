@@ -4,7 +4,8 @@ package main.edit;
 import data.Style;
 import main.MathGroupMainInterface;
 import math.function.multivariate.MultivariateFunction;
-import tools.ErrorInterface;
+import view.ErrorInterface;
+import view.MathInput;
 
 import javax.swing.*;
 import java.util.HashSet;
@@ -13,27 +14,24 @@ import java.util.HashSet;
  * @author wysha
  */
 public class EditMultivariateFunction extends AbstractFunctionCalculatorEdits {
-    private JTextField textField;
     private JLabel jLabel;
     public JPanel contentPane;
-    private JScrollPane jScrollPane;
-    private JTextArea jTextArea;
+    private MathInput mathInput;
 
     public EditMultivariateFunction(JDialog jDialog, MathGroupMainInterface mathGroupMainInterface) {
         super(EditMultivariateFunction.class.toString(), jDialog, mathGroupMainInterface);
         setStyle();
-        jTextArea.setLineWrap(true);
-        jTextArea.setEditable(false);
+        mathInput.setValue("function=");
     }
 
     @Override
     public void onOkay() {
         try {
-            MultivariateFunction.valueOf(textField.getText(), mathGroupMainInterface.mathGroup);
+            MultivariateFunction.valueOf(mathInput.getValue(), mathGroupMainInterface.mathGroup);
             jDialog.dispose();
         } catch (Throwable e) {
             ErrorInterface errorInterface = new ErrorInterface(
-                    "函数创建失败,请检查\n",
+                    "创建失败,请检查\n",
                     e,
                     false
             );
@@ -50,16 +48,14 @@ public class EditMultivariateFunction extends AbstractFunctionCalculatorEdits {
         HashSet<JComponent> jPanels = new HashSet<>();
         HashSet<JComponent> buttons = new HashSet<>();
         jPanels.add(contentPane);
-        jPanels.add(jScrollPane);
         buttons.add(jLabel);
-        buttons.add(textField);
-        buttons.add(jTextArea);
+        buttons.add(mathInput);
         Style.setStyle(jPanels,buttons,null);
     }
 
     public void setFunction(MultivariateFunction multivariateFunction) {
         if (multivariateFunction!=null){
-            textField.setText(multivariateFunction.name + "'=" + multivariateFunction.formula.toString());
+            mathInput.setValue(multivariateFunction.name + "'=" + multivariateFunction.formula.toString());
         }
     }
 }

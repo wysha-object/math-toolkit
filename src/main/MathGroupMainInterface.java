@@ -3,7 +3,7 @@ package main;
 
 import data.Style;
 import math.MathGroup;
-import tools.ErrorInterface;
+import view.ErrorInterface;
 
 import javax.swing.*;
 import java.awt.*;
@@ -47,23 +47,19 @@ public class MathGroupMainInterface extends JFrame {
             }
         });
         setContentPane(contentPane);
-        runFunctionCalculator.addActionListener(e -> {
-            functionCalculatorMainInterface.setVisible(true);
-        });
-        runGroupDataAnalyzer.addActionListener(e -> {
-            groupDataAnalyzerMainInterface.setVisible(true);
-        });
-        runEquationSolver.addActionListener(e -> {
-            equationSolverMainInterface.setVisible(true);
-        });
+        runFunctionCalculator.addActionListener(e -> functionCalculatorMainInterface.setVisible(true));
+        runGroupDataAnalyzer.addActionListener(e -> groupDataAnalyzerMainInterface.setVisible(true));
+        runEquationSolver.addActionListener(e -> equationSolverMainInterface.setVisible(true));
         setTitle("数学工具包");
         setSize(
                 (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()) * 3 / 4,
                 (int) (Toolkit.getDefaultToolkit().getScreenSize().getHeight()) * 3 / 4
         );
         new Thread(() -> {
-            this.setStyle();
-            this.repaint();
+            while (true) {
+                this.setStyle();
+                this.repaint();
+            }
         }).start();
         setLocationRelativeTo(null);
         contentPane.registerKeyboardAction(

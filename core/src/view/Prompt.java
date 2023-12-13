@@ -1,5 +1,5 @@
 
-package tools;
+package view;
 
 import data.Style;
 
@@ -11,26 +11,20 @@ import java.util.HashSet;
 /**
  * @author wysha
  */
-public class ErrorInterface extends JDialog {
-    final boolean report;
+public class Prompt extends JDialog {
     private JPanel contentPane;
     private JButton buttonOkay;
-    private JTextArea textArea;
+    private javax.swing.JTextArea jTextArea;
     private JScrollPane jScrollPane;
-    final Throwable error;
 
-    public ErrorInterface(String description, Throwable error, boolean report) {
-        error.printStackTrace();
-        this.error=error;
-        this.report=report;
-        textArea.setLineWrap(true);
-        textArea.setWrapStyleWord(true);
-        textArea.setEditable(false);
-        textArea.setText("遇到了一个异常:\n" + description + "\n" + error);
-        //if (report){textArea.append("\n待用户确认后此错误将自动发送给开发者");}
+    public Prompt(String prompt) {
+        jTextArea.setLineWrap(true);
+        jTextArea.setWrapStyleWord(true);
+        jTextArea.setEditable(false);
+        jTextArea.setText("提示:\n" + prompt);
         setContentPane(contentPane);
         setModal(true);
-        setTitle("异常");
+        setTitle("提示");
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setStyle();
         setAlwaysOnTop(true);
@@ -47,14 +41,11 @@ public class ErrorInterface extends JDialog {
         jPanels.add(contentPane);
         jPanels.add(jScrollPane);
         buttons.add(buttonOkay);
-        buttons.add(textArea);
+        buttons.add(jTextArea);
         Style.setStyle(jPanels,buttons,null);
     }
 
     private void onOkay() {
         dispose();
-        if (report){
-            throw new RuntimeException(error);
-        }
     }
 }

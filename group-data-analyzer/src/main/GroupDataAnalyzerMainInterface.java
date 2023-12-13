@@ -4,7 +4,7 @@ package main;
 import data.MathToolkitNecessaryData;
 import data.Style;
 import math.groupdata.GroupData;
-import tools.ErrorInterface;
+import view.ErrorInterface;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -154,9 +154,7 @@ public class GroupDataAnalyzerMainInterface extends MathGroupView {
                                                         file.toPath()
                                                 )
                                         ).readObject();
-                        if (mathGroupMainInterface.mathGroup.checkName(groupData)) {
-                            throw new RuntimeException("数据组列表中已有同名数据组");
-                        }
+                        mathGroupMainInterface.mathGroup.checkName(groupData);
                         mathGroupMainInterface.mathGroup.groupData.add(
                                 groupData
                         );

@@ -24,9 +24,7 @@ public abstract class AbstractFunction extends Variable {
     ) throws Throwable {
         super(name);
         this.formula = formula;
-        if (!mathGroup.checkName(this)) {
-            throw new Throwable("函数名重复");
-        }
+        mathGroup.checkName(this);
         mathGroup.functions.add(this);
     }
 
@@ -54,13 +52,16 @@ public abstract class AbstractFunction extends Variable {
     }
     @Override
     public String getName() {
-        StringBuilder s= new StringBuilder(name + "(");
         ArrayList<Variable> variableArrayList = new ArrayList<>(formula.getVariables());
-        for (int i = 0; i < variableArrayList.size(); i++) {
-            Variable variable = variableArrayList.get(i);
-            s.append(variable.getName()).append(i!=variableArrayList.size()-1?',':"");
+        StringBuilder s = new StringBuilder(name);
+        if (!variableArrayList.isEmpty()) {
+            s.append("(");
+            for (int i = 0; i < variableArrayList.size(); i++) {
+                Variable variable = variableArrayList.get(i);
+                s.append(variable.getName()).append(i != variableArrayList.size() - 1 ? ',' : "");
+            }
+            s.append(")");
         }
-        s.append(")");
         return String.valueOf(s);
     }
 

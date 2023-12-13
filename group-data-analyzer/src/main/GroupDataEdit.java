@@ -4,9 +4,9 @@ package main;
 import data.Style;
 import math.groupdata.GroupData;
 import math.math.object.Fraction;
-import tools.ErrorInterface;
-import tools.FractionEdit;
-import tools.GetAndSetList;
+import view.ErrorInterface;
+import view.FractionEdit;
+import view.GetAndSetList;
 
 import javax.swing.*;
 import java.awt.*;

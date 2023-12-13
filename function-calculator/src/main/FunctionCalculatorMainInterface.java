@@ -5,8 +5,8 @@ import data.MathToolkitNecessaryData;
 import data.Style;
 import math.function.AbstractFunction;
 import math.math.object.Fraction;
-import tools.ErrorInterface;
-import tools.GetAndSetList;
+import view.ErrorInterface;
+import view.GetAndSetList;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
