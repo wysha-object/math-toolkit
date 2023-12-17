@@ -80,14 +80,6 @@
               <text value="开发者邮箱:wyshazhisishen@yeah.net"/>
             </properties>
           </component>
-          <component id="a9eae" class="javax.swing.JLabel" binding="v">
-            <constraints>
-              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="8" fill="0" indent="0" use-parent-layout="false"/>
-            </constraints>
-            <properties>
-              <text value="版本号:1.0.1"/>
-            </properties>
-          </component>
           <vspacer id="1e534">
             <constraints>
               <grid row="0" column="1" row-span="1" col-span="2" vsize-policy="0" hsize-policy="1" anchor="0" fill="3" indent="0" use-parent-layout="false">
@@ -159,6 +151,14 @@
               </scrollpane>
             </children>
           </grid>
+          <component id="fcd0c" class="javax.swing.JLabel" binding="v">
+            <constraints>
+              <grid row="3" column="1" row-span="1" col-span="1" vsize-policy="0" hsize-policy="0" anchor="0" fill="3" indent="0" use-parent-layout="false"/>
+            </constraints>
+            <properties>
+              <text value=""/>
+            </properties>
+          </component>
         </children>
       </grid>
     </children>

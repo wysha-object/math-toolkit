@@ -14,6 +14,7 @@ public class MathTools {
         }
         return i;
     }
+
     public static BigDecimal gcd(BigDecimal num1, BigDecimal num2) {
         //辗转相除法(欧几里得算法)
         while (num2.compareTo(new BigDecimal(0)) != 0) {

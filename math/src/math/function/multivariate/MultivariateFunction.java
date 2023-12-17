@@ -2,7 +2,7 @@ package math.function.multivariate;
 
 import math.MathGroup;
 import math.function.AbstractFunction;
-import math.math.object.Formula;
+import math.math.numberObject.Formula;
 
 import java.io.Serializable;
 
@@ -15,7 +15,7 @@ public class MultivariateFunction extends AbstractFunction implements Serializab
     }
 
     public static void valueOf(String function, MathGroup mathGroup) throws Throwable {
-        String[] str=function.split("=");
+        String[] str = function.split("=");
         new MultivariateFunction(str[0], Formula.valueOf(str[1]), mathGroup);
     }
 }

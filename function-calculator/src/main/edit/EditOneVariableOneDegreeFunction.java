@@ -1,10 +1,9 @@
-
 package main.edit;
 
 import data.Style;
 import main.MathGroupMainInterface;
 import math.function.onevariable.OneVariableOneDegreeFunction;
-import math.math.object.Fraction;
+import math.math.numberObject.Fraction;
 import view.ErrorInterface;
 import view.FractionEdit;
 
@@ -32,6 +31,7 @@ public class EditOneVariableOneDegreeFunction extends AbstractFunctionCalculator
         bEdit.setText("b:");
         setStyle();
     }
+
     @Override
     public void onOkay() {
         try {
@@ -66,16 +66,16 @@ public class EditOneVariableOneDegreeFunction extends AbstractFunctionCalculator
         buttons.add(kLabel);
         buttons.add(bLabel);
         buttons.add(nameLabel);
-        Style.setStyle(jPanels,buttons,null);
+        Style.setStyle(jPanels, buttons, null);
     }
 
     public void setFunction(OneVariableOneDegreeFunction oneVariableOneDegreeFunction) throws Throwable {
-        textField.setText(oneVariableOneDegreeFunction.name+"'");
-        BigInteger n = oneVariableOneDegreeFunction.formula.bigIntegers.get(0);
-        BigInteger d = oneVariableOneDegreeFunction.formula.bigIntegers.get(1);
+        textField.setText(oneVariableOneDegreeFunction.name + "'");
+        BigInteger n = oneVariableOneDegreeFunction.formula.values.get(0);
+        BigInteger d = oneVariableOneDegreeFunction.formula.values.get(1);
         kEdit.setFraction(new Fraction(n, d));
-        n = oneVariableOneDegreeFunction.formula.bigIntegers.get(3);
-        d = oneVariableOneDegreeFunction.formula.bigIntegers.get(4);
+        n = oneVariableOneDegreeFunction.formula.values.get(3);
+        d = oneVariableOneDegreeFunction.formula.values.get(4);
         bEdit.setFraction(new Fraction(n, d));
     }
 }

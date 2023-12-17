@@ -1,4 +1,3 @@
-
 package view;
 
 import data.Style;
@@ -42,7 +41,7 @@ public class Prompt extends JDialog {
         jPanels.add(jScrollPane);
         buttons.add(buttonOkay);
         buttons.add(jTextArea);
-        Style.setStyle(jPanels,buttons,null);
+        Style.setStyle(jPanels, buttons, null);
     }
 
     private void onOkay() {

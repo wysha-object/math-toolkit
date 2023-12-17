@@ -1,6 +1,6 @@
-package main;
-
 import data.MathToolkitNecessaryData;
+import main.MainInterface;
+import main.MathGroupMainInterface;
 import view.ErrorInterface;
 
 public class Main {

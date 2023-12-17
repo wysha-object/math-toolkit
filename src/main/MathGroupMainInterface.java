@@ -1,8 +1,9 @@
-
 package main;
 
+import data.MathToolkitNecessaryData;
 import data.Style;
 import math.MathGroup;
+import set.MathGroupSet;
 import view.ErrorInterface;
 
 import javax.swing.*;
@@ -10,13 +11,14 @@ import java.awt.*;
 import java.awt.event.KeyEvent;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.util.ArrayList;
 import java.util.HashSet;
 
 /**
  * @author wysha
  */
 public class MathGroupMainInterface extends JFrame {
-    public final MathGroup mathGroup = new MathGroup();
+    public final MathGroup mathGroup = new MathGroup("", new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     public final FunctionCalculatorMainInterface functionCalculatorMainInterface = new FunctionCalculatorMainInterface(this);
     public final GroupDataAnalyzerMainInterface groupDataAnalyzerMainInterface = new GroupDataAnalyzerMainInterface(this);
     public final EquationSolverMainInterface equationSolverMainInterface = new EquationSolverMainInterface(this);
@@ -62,6 +64,7 @@ public class MathGroupMainInterface extends JFrame {
             }
         }).start();
         setLocationRelativeTo(null);
+        v.setText(MathToolkitNecessaryData.V);
         contentPane.registerKeyboardAction(
                 e -> {
                     if (getExtendedState() == MAXIMIZED_BOTH) {
@@ -110,6 +113,12 @@ public class MathGroupMainInterface extends JFrame {
                 );
                 errorInterface.setVisible(true);
             }
+        });
+        set.addActionListener(e -> {
+            MathGroupSet set = new MathGroupSet();
+            set.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
+            set.setLocationRelativeTo(null);
+            set.setVisible(true);
         });
     }
 

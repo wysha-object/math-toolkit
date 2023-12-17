@@ -1,4 +1,3 @@
-
 package main;
 
 import data.Style;
@@ -19,6 +18,7 @@ public class EquationSolverGetValue extends JDialog {
     private JPanel down;
     private JPanel up;
     private JScrollPane jScrollPane;
+
     public EquationSolverGetValue(AbstractEquation abstractFunction) {
         setContentPane(contentPane);
         setModal(true);
@@ -34,14 +34,14 @@ public class EquationSolverGetValue extends JDialog {
     public void setStyle() {
         HashSet<JComponent> jPanels = new HashSet<>();
         HashSet<JComponent> buttons = new HashSet<>();
-        HashSet<JList<?>> jLists=new HashSet<>();
+        HashSet<JList<?>> jLists = new HashSet<>();
         jPanels.add(contentPane);
         jPanels.add(down);
         jPanels.add(up);
         jPanels.add(jScrollPane);
         buttons.add(buttonOkay);
         jLists.add(list);
-        Style.setStyle(jPanels,buttons,jLists);
+        Style.setStyle(jPanels, buttons, jLists);
     }
 
     private void onOkay() {

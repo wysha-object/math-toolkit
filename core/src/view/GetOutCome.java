@@ -1,4 +1,3 @@
-
 package view;
 
 import data.Style;
@@ -33,7 +32,7 @@ public class GetOutCome extends JDialog {
         jPanels.add(contentPane);
         buttons.add(buttonOkay);
         buttons.add(jLabel);
-        Style.setStyle(jPanels,buttons,null);
+        Style.setStyle(jPanels, buttons, null);
     }
 
     private void onOkay() {

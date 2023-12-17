@@ -8,19 +8,16 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
-public class MathGroup {
+public class MathGroup extends MathObjects {
     public final List<AbstractFunction> functions;
     public final List<AbstractEquation> equations;
     public final List<GroupData> groupData;
 
-    public MathGroup(List<AbstractFunction> functions, List<AbstractEquation> equations, List<GroupData> groupData) {
+    public MathGroup(String name, List<AbstractFunction> functions, List<AbstractEquation> equations, List<GroupData> groupData) {
+        super(name);
         this.functions = functions;
         this.equations = equations;
         this.groupData = groupData;
-    }
-
-    public MathGroup() {
-        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>());
     }
 
     public void checkName(MathObjects mathObject) throws Throwable {

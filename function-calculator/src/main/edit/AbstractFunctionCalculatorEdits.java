@@ -1,4 +1,3 @@
-
 package main.edit;
 
 import main.MathGroupMainInterface;

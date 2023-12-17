@@ -10,13 +10,9 @@ public enum Braces implements Math {
 
     @Override
     public String toString() {
-        switch (this) {
-            case LEFT:
-                return "(";
-            case RIGHT:
-                return ")";
-            default:
-                throw new NullPointerException();
-        }
+        return switch (this) {
+            case LEFT -> "(";
+            case RIGHT -> ")";
+        };
     }
 }

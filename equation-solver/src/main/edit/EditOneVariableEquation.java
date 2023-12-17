@@ -1,4 +1,3 @@
-
 package main.edit;
 
 import data.Style;
@@ -18,6 +17,7 @@ public class EditOneVariableEquation extends AbstractEquationSolverEdits {
         super(EditOneVariableEquation.class.toString(), jDialog, mathGroupMainInterface);
         setStyle();
     }
+
     @Override
     public void onOkay() {
     }
@@ -31,7 +31,7 @@ public class EditOneVariableEquation extends AbstractEquationSolverEdits {
         HashSet<JComponent> jPanels = new HashSet<>();
         HashSet<JComponent> buttons = new HashSet<>();
         jPanels.add(contentPane);
-        Style.setStyle(jPanels,buttons,null);
+        Style.setStyle(jPanels, buttons, null);
     }
 
     public void setEquation(OneVariableOneDegreeEquation oneVariableOneDegreeEquation) {

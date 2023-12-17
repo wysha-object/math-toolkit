@@ -1,9 +1,8 @@
-
 package main;
 
 import data.Style;
 import math.function.AbstractFunction;
-import math.math.object.Fraction;
+import math.math.numberObject.Fraction;
 import math.math.objects.Variable;
 import view.ErrorInterface;
 import view.GetOutCome;
@@ -22,6 +21,8 @@ import java.util.List;
  */
 public class FunctionCalculatorGetValue extends JDialog {
     private final AbstractFunction abstractFunction;
+    private final JLabel[] jLabels;
+    private final JTextField[] textFields;
     private JPanel contentPane;
     private JButton buttonOkay;
     private JList<AbstractFunction> list;
@@ -32,14 +33,12 @@ public class FunctionCalculatorGetValue extends JDialog {
     private JButton buttonCancel;
     private JPanel jTextFields;
     private JScrollPane js;
-    private final JLabel[] jLabels;
-    private final JTextField[] textFields;
 
     public FunctionCalculatorGetValue(AbstractFunction abstractFunction) {
         this.abstractFunction = abstractFunction;
         List<Variable> variables = abstractFunction.getVariables();
-        jLabels=new JLabel[variables.size()];
-        textFields=new JTextField[variables.size()];
+        jLabels = new JLabel[variables.size()];
+        textFields = new JTextField[variables.size()];
         if (abstractFunction.formula.variables.isEmpty()) {
             onOkay();
             return;
@@ -55,13 +54,13 @@ public class FunctionCalculatorGetValue extends JDialog {
         jTextFields.setLayout(new GridLayout());
         for (int i = 0; i < variables.size(); i++) {
             Variable variable = variables.get(i);
-            JLabel j=new JLabel(variable.name+":");
+            JLabel j = new JLabel(variable.name + ":");
             j.setHorizontalAlignment(SwingConstants.RIGHT);
             jTextFields.add(j);
             JTextField jTextField = new JTextField();
             jTextFields.add(jTextField);
-            jLabels[i]=j;
-            textFields[i]=jTextField;
+            jLabels[i] = j;
+            textFields[i] = jTextField;
         }
         setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
         setStyle();
@@ -77,7 +76,7 @@ public class FunctionCalculatorGetValue extends JDialog {
         HashSet<JComponent> buttons = new HashSet<>();
         buttons.addAll(Arrays.asList(jLabels));
         buttons.addAll(Arrays.asList(textFields));
-        HashSet<JList<?>> jLists=new HashSet<>();
+        HashSet<JList<?>> jLists = new HashSet<>();
         jPanels.add(js);
         jPanels.add(contentPane);
         jPanels.add(down);
@@ -88,23 +87,12 @@ public class FunctionCalculatorGetValue extends JDialog {
         buttons.add(jLabel);
         buttons.add(buttonCancel);
         jLists.add(list);
-        Style.setStyle(jPanels,buttons,jLists);
+        Style.setStyle(jPanels, buttons, jLists);
     }
 
     private void onOkay() {
         try {
-            ArrayList<Fraction> fractions = new ArrayList<>();
-            for (JTextField jTextField:textFields) {
-                String s=jTextField.getText();
-                Fraction fraction;
-                try {
-                    fraction = new Fraction(new BigDecimal(s), BigDecimal.valueOf(1));
-                } catch (Throwable e) {
-                    String[] ss = s.split("/");
-                    fraction = new Fraction(new BigDecimal(ss[0]), new BigDecimal(ss[1]));
-                }
-                fractions.add(fraction);
-            }
+            ArrayList<Fraction> fractions = getFractions();
             GetOutCome getOutCome = new GetOutCome("计算结果", "计算结果:" + abstractFunction.operation(fractions).toString());
             getOutCome.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 3, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 3);
             getOutCome.setVisible(true);
@@ -118,5 +106,21 @@ public class FunctionCalculatorGetValue extends JDialog {
             return;
         }
         dispose();
+    }
+
+    private ArrayList<Fraction> getFractions() throws Throwable {
+        ArrayList<Fraction> fractions = new ArrayList<>();
+        for (JTextField jTextField : textFields) {
+            String s = jTextField.getText();
+            Fraction fraction;
+            try {
+                fraction = new Fraction(new BigDecimal(s), BigDecimal.valueOf(1));
+            } catch (Throwable e) {
+                String[] ss = s.split("/");
+                fraction = new Fraction(new BigDecimal(ss[0]), new BigDecimal(ss[1]));
+            }
+            fractions.add(fraction);
+        }
+        return fractions;
     }
 }

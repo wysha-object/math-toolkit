@@ -1,4 +1,3 @@
-
 package data;
 
 import java.awt.*;
@@ -13,8 +12,9 @@ public class Setting implements Serializable {
     public Color background;
     public Color foreground;
     public Font font;
+
     public static void setStyle(Style style) {
-        MathToolkitNecessaryData.mathToolkitNecessaryData.setting.style=style;
+        MathToolkitNecessaryData.mathToolkitNecessaryData.setting.style = style;
         MathToolkitNecessaryData.mathToolkitNecessaryData.setting.jPanelBackground = style.jPanelBackground;
         MathToolkitNecessaryData.mathToolkitNecessaryData.setting.foreground = style.foreground;
         MathToolkitNecessaryData.mathToolkitNecessaryData.setting.background = style.background;

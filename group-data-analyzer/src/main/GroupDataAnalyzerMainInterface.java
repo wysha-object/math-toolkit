@@ -1,4 +1,3 @@
-
 package main;
 
 import data.MathToolkitNecessaryData;
@@ -95,7 +94,7 @@ public class GroupDataAnalyzerMainInterface extends MathGroupView {
         get.addActionListener(e -> {
             try {
                 GroupDataAnalyzerGet groupDataAnalyzerGet = new GroupDataAnalyzerGet(current[0]);
-                groupDataAnalyzerGet.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()/2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()/2);
+                groupDataAnalyzerGet.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
                 groupDataAnalyzerGet.setLocationRelativeTo(null);
                 groupDataAnalyzerGet.setVisible(true);
             } catch (Throwable ex) {
@@ -113,14 +112,14 @@ public class GroupDataAnalyzerMainInterface extends MathGroupView {
                 edit.setEnabled(false);
                 out.setEnabled(false);
                 get.setEnabled(false);
-            } else if (list.getSelectedIndices().length==1){
+            } else if (list.getSelectedIndices().length == 1) {
                 current = new GroupData[1];
                 current[0] = list.getSelectedValue();
                 delete.setEnabled(true);
                 edit.setEnabled(true);
                 out.setEnabled(true);
                 get.setEnabled(true);
-            }else {
+            } else {
                 current = new GroupData[list.getSelectedIndices().length];
                 int[] selectedIndices = list.getSelectedIndices();
                 for (int j = 0; j < selectedIndices.length; j++) {
@@ -133,19 +132,19 @@ public class GroupDataAnalyzerMainInterface extends MathGroupView {
             }
         });
         in.addActionListener(e -> {
-            JFileChooser jFileChooser=new JFileChooser();
+            JFileChooser jFileChooser = new JFileChooser();
             jFileChooser.setFont(MathToolkitNecessaryData.mathToolkitNecessaryData.setting.font);
             jFileChooser.setFileFilter(new FileNameExtensionFilter("数据组文件", "GroupData"));
             jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             jFileChooser.setMultiSelectionEnabled(true);
             if (
-                    jFileChooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION
-            ){
-                File[] selectedFiles=jFileChooser.getSelectedFiles();
-                if (selectedFiles.length==0){
-                    selectedFiles=new File[]{jFileChooser.getSelectedFile()};
+                    jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION
+            ) {
+                File[] selectedFiles = jFileChooser.getSelectedFiles();
+                if (selectedFiles.length == 0) {
+                    selectedFiles = new File[]{jFileChooser.getSelectedFile()};
                 }
-                for (File file:selectedFiles){
+                for (File file : selectedFiles) {
                     try {
                         GroupData groupData =
                                 (GroupData)
@@ -160,7 +159,7 @@ public class GroupDataAnalyzerMainInterface extends MathGroupView {
                         );
                     } catch (Throwable exception) {
                         new ErrorInterface(
-                                file+"读取失败",
+                                file + "读取失败",
                                 exception,
                                 false
                         ).setVisible(true);
@@ -170,12 +169,12 @@ public class GroupDataAnalyzerMainInterface extends MathGroupView {
             list.setListData(mathGroupMainInterface.mathGroup.groupData.toArray(new GroupData[0]));
         });
         out.addActionListener(e -> {
-            JFileChooser jFileChooser=new JFileChooser();
+            JFileChooser jFileChooser = new JFileChooser();
             jFileChooser.setFont(MathToolkitNecessaryData.mathToolkitNecessaryData.setting.font);
             jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             if (
-                    jFileChooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION
-            ){
+                    jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION
+            ) {
                 try {
                     for (GroupData groupData : current) {
                         new ObjectOutputStream(
@@ -184,7 +183,7 @@ public class GroupDataAnalyzerMainInterface extends MathGroupView {
                     }
                     ProcessBuilder processBuilder = new ProcessBuilder("explorer", jFileChooser.getSelectedFile().getPath());
                     processBuilder.start();
-                }catch (Exception exception){
+                } catch (Exception exception) {
                     new ErrorInterface(
                             "写入失败",
                             exception,
@@ -199,10 +198,11 @@ public class GroupDataAnalyzerMainInterface extends MathGroupView {
             this.repaint();
         }).start();
     }
+
     public void setStyle() {
         HashSet<JComponent> jPanels = new HashSet<>();
         HashSet<JComponent> buttons = new HashSet<>();
-        HashSet<JList<?>> jLists=new HashSet<>();
+        HashSet<JList<?>> jLists = new HashSet<>();
         jPanels.add(contentPane);
         jPanels.add(left);
         jPanels.add(right);
@@ -215,6 +215,6 @@ public class GroupDataAnalyzerMainInterface extends MathGroupView {
         buttons.add(downLabel);
         buttons.add(jLabel);
         jLists.add(list);
-        Style.setStyle(jPanels,buttons,jLists);
+        Style.setStyle(jPanels, buttons, jLists);
     }
 }
