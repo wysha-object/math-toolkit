@@ -1,7 +1,6 @@
 package math.math.numberObject;
 
 import math.MathNumberObject;
-import math.MathTools;
 import math.math.math.ArithmeticOperation;
 import math.math.math.Braces;
 
@@ -13,9 +12,9 @@ import java.util.Objects;
  * @author wysha
  */
 final public class Fraction extends MathNumberObject<Fraction> implements Comparable<Fraction> {
-    public final Formula numerator;
-    public final Formula denominator;
-    public final Formula exponent;
+    public final Formula numerator;//分子
+    public final Formula denominator;//分母
+    public final Formula exponent;//指数
 
     private Fraction(Fraction fraction) {
         this.numerator = fraction.denominator;
@@ -24,7 +23,7 @@ final public class Fraction extends MathNumberObject<Fraction> implements Compar
     }
 
     public Fraction(Formula numerator, Formula denominator, Formula exponent) throws Throwable {
-        double n;
+        /*double n;
         double d;
         double e;
         n = numerator.values.size() == 1 ? numerator.values.get(0).doubleValue() : numerator.operation().toDouble();
@@ -44,7 +43,7 @@ final public class Fraction extends MathNumberObject<Fraction> implements Compar
         }
         BigDecimal rs = MathTools.gcd(BigDecimal.valueOf(n), BigDecimal.valueOf(d));
         numerator = numerator.divide(new Formula(rs));
-        denominator = denominator.divide(new Formula(rs));
+        denominator = denominator.divide(new Formula(rs));*/
         this.numerator = numerator;
         this.denominator = denominator;
         this.exponent = exponent;

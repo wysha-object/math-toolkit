@@ -3,10 +3,8 @@ package main;
 import data.Style;
 import main.edit.AbstractFunctionCalculatorEdits;
 import main.edit.EditMultivariateFunction;
-import main.edit.EditOneVariableOneDegreeFunction;
 import math.function.AbstractFunction;
 import math.function.multivariate.MultivariateFunction;
-import math.function.onevariable.OneVariableOneDegreeFunction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +18,6 @@ import java.util.Objects;
 public class FunctionCalculatorEdit extends MathGroupView {
     final CardLayout cardLayout = new CardLayout();
     final EditMultivariateFunction editMultivariateFunction = new EditMultivariateFunction(this, mathGroupMainInterface);
-    final EditOneVariableOneDegreeFunction editOneVariableOneDegreeFunction = new EditOneVariableOneDegreeFunction(this, mathGroupMainInterface);
     private JPanel contentPane;
     private JButton buttonOkay;
     private JButton buttonCancel;
@@ -39,15 +36,9 @@ public class FunctionCalculatorEdit extends MathGroupView {
                 editMultivariateFunction.setFunction(multivariateFunction);
                 up.add(editMultivariateFunction.contentPane, editMultivariateFunction.name);
                 setCurrent(editMultivariateFunction);
-            } else if (abstractFunction instanceof OneVariableOneDegreeFunction) {
-                OneVariableOneDegreeFunction oneVariableOneDegreeFunction = (OneVariableOneDegreeFunction) abstractFunction;
-                editOneVariableOneDegreeFunction.setFunction(oneVariableOneDegreeFunction);
-                up.add(editOneVariableOneDegreeFunction.contentPane, editOneVariableOneDegreeFunction.name);
-                setCurrent(editOneVariableOneDegreeFunction);
             }
         } else {
             up.add(editMultivariateFunction.contentPane, editMultivariateFunction.name);
-            up.add(editOneVariableOneDegreeFunction.contentPane, editOneVariableOneDegreeFunction.name);
             Functions[] functions = new Functions[]{
                     Functions.MultivariateFunction,
                     Functions.OneVariable_OneDegree_Function
@@ -57,8 +48,6 @@ public class FunctionCalculatorEdit extends MathGroupView {
                 Functions requireNonNull = (Functions) Objects.requireNonNull(comboBox.getSelectedItem());
                 if (requireNonNull == Functions.MultivariateFunction) {
                     setCurrent(editMultivariateFunction);
-                } else if (requireNonNull == Functions.OneVariable_OneDegree_Function) {
-                    setCurrent(editOneVariableOneDegreeFunction);
                 }
             });
             comboBox.setSelectedItem(functions[0]);

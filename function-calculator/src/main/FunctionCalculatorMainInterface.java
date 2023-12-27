@@ -49,30 +49,15 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
         getValueList.setEnabled(false);
         this.setContentPane(contentPane);
         setTitle("函数计算器");
-        setSize(
-                (int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2,
-                (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2
-        );
+        setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
         setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new
-            class ValueAndFractions {
-                final Fraction value;
-                final Fraction[] fractions;
-
-                ValueAndFractions(Fraction value, Fraction[] fraction) {
-                    this.value = value;
-                    this.fractions = fraction;
-                }
-
-                @Override
-                public String toString() {
-                    StringBuilder stringBuilder = new StringBuilder();
-                    if (fractions.length != 0) {
-                        stringBuilder.append("带入的值:").append(Arrays.toString(fractions));
+        addWindowListener(
+                new WindowAdapter() {
+                    @Override
+                    public void windowClosing(WindowEvent event) {
+                        setVisible(false);
                     }
-                    return stringBuilder + "得到的值" + value.toString();
                 }
-            }
         );
         setLocationRelativeTo(null);
         add.addActionListener(e -> {
@@ -81,19 +66,13 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
                 add.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
                 add.setVisible(true);
             } catch (Throwable ex) {
-                new ErrorInterface(
-                        "函数创建失败,请检查",
-                        ex,
-                        true
-                ).setVisible(true);
+                new ErrorInterface("函数创建失败,请检查", ex, true).setVisible(true);
             }
             list.setListData(mathGroupMainInterface.mathGroup.functions.toArray(new AbstractFunction[0]));
         });
         delete.addActionListener(e -> {
             for (AbstractFunction abstractFunction : current) {
-                mathGroupMainInterface.mathGroup.functions.remove(
-                        abstractFunction
-                );
+                mathGroupMainInterface.mathGroup.functions.remove(abstractFunction);
             }
             list.setListData(mathGroupMainInterface.mathGroup.functions.toArray(new AbstractFunction[0]));
         });
@@ -107,21 +86,12 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
                 add.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
                 add.setVisible(true);
             } catch (Throwable ex) {
-                new ErrorInterface(
-                        "函数创建失败,请检查",
-                        ex,
-                        true
-                ).setVisible(true);
+                new ErrorInterface("函数创建失败,请检查", ex, true).setVisible(true);
             }
             list.setListData(mathGroupMainInterface.mathGroup.functions.toArray(new AbstractFunction[0]));
         });
         getValueList.addActionListener(e -> {
-                                  WindowAdapter() {
-                                      @Override
-                                      public void windowClosing(WindowEvent event) {
-                                          setVisible(false);
-                                      }
-                                  }
+
             ArrayList<Object> arrayList = new ArrayList<>();
             for (int i = 0; i < current[0].valueLL.size(); i++) {
                 arrayList.add(new ValueAndFractions(current[0].valueLL.get(i), current[0].TheValuesBroughtIn.get(i)));
@@ -173,36 +143,22 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
             jFileChooser.setFileFilter(new FileNameExtensionFilter("函数文件", "Function"));
             jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             jFileChooser.setMultiSelectionEnabled(true);
-            if (
-                    jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION
-            ) {
+            if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                 File[] selectedFiles = jFileChooser.getSelectedFiles();
                 if (selectedFiles.length == 0) {
                     selectedFiles = new File[]{jFileChooser.getSelectedFile()};
                 }
                 for (File file : selectedFiles) {
                     try {
-                        AbstractFunction abstractFunction =
-                                (AbstractFunction)
-                                        new ObjectInputStream(
-                                                Files.newInputStream(
-                                                        file.toPath()
-                                                )
-                                        ).readObject();
+                        AbstractFunction abstractFunction = (AbstractFunction) new ObjectInputStream(Files.newInputStream(file.toPath())).readObject();
                         for (AbstractFunction f : mathGroupMainInterface.mathGroup.functions) {
                             if (f.name.equals(abstractFunction.name)) {
                                 throw new RuntimeException("列表中已有同名函数");
                             }
                         }
-                        mathGroupMainInterface.mathGroup.functions.add(
-                                abstractFunction
-                        );
+                        mathGroupMainInterface.mathGroup.functions.add(abstractFunction);
                     } catch (Exception exception) {
-                        new ErrorInterface(
-                                file + "读取失败",
-                                exception,
-                                false
-                        ).setVisible(true);
+                        new ErrorInterface(file + "读取失败", exception, false).setVisible(true);
                     }
                 }
             }
@@ -212,23 +168,15 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
             JFileChooser jFileChooser = new JFileChooser();
             jFileChooser.setFont(MathToolkitNecessaryData.mathToolkitNecessaryData.setting.font);
             jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-            if (
-                    jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION
-            ) {
+            if (jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION) {
                 try {
                     for (AbstractFunction abstractFunction : current) {
-                        new ObjectOutputStream(
-                                Files.newOutputStream(Paths.get(jFileChooser.getSelectedFile().getPath() + "\\" + abstractFunction.name + ".Function"))
-                        ).writeObject(abstractFunction);
+                        new ObjectOutputStream(Files.newOutputStream(Paths.get(jFileChooser.getSelectedFile().getPath() + "\\" + abstractFunction.name + ".Function"))).writeObject(abstractFunction);
                     }
                     ProcessBuilder processBuilder = new ProcessBuilder("explorer", jFileChooser.getSelectedFile().getPath());
                     processBuilder.start();
                 } catch (Exception exception) {
-                    new ErrorInterface(
-                            "写入失败",
-                            exception,
-                            false
-                    ).setVisible(true);
+                    new ErrorInterface("写入失败", exception, false).setVisible(true);
                 }
             }
         });
@@ -259,5 +207,24 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
         buttons.add(downLabel);
         jLists.add(list);
         Style.setStyle(jPanels, buttons, jLists);
+    }
+
+    static class ValueAndFractions {
+        final Fraction value;
+        final Fraction[] fractions;
+
+        ValueAndFractions(Fraction value, Fraction[] fraction) {
+            this.value = value;
+            this.fractions = fraction;
+        }
+
+        @Override
+        public String toString() {
+            StringBuilder stringBuilder = new StringBuilder();
+            if (fractions.length != 0) {
+                stringBuilder.append("带入的值:").append(Arrays.toString(fractions));
+            }
+            return stringBuilder + "得到的值" + value.toString();
+        }
     }
 }
