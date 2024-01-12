@@ -1,4 +1,3 @@
-
 package main;
 
 import data.MathToolkitNecessaryData;
@@ -103,29 +102,11 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
             list.setListData(mathGroupMainInterface.mathGroup.functions.toArray(new AbstractFunction[0]));
         });
         getValueList.addActionListener(e -> {
-            class ValueAndFractions {
-                final Fraction value;
-                final Fraction[] fractions;
-
-                ValueAndFractions(Fraction value, Fraction[] fraction) {
-                    this.value = value;
-                    this.fractions = fraction;
-                }
-
-                @Override
-                public String toString() {
-                    StringBuilder stringBuilder=new StringBuilder();
-                    if (fractions.length!=0){
-                        stringBuilder.append("带入的值:").append(Arrays.toString(fractions));
-                    }
-                    return stringBuilder + "得到的值" + value.toString();
-                }
-            }
             ArrayList<Object> arrayList = new ArrayList<>();
             for (int i = 0; i < current[0].valueLL.size(); i++) {
                 arrayList.add(new ValueAndFractions(current[0].valueLL.get(i), current[0].TheValuesBroughtIn.get(i)));
             }
-            GetAndSetList getAndSetList = new GetAndSetList("选择要删除的值", arrayList,new ArrayList<>());
+            GetAndSetList getAndSetList = new GetAndSetList("选择要删除的值", arrayList, new ArrayList<>());
             getAndSetList.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
             getAndSetList.setVisible(true);
             java.util.List<Object> date = getAndSetList.getChoose();
@@ -143,7 +124,7 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
                 out.setEnabled(false);
                 operation.setEnabled(false);
                 getValueList.setEnabled(false);
-            } else if (list.getSelectedIndices().length==1){
+            } else if (list.getSelectedIndices().length == 1) {
                 current = new AbstractFunction[1];
                 current[0] = list.getSelectedValue();
                 delete.setEnabled(true);
@@ -153,7 +134,7 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
                 if (current[0].valueLL.size() > 1) {
                     getValueList.setEnabled(true);
                 }
-            }else {
+            } else {
                 current = new AbstractFunction[list.getSelectedIndices().length];
                 int[] selectedIndices = list.getSelectedIndices();
                 for (int j = 0; j < selectedIndices.length; j++) {
@@ -167,27 +148,27 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
             }
         });
         in.addActionListener(e -> {
-            JFileChooser jFileChooser=new JFileChooser();
+            JFileChooser jFileChooser = new JFileChooser();
             jFileChooser.setFont(MathToolkitNecessaryData.mathToolkitNecessaryData.setting.font);
             jFileChooser.setFileFilter(new FileNameExtensionFilter("函数文件", "Function"));
             jFileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
             jFileChooser.setMultiSelectionEnabled(true);
             if (
-                    jFileChooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION
-            ){
-                File[] selectedFiles=jFileChooser.getSelectedFiles();
-                if (selectedFiles.length==0){
-                    selectedFiles=new File[]{jFileChooser.getSelectedFile()};
+                    jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION
+            ) {
+                File[] selectedFiles = jFileChooser.getSelectedFiles();
+                if (selectedFiles.length == 0) {
+                    selectedFiles = new File[]{jFileChooser.getSelectedFile()};
                 }
-                for (File file:selectedFiles){
+                for (File file : selectedFiles) {
                     try {
                         AbstractFunction abstractFunction =
                                 (AbstractFunction)
-                                new ObjectInputStream(
-                                        Files.newInputStream(
-                                                file.toPath()
-                                        )
-                                ).readObject();
+                                        new ObjectInputStream(
+                                                Files.newInputStream(
+                                                        file.toPath()
+                                                )
+                                        ).readObject();
                         for (AbstractFunction f : mathGroupMainInterface.mathGroup.functions) {
                             if (f.name.equals(abstractFunction.name)) {
                                 throw new RuntimeException("列表中已有同名函数");
@@ -196,9 +177,9 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
                         mathGroupMainInterface.mathGroup.functions.add(
                                 abstractFunction
                         );
-                    }catch (Exception exception){
+                    } catch (Exception exception) {
                         new ErrorInterface(
-                                file+"读取失败",
+                                file + "读取失败",
                                 exception,
                                 false
                         ).setVisible(true);
@@ -208,12 +189,12 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
             list.setListData(mathGroupMainInterface.mathGroup.functions.toArray(new AbstractFunction[0]));
         });
         out.addActionListener(e -> {
-            JFileChooser jFileChooser=new JFileChooser();
+            JFileChooser jFileChooser = new JFileChooser();
             jFileChooser.setFont(MathToolkitNecessaryData.mathToolkitNecessaryData.setting.font);
             jFileChooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             if (
-                    jFileChooser.showOpenDialog(null)==JFileChooser.APPROVE_OPTION
-            ){
+                    jFileChooser.showOpenDialog(null) == JFileChooser.APPROVE_OPTION
+            ) {
                 try {
                     for (AbstractFunction abstractFunction : current) {
                         new ObjectOutputStream(
@@ -222,7 +203,7 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
                     }
                     ProcessBuilder processBuilder = new ProcessBuilder("explorer", jFileChooser.getSelectedFile().getPath());
                     processBuilder.start();
-                }catch (Exception exception){
+                } catch (Exception exception) {
                     new ErrorInterface(
                             "写入失败",
                             exception,
@@ -239,10 +220,11 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
             }
         }).start();
     }
+
     public void setStyle() {
         HashSet<JComponent> jPanels = new HashSet<>();
         HashSet<JComponent> buttons = new HashSet<>();
-        HashSet<JList<?>> jLists=new HashSet<>();
+        HashSet<JList<?>> jLists = new HashSet<>();
         jPanels.add(contentPane);
         jPanels.add(left);
         jPanels.add(right);
@@ -256,6 +238,25 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
         buttons.add(jLabel);
         buttons.add(downLabel);
         jLists.add(list);
-        Style.setStyle(jPanels,buttons,jLists);
+        Style.setStyle(jPanels, buttons, jLists);
+    }
+}
+
+class ValueAndFractions {
+    final Fraction value;
+    final Fraction[] fractions;
+
+    ValueAndFractions(Fraction value, Fraction[] fraction) {
+        this.value = value;
+        this.fractions = fraction;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder stringBuilder = new StringBuilder();
+        if (fractions.length != 0) {
+            stringBuilder.append("带入的值:").append(Arrays.toString(fractions));
+        }
+        return stringBuilder + "得到的值" + value.toString();
     }
 }

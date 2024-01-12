@@ -1,4 +1,3 @@
-
 package view;
 
 import data.Style;
@@ -33,21 +32,21 @@ public class GetAndSetList extends JDialog {
     public GetAndSetList(String text, List<Object> data, List<Object> choose) {
         setTitle(text);
         this.data = data;
-        chooseDate=choose;
+        chooseDate = choose;
         list.setListData(this.data.toArray());
-        if (choose!=null) {
+        if (choose != null) {
             add.setEnabled(false);
             remove.setEnabled(false);
             list.addListSelectionListener(e -> add.setEnabled(list.getSelectedIndex() != -1));
             chooseList.addListSelectionListener(e -> remove.setEnabled(chooseList.getSelectedIndex() != -1));
             add.addActionListener(e -> {
-                int[] ints=list.getSelectedIndices();
-                if (ints.length==1){
-                    Object o=list.getSelectedValue();
+                int[] ints = list.getSelectedIndices();
+                if (ints.length == 1) {
+                    Object o = list.getSelectedValue();
                     this.data.remove(o);
                     chooseDate.add(o);
-                }else {
-                    for (int j = ints.length-1; j >=0; j--) {
+                } else {
+                    for (int j = ints.length - 1; j >= 0; j--) {
                         int i = ints[j];
                         chooseDate.add(this.data.remove(i));
                     }
@@ -56,13 +55,13 @@ public class GetAndSetList extends JDialog {
                 chooseList.setListData(chooseDate.toArray());
             });
             remove.addActionListener(e -> {
-                int[] ints=chooseList.getSelectedIndices();
-                if (ints.length==1){
-                    Object o=chooseList.getSelectedValue();
+                int[] ints = chooseList.getSelectedIndices();
+                if (ints.length == 1) {
+                    Object o = chooseList.getSelectedValue();
                     this.data.add(o);
                     chooseDate.remove(o);
-                }else {
-                    for (int j = ints.length-1; j >=0; j--) {
+                } else {
+                    for (int j = ints.length - 1; j >= 0; j--) {
                         int i = ints[j];
                         this.data.add(chooseDate.remove(i));
                     }
@@ -71,7 +70,7 @@ public class GetAndSetList extends JDialog {
                 chooseList.setListData(chooseDate.toArray());
             });
             chooseList.setListData(chooseDate.toArray());
-        }else {
+        } else {
             leftLabel.setVisible(false);
             rightLabel.setVisible(false);
             right.setVisible(false);
@@ -94,6 +93,7 @@ public class GetAndSetList extends JDialog {
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         contentPane.registerKeyboardAction(e -> onOkay(), KeyStroke.getKeyStroke(KeyEvent.VK_ENTER, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
     }
+
     public void setStyle() {
         HashSet<JComponent> jPanels = new HashSet<>();
         HashSet<JComponent> buttons = new HashSet<>();
@@ -111,15 +111,17 @@ public class GetAndSetList extends JDialog {
         buttons.add(jLabel);
         jLists.add(list);
         jLists.add(chooseList);
-        Style.setStyle(jPanels,buttons,jLists);
+        Style.setStyle(jPanels, buttons, jLists);
     }
-    public List<Object> getChoose(){
+
+    public List<Object> getChoose() {
         return chooseDate;
     }
 
     private void onOkay() {
         dispose();
     }
+
     private void onCancel() {
         data.addAll(chooseDate);
         if (!chooseDate.isEmpty()) {

@@ -1,4 +1,3 @@
-
 package set.settings;
 
 import data.MathToolkitNecessaryData;
@@ -19,11 +18,12 @@ public class AppearanceSetting extends AbstractSettings {
     private JPanel setStyle;
 
     public AppearanceSetting(JDialog jDialog) {
-        super(AppearanceSetting.class.toString(),jDialog);
+        super(AppearanceSetting.class.toString(), jDialog);
         setStyle();
-        comboBox.setModel(new  DefaultComboBoxModel<>(MathToolkitNecessaryData.mathToolkitNecessaryData.styles));
+        comboBox.setModel(new DefaultComboBoxModel<>(MathToolkitNecessaryData.mathToolkitNecessaryData.styles));
         comboBox.setSelectedItem(MathToolkitNecessaryData.mathToolkitNecessaryData.setting.style);
     }
+
     @Override
     public void onCancel() {
         jDialog.dispose();
@@ -41,6 +41,6 @@ public class AppearanceSetting extends AbstractSettings {
         jPanels.add(setStyle);
         buttons.add(comboBox);
         buttons.add(jLabel);
-        Style.setStyle(jPanels,buttons,null);
+        Style.setStyle(jPanels, buttons, null);
     }
 }

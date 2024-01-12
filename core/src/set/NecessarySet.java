@@ -1,4 +1,3 @@
-
 package set;
 
 import data.MathToolkitNecessaryData;
@@ -13,11 +12,11 @@ import java.util.HashSet;
  * @author wysha
  */
 public class NecessarySet extends Set {
+    final AppearanceSetting appearanceSetting = new AppearanceSetting(this);
     private JPanel contentPane;
     private JButton style;
     private JButton buttonOkay;
     private JPanel right;
-    final AppearanceSetting appearanceSetting =new AppearanceSetting(this);
     private JButton buttonCancel;
     private JPanel up;
     private JPanel down;
@@ -26,11 +25,11 @@ public class NecessarySet extends Set {
         super.show = right;
         setContentPane(contentPane);
         right.setLayout(cardLayout);
-        right.add(defaultPage.contentPane,defaultPage.name);
-        right.add(appearanceSetting.contentPane,appearanceSetting.name);
+        right.add(defaultPage.contentPane, defaultPage.name);
+        right.add(appearanceSetting.contentPane, appearanceSetting.name);
         setCurrent(defaultPage);
         buttonOkay.addActionListener(ee -> {
-            if (current!=defaultPage){
+            if (current != defaultPage) {
                 current.onOkay();
                 try {
                     MathToolkitNecessaryData.mathToolkitNecessaryData.write();
@@ -65,6 +64,6 @@ public class NecessarySet extends Set {
         buttons.add(style);
         buttons.add(buttonOkay);
         buttons.add(buttonCancel);
-        Style.setStyle(jPanels,buttons,null);
+        Style.setStyle(jPanels, buttons, null);
     }
 }

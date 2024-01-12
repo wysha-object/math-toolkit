@@ -1,6 +1,6 @@
-
 package main;
 
+import data.CuringConfiguration;
 import data.Style;
 import math.MathGroup;
 import view.ErrorInterface;
@@ -37,6 +37,7 @@ public class MathGroupMainInterface extends JFrame {
     private JPanel right;
 
     public MathGroupMainInterface() {
+        v.setText(CuringConfiguration.VERSION);
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         addWindowListener(new WindowAdapter() {
             @Override

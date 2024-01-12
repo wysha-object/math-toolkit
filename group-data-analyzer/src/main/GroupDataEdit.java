@@ -1,4 +1,3 @@
-
 package main;
 
 import data.Style;
@@ -21,12 +20,13 @@ import java.util.List;
  * @author wysha
  */
 public class GroupDataEdit extends MathGroupView {
-    List<Object> groupDates=new ArrayList<>();
     final List<Object> remove = new ArrayList<>(mathGroupMainInterface.mathGroup.groupData);
-    final GridLayout gridLayout=new GridLayout(
+    final GridLayout gridLayout = new GridLayout(
             -1,
-            (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth()/100)
+            (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 100)
     );
+    List<Object> groupDates = new ArrayList<>();
+    FractionEdit[] fractionEdits;
     private JPanel contentPane;
     private JButton buttonOkay;
     private JButton buttonCancel;
@@ -41,7 +41,6 @@ public class GroupDataEdit extends MathGroupView {
     private FractionEdit edit;
     private JButton setAdd;
     private JTextArea textArea;
-    FractionEdit[] fractionEdits;
 
     public GroupDataEdit(MathGroupMainInterface mathGroupMainInterface, GroupData groupData) throws Throwable {
         super(mathGroupMainInterface);
@@ -64,14 +63,14 @@ public class GroupDataEdit extends MathGroupView {
                 onCancel();
             }
         });
-        spinner.setModel(new SpinnerNumberModel(1,1,Integer.MAX_VALUE,1));
-        fractionEdits=new FractionEdit[1];
-        fractionEdits[0]=new FractionEdit("第1个数据:",edit.getFraction());
+        spinner.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
+        fractionEdits = new FractionEdit[1];
+        fractionEdits[0] = new FractionEdit("第1个数据:", edit.getFraction());
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         rightPanel.setLayout(gridLayout);
         rightPanel.add(fractionEdits[0]);
         if (groupData != null) {
-            for (FractionEdit fractionEdit:fractionEdits){
+            for (FractionEdit fractionEdit : fractionEdits) {
                 rightPanel.remove(fractionEdit);
             }
             textField.setText(groupData.name + "'");
@@ -84,26 +83,26 @@ public class GroupDataEdit extends MathGroupView {
                 rightPanel.add(fractionEdit);
             }
             pack();
-            setSize(getWidth(),getHeight());
+            setSize(getWidth(), getHeight());
         }
         spinner.addChangeListener(e -> {
             try {
-                for (FractionEdit fractionEdit:fractionEdits){
+                for (FractionEdit fractionEdit : fractionEdits) {
                     rightPanel.remove(fractionEdit);
                 }
-                int v=(int)spinner.getValue();
-                FractionEdit[] f=new FractionEdit[v];
+                int v = (int) spinner.getValue();
+                FractionEdit[] f = new FractionEdit[v];
                 for (int i = 0; i < f.length; i++) {
-                    f[i]= i<fractionEdits.length?fractionEdits[i]:new FractionEdit("第"+(i+1)+"个数据:",edit.getFraction());
+                    f[i] = i < fractionEdits.length ? fractionEdits[i] : new FractionEdit("第" + (i + 1) + "个数据:", edit.getFraction());
                 }
-                fractionEdits=f;
+                fractionEdits = f;
                 for (FractionEdit fractionEdit : fractionEdits) {
                     rightPanel.add(fractionEdit);
                 }
-                int w=getWidth();
-                int h=getHeight();
+                int w = getWidth();
+                int h = getHeight();
                 pack();
-                setSize(w,h);
+                setSize(w, h);
             } catch (Throwable ex) {
                 new ErrorInterface(
                         "值异常",
@@ -114,12 +113,12 @@ public class GroupDataEdit extends MathGroupView {
         });
         setStyle();
         setAdd.addActionListener(e -> {
-            GetAndSetList getAndSetList=new GetAndSetList("选择需要的数据组",remove, groupDates);
+            GetAndSetList getAndSetList = new GetAndSetList("选择需要的数据组", remove, groupDates);
             getAndSetList.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 2, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 2);
             getAndSetList.setVisible(true);
-            groupDates=getAndSetList.getChoose();
-            StringBuilder s=new StringBuilder();
-            for (Object g:groupDates){
+            groupDates = getAndSetList.getChoose();
+            StringBuilder s = new StringBuilder();
+            for (Object g : groupDates) {
                 s.append(g.toString()).append("\n");
             }
             textArea.setText(String.valueOf(s));
@@ -128,13 +127,13 @@ public class GroupDataEdit extends MathGroupView {
 
     private void onOkay() {
         try {
-            Fraction[] fractions=new Fraction[fractionEdits.length];
+            Fraction[] fractions = new Fraction[fractionEdits.length];
             for (int i = 0; i < fractions.length; i++) {
-                fractions[i]=fractionEdits[i].getFraction();
+                fractions[i] = fractionEdits[i].getFraction();
             }
-            GroupData[] groupDataArray=new GroupData[groupDates.size()];
-            for (int i=0;i<groupDates.size();i++){
-                groupDataArray[i]=(GroupData) groupDates.get(i);
+            GroupData[] groupDataArray = new GroupData[groupDates.size()];
+            for (int i = 0; i < groupDates.size(); i++) {
+                groupDataArray[i] = (GroupData) groupDates.get(i);
             }
             new GroupData(fractions, groupDataArray, textField.getText(), mathGroupMainInterface.mathGroup);
             dispose();
@@ -150,10 +149,11 @@ public class GroupDataEdit extends MathGroupView {
     private void onCancel() {
         dispose();
     }
+
     public void setStyle() {
         HashSet<JComponent> jPanels = new HashSet<>();
         HashSet<JComponent> buttons = new HashSet<>();
-        HashSet<JList<?>> jLists=new HashSet<>();
+        HashSet<JList<?>> jLists = new HashSet<>();
         jPanels.add(contentPane);
         jPanels.add(left);
         jPanels.add(right);
@@ -168,6 +168,6 @@ public class GroupDataEdit extends MathGroupView {
         buttons.add(buttonCancel);
         buttons.add(textArea);
         buttons.add(setAdd);
-        Style.setStyle(jPanels,buttons,jLists);
+        Style.setStyle(jPanels, buttons, jLists);
     }
 }

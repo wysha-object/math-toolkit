@@ -23,7 +23,7 @@
         <properties>
           <horizontalAlignment value="0"/>
           <horizontalTextPosition value="0"/>
-          <text value="当前版本号1.0.0"/>
+          <text value=""/>
         </properties>
       </component>
     </children>

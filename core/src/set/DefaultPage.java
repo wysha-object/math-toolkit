@@ -1,6 +1,6 @@
-
 package set;
 
+import data.CuringConfiguration;
 import data.Style;
 
 import javax.swing.*;
@@ -15,7 +15,8 @@ public class DefaultPage extends AbstractSetSubpages {
     private JLabel down;
 
     public DefaultPage(JDialog jDialog) {
-        super(DefaultPage.class.toString(),jDialog);
+        super(DefaultPage.class.toString(), jDialog);
+        jLabel.setText(CuringConfiguration.VERSION);
         setStyle();
     }
 
@@ -40,6 +41,6 @@ public class DefaultPage extends AbstractSetSubpages {
         jPanels.add(contentPane);
         buttons.add(jLabel);
         buttons.add(down);
-        Style.setStyle(jPanels,buttons,null);
+        Style.setStyle(jPanels, buttons, null);
     }
 }

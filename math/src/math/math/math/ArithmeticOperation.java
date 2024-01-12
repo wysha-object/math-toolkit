@@ -11,15 +11,30 @@ import java.math.RoundingMode;
  */
 
 public enum ArithmeticOperation implements Math {
-    /*
-
+    /**
+     * 加
      */
-    ADD(1),//加
-    SUBTRACT(1),//减
-    MULTIPLY(2),//乘
-    DIVIDE(2),//除
-    POWERED(3),//乘方
-    ROOTING(3);//开方
+    ADD(1),
+    /**
+     * 减
+     */
+    SUBTRACT(1),
+    /**
+     * 乘
+     */
+    MULTIPLY(2),
+    /**
+     * 除
+     */
+    DIVIDE(2),
+    /**
+     * 乘方
+     */
+    POWERED(3),
+    /**
+     * 开方
+     */
+    ROOTING(3);
     public static final int MAX = 3;
     public final int Priority;
 
@@ -33,10 +48,10 @@ public enum ArithmeticOperation implements Math {
                 left.denominator.multiply(right.denominator)
         );
         double d;
-        switch (arithmeticOperation) {
-            case ADD:
+        return switch (arithmeticOperation) {
+            case ADD -> {
                 denominator = bigDecimal;
-                return new Fraction(
+                yield new Fraction(
                         new BigDecimal((
                                 left.numerator.multiply(
                                         right.denominator
@@ -47,9 +62,10 @@ public enum ArithmeticOperation implements Math {
                         ),
                         denominator
                 );
-            case SUBTRACT:
+            }
+            case SUBTRACT -> {
                 denominator = bigDecimal;
-                return new Fraction(
+                yield new Fraction(
                         new BigDecimal((
                                 left.numerator.multiply(
                                         right.denominator
@@ -60,28 +76,29 @@ public enum ArithmeticOperation implements Math {
                         ),
                         denominator
                 );
-            case MULTIPLY:
+            }
+            case MULTIPLY -> {
                 denominator = bigDecimal;
-                return new Fraction(
+                yield new Fraction(
                         new BigDecimal(
                                 left.numerator.multiply(right.numerator)
                         )
                         ,
                         denominator
                 );
-            case DIVIDE:
-                return new Fraction(
-                        new BigDecimal(
-                                left.numerator.multiply(right.denominator)
-                        )
-                        ,
-                        new BigDecimal(
-                                left.denominator.multiply(right.numerator)
-                        )
-                );
-            case POWERED:
+            }
+            case DIVIDE -> new Fraction(
+                    new BigDecimal(
+                            left.numerator.multiply(right.denominator)
+                    )
+                    ,
+                    new BigDecimal(
+                            left.denominator.multiply(right.numerator)
+                    )
+            );
+            case POWERED -> {
                 d = Double.parseDouble(String.valueOf(new BigDecimal(right.numerator).divide(new BigDecimal(right.denominator), 10, RoundingMode.HALF_DOWN)));
-                return new Fraction(
+                yield new Fraction(
                         BigDecimal.valueOf(java.lang.Math.pow(
                                 Double.parseDouble(String.valueOf(left.numerator)),
                                 d
@@ -92,9 +109,10 @@ public enum ArithmeticOperation implements Math {
                                 d
                         ))
                 );
-            case ROOTING:
+            }
+            case ROOTING -> {
                 d = Double.parseDouble(String.valueOf(new BigDecimal(left.numerator).divide(new BigDecimal(left.denominator), 10, RoundingMode.HALF_DOWN)));
-                return new Fraction(
+                yield new Fraction(
                         BigDecimal.valueOf(java.lang.Math.pow(
                                 Double.parseDouble(String.valueOf(right.numerator)),
                                 1.0 / d
@@ -105,28 +123,19 @@ public enum ArithmeticOperation implements Math {
                                 1.0 / d
                         ))
                 );
-            default:
-                return left;
-        }
+            }
+        };
     }
 
     @Override
     public String toString() {
-        switch (this) {
-            case ADD:
-                return "+";
-            case SUBTRACT:
-                return "-";
-            case MULTIPLY:
-                return "*";
-            case DIVIDE:
-                return "/";
-            case POWERED:
-                return "^";
-            case ROOTING:
-                return "√";
-            default:
-                throw new NullPointerException();
-        }
+        return switch (this) {
+            case ADD -> "+";
+            case SUBTRACT -> "-";
+            case MULTIPLY -> "*";
+            case DIVIDE -> "/";
+            case POWERED -> "^";
+            case ROOTING -> "√";
+        };
     }
 }

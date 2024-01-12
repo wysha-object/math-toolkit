@@ -1,4 +1,3 @@
-
 package data;
 
 import javax.swing.*;
@@ -10,11 +9,11 @@ import java.util.HashSet;
  * @author wysha
  */
 public final class Style implements Serializable {
-    private final String name;
     final Color foreground;
     final Color background;
     final Color jPanelBackground;
     final Font font;
+    private final String name;
 
     public Style(String name, Color foreground, Color background, Color jPanelBackground, Font font) {
         this.name = name;
@@ -22,11 +21,6 @@ public final class Style implements Serializable {
         this.background = background;
         this.jPanelBackground = jPanelBackground;
         this.font = font;
-    }
-
-    @Override
-    public String toString() {
-        return name;
     }
 
     public static void setStyle(HashSet<JComponent> jPanels, HashSet<JComponent> buttons, HashSet<JList<?>> jLists) {
@@ -53,5 +47,10 @@ public final class Style implements Serializable {
                 jList.setSelectionForeground(MathToolkitNecessaryData.mathToolkitNecessaryData.setting.jPanelBackground);
             }
         }
+    }
+
+    @Override
+    public String toString() {
+        return name;
     }
 }

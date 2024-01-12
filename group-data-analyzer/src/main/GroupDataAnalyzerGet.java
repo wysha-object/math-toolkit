@@ -1,4 +1,3 @@
-
 package main;
 
 import data.Style;
@@ -28,11 +27,11 @@ public class GroupDataAnalyzerGet extends JDialog {
         setContentPane(contentPane);
         button.addActionListener(e -> dispose());
         name.setText(groupData.toString());
-        StringBuilder stringBuilder=new StringBuilder("所选数组包含的数据:" + Arrays.toString(groupData.fractions));
-        if (groupData.groupData.length>0){
+        StringBuilder stringBuilder = new StringBuilder("所选数组包含的数据:" + Arrays.toString(groupData.fractions));
+        if (groupData.groupData.length > 0) {
             stringBuilder.append("\n已添加数组列表:").append(Arrays.toString(groupData.groupData)).append('\n');
         }
-        for (GroupData g:groupData.groupData){
+        for (GroupData g : groupData.groupData) {
             stringBuilder.append(g.name).append("包含的数据:").append(Arrays.toString(g.fractions)).append('\n');
         }
         values.setText(stringBuilder.toString());
@@ -41,6 +40,7 @@ public class GroupDataAnalyzerGet extends JDialog {
         median.setText("中位数:" + groupData.getMedian().toString());
         setStyle();
     }
+
     public void setStyle() {
         HashSet<JComponent> jPanels = new HashSet<>();
         HashSet<JComponent> buttons = new HashSet<>();
@@ -51,6 +51,6 @@ public class GroupDataAnalyzerGet extends JDialog {
         buttons.add(variance);
         buttons.add(median);
         buttons.add(button);
-        Style.setStyle(jPanels,buttons,null);
+        Style.setStyle(jPanels, buttons, null);
     }
 }

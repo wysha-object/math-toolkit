@@ -1,4 +1,3 @@
-
 package main.edit;
 
 import data.Style;
@@ -32,6 +31,7 @@ public class EditOneVariableOneDegreeFunction extends AbstractFunctionCalculator
         bEdit.setText("b:");
         setStyle();
     }
+
     @Override
     public void onOkay() {
         try {
@@ -66,11 +66,11 @@ public class EditOneVariableOneDegreeFunction extends AbstractFunctionCalculator
         buttons.add(kLabel);
         buttons.add(bLabel);
         buttons.add(nameLabel);
-        Style.setStyle(jPanels,buttons,null);
+        Style.setStyle(jPanels, buttons, null);
     }
 
     public void setFunction(OneVariableOneDegreeFunction oneVariableOneDegreeFunction) throws Throwable {
-        textField.setText(oneVariableOneDegreeFunction.name+"'");
+        textField.setText(oneVariableOneDegreeFunction.name + "'");
         BigInteger n = oneVariableOneDegreeFunction.formula.bigIntegers.get(0);
         BigInteger d = oneVariableOneDegreeFunction.formula.bigIntegers.get(1);
         kEdit.setFraction(new Fraction(n, d));

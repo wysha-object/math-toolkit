@@ -2,21 +2,25 @@ package math.math.math;
 
 import math.Math;
 
-public enum Braces implements Math {
-    /*
+/**
+ * @author wysha
+ */
 
+public enum Braces implements Math {
+    /**
+     * 左括号
      */
-    LEFT, RIGHT;
+    LEFT,
+    /**
+     * 右括号
+     */
+    RIGHT;
 
     @Override
     public String toString() {
-        switch (this) {
-            case LEFT:
-                return "(";
-            case RIGHT:
-                return ")";
-            default:
-                throw new NullPointerException();
-        }
+        return switch (this) {
+            case LEFT -> "(";
+            case RIGHT -> ")";
+        };
     }
 }

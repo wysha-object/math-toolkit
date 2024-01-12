@@ -16,6 +16,7 @@ import java.util.List;
  */
 public abstract class AbstractFunction extends Variable {
     public final Formula formula;
+    public final LinkedList<Fraction[]> TheValuesBroughtIn = new LinkedList<>();
 
     protected AbstractFunction(
             String name,
@@ -31,7 +32,6 @@ public abstract class AbstractFunction extends Variable {
     protected AbstractFunction(String name, MathGroup mathGroup) throws Throwable {
         this(name, new Formula(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()), mathGroup);
     }
-    public final LinkedList<Fraction[]> TheValuesBroughtIn =new LinkedList<>();
 
     public List<Variable> getVariables() {
         return formula.getVariables();
@@ -39,17 +39,18 @@ public abstract class AbstractFunction extends Variable {
 
     @Override
     public String toString() {
-        StringBuilder s= new StringBuilder(getName());
+        StringBuilder s = new StringBuilder(getName());
         s.append("=");
         s.append(formula.toString());
-        if (!valueLL.isEmpty() && valueLL.get(0)!=null){
-            if (TheValuesBroughtIn.get(0).length!=0){
+        if (!valueLL.isEmpty() && valueLL.get(0) != null) {
+            if (TheValuesBroughtIn.get(0).length != 0) {
                 s.append("          最近一次计算带入的值:").append(Arrays.toString(TheValuesBroughtIn.get(0)));
             }
             s.append("          最近一次计算获取的值:").append(valueLL.get(0));
         }
         return String.valueOf(s);
     }
+
     @Override
     public String getName() {
         ArrayList<Variable> variableArrayList = new ArrayList<>(formula.getVariables());
@@ -72,14 +73,14 @@ public abstract class AbstractFunction extends Variable {
             s[j] = values.get(j);
         }
         valueLL.add(0, rs);
-        TheValuesBroughtIn.add(0,s);
+        TheValuesBroughtIn.add(0, s);
         return rs;
     }
 
     public List<AbstractFunction> getFunctions() {
         ArrayList<AbstractFunction> abstractFunctionArrayList = new ArrayList<>();
         for (Variable variable : formula.getVariables()) {
-            if (variable instanceof MultivariateFunction){
+            if (variable instanceof MultivariateFunction) {
                 abstractFunctionArrayList.add((MultivariateFunction) variable);
             }
         }

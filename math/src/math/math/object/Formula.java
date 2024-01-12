@@ -13,6 +13,9 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author wysha
+ */
 final public class Formula extends MathObject {
     public final List<BigInteger> bigIntegers;
     public final List<Variable> variables;
@@ -26,18 +29,16 @@ final public class Formula extends MathObject {
         this.braces = braces;
     }
 
-    public static Formula valueOf(
-            String string
-    ) throws Throwable {
+    public static Formula valueOf(String string) throws Throwable {
         boolean subtractB = false;
         if (Objects.equals(string.charAt(0), '-')) {
             string = string.substring(1);
             subtractB = true;
         }
-        ArrayList<BigInteger> fractionArrayList = new ArrayList<>();
-        ArrayList<Variable> variableArrayList = new ArrayList<>();
-        ArrayList<ArithmeticOperation> arithmeticOperationArrayList = new ArrayList<>();
-        ArrayList<Brace> bracesArrayList = new ArrayList<>();
+        List<BigInteger> bigIntegerList = new LinkedList<>();
+        List<Variable> variableArrayList = new LinkedList<>();
+        List<ArithmeticOperation> arithmeticOperationArrayList = new LinkedList<>();
+        List<Brace> bracesArrayList = new LinkedList<>();
 
         LinkedList<Integer> leftBrace = new LinkedList<>();
         LinkedList<Integer> rightBrace = new LinkedList<>();
@@ -58,22 +59,22 @@ final public class Formula extends MathObject {
                     arithmeticOperationArrayList.add((ArithmeticOperation) math);
                 } else if (math instanceof Braces) {
                     if (Objects.equals(math, Braces.LEFT)) {
-                        leftBrace.add(fractionArrayList.size() + 1);
+                        leftBrace.add(bigIntegerList.size());
                     } else {
-                        rightBrace.add(fractionArrayList.size());
+                        rightBrace.add(bigIntegerList.size());
                     }
                 }
                 now = null;
             }
-            boolean b = Objects.equals(anEnum, now) || anEnum == null;
+            boolean b = (Objects.equals(anEnum, now) || anEnum == null) && now != null;
             if (b) {
                 stringBuilder.append(aChar);
             }
             if (!b) {
                 if (Objects.equals(anEnum, Enum.NUMBER)) {
-                    fractionArrayList.add(new BigInteger(stringBuilder.toString()));
-                } else {
-                    fractionArrayList.add(null);
+                    bigIntegerList.add(new BigInteger(stringBuilder.toString()));
+                } else if (Objects.equals(anEnum, Enum.LETTER)) {
+                    bigIntegerList.add(null);
                     new Variable(stringBuilder.toString(), variableArrayList);
                 }
                 stringBuilder = new StringBuilder();
@@ -82,22 +83,22 @@ final public class Formula extends MathObject {
         }
         if (!stringBuilder.toString().isEmpty()) {
             if (Objects.equals(anEnum, Enum.NUMBER)) {
-                fractionArrayList.add(new BigInteger(stringBuilder.toString()));
+                bigIntegerList.add(new BigInteger(stringBuilder.toString()));
             } else {
-                fractionArrayList.add(null);
+                bigIntegerList.add(null);
                 new Variable(stringBuilder.toString(), variableArrayList);
             }
         }
         int i = 0;
         if (subtractB) {
             i = 1;
-            fractionArrayList.add(0, BigInteger.valueOf(0));
+            bigIntegerList.add(0, BigInteger.valueOf(0));
             arithmeticOperationArrayList.add(0, ArithmeticOperation.SUBTRACT);
         }
         for (int j = 0; j < leftBrace.size(); j++) {
             bracesArrayList.add(new Brace(leftBrace.get(j) + i, rightBrace.get(j) + i));
         }
-        return new Formula(fractionArrayList, variableArrayList, arithmeticOperationArrayList, bracesArrayList);
+        return new Formula(bigIntegerList, variableArrayList, arithmeticOperationArrayList, bracesArrayList);
     }
 
     public List<Variable> getVariables() {
@@ -121,8 +122,7 @@ final public class Formula extends MathObject {
         ArrayList<Variable> variableArrayList = new ArrayList<>(getVariables());
         for (int i = variableArrayList.size() - 1; i >= 0; i--) {
             Variable variable = variableArrayList.get(i);
-            if (variable instanceof AbstractFunction) {
-                AbstractFunction function = (AbstractFunction) variable;
+            if (variable instanceof AbstractFunction function) {
                 variableArrayList.remove(variable);
                 ArrayList<Fraction> fractionArrayList = new ArrayList<>();
                 for (int j = 0; j < fractions.size(); j++) {
@@ -145,6 +145,7 @@ final public class Formula extends MathObject {
     public Fraction operation(List<Fraction> values) throws Throwable {
         setValues(values);
         ArrayList<Fraction> numbers = new ArrayList<>();
+
         int i = 0;
         for (BigInteger bigInteger : bigIntegers) {
             if (bigInteger != null) {
@@ -156,6 +157,19 @@ final public class Formula extends MathObject {
         }
         ArrayList<ArithmeticOperation> arithmeticOperationArrayList = new ArrayList<>(arithmeticOperations);
 
+        for (Brace b : braces) {
+            for (int k = ArithmeticOperation.MAX; k > 0; k--) {
+                for (int j = b.start; j < b.end && j < arithmeticOperationArrayList.size(); j++) {
+                    ArithmeticOperation arithmeticOperation = arithmeticOperationArrayList.get(j);
+                    if (arithmeticOperation.Priority == k) {
+                        numbers.set(j, ArithmeticOperation.operation(arithmeticOperation, numbers.get(j), numbers.get(j + 1)));
+                        numbers.remove(j + 1);
+                        arithmeticOperationArrayList.remove(arithmeticOperation);
+                        j--;
+                    }
+                }
+            }
+        }
         for (int k = ArithmeticOperation.MAX; k > 0; k--) {
             for (int j = 0; j < arithmeticOperationArrayList.size(); j++) {
                 ArithmeticOperation arithmeticOperation = arithmeticOperationArrayList.get(j);
@@ -171,9 +185,17 @@ final public class Formula extends MathObject {
         return numbers.get(0);
     }
 
+    @Override
     public String toString() {
         StringBuilder s = new StringBuilder();
         int i = 0;
+        int[] l = new int[braces.size()];
+        int[] r = new int[braces.size()];
+        for (int j = 0; j < braces.size(); j++) {
+            Brace brace = braces.get(j);
+            l[j] = brace.start;
+            r[j] = brace.end;
+        }
         for (int j = 0; j < bigIntegers.size(); j++) {
             BigInteger fraction = bigIntegers.get(j);
             if (fraction != null) {
@@ -182,9 +204,19 @@ final public class Formula extends MathObject {
                 s.append(variables.get(i).getName());
                 i++;
             }
+            for (int k : r) {
+                if (k == j) {
+                    s.append(')');
+                }
+            }
             if (j < bigIntegers.size() - 1) {
                 ArithmeticOperation arithmeticOperation = arithmeticOperations.get(j);
                 s.append(arithmeticOperation.toString());
+            }
+            for (int k : l) {
+                if (k == j + 1) {
+                    s.append('(');
+                }
             }
         }
         return String.valueOf(s);

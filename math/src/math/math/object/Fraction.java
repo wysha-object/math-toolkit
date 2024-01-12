@@ -2,6 +2,8 @@ package math.math.object;
 
 import math.MathObject;
 import math.MathTools;
+import math.math.math.ArithmeticOperation;
+import math.math.math.Braces;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
@@ -50,22 +52,41 @@ final public class Fraction extends MathObject {
 
     @Override
     public String toString() {
+        StringBuilder string;
         if (denominator.compareTo(BigInteger.valueOf(1)) != 0) {
-            int i;
-            try {
-                i = MathTools.isPowerOf(new BigDecimal(denominator), BigDecimal.valueOf(10));
-                StringBuilder stringBuilder = new StringBuilder(String.valueOf(numerator));
-                int k = i + 1 - stringBuilder.length();
-                for (int j = 0; j < k; j++) {
-                    stringBuilder.insert(0, '0');
+            string = new StringBuilder(Braces.LEFT.toString() + numerator + ArithmeticOperation.DIVIDE + denominator + Braces.RIGHT);
+            if (string.length() > 9) {
+                //科学计数法
+                if (MathTools.numIsPowerOfBase(new BigDecimal(denominator), BigDecimal.valueOf(10))) {
+                    BigDecimal bigDecimal = new BigDecimal(numerator).divide(new BigDecimal(denominator));
+                    string = new StringBuilder(bigDecimal.toString());
+                    if (bigDecimal.compareTo(BigDecimal.valueOf(-1)) > 0 && bigDecimal.compareTo(BigDecimal.valueOf(1)) < 0) {
+                        int n = -1;
+                        for (int i = 2; i < string.length(); ++i) {
+                            if (Objects.equals(string.charAt(i), '0')) {
+                                --n;
+                            } else {
+                                string = new StringBuilder(string.substring(i));
+                                break;
+                            }
+                            ;
+                        }
+                        string.insert(1, ".");
+                        string.append("E").append(n);
+                    }
+                } else {
+                    StringBuilder n = new StringBuilder(numerator.toString());
+                    n.insert(1, ".");
+                    n.append("E").append(n.length() - 3);
+                    StringBuilder d = new StringBuilder(denominator.toString());
+                    d.insert(1, ".");
+                    d.append("E").append(d.length() - 3);
+                    string = new StringBuilder(Braces.LEFT.toString() + n + ArithmeticOperation.DIVIDE + d + Braces.RIGHT);
                 }
-                stringBuilder.insert(stringBuilder.length() - i, '.');
-                return String.valueOf(stringBuilder);
-            } catch (Throwable ignored) {
             }
-            return numerator + "/" + denominator;
         } else {
-            return String.valueOf(numerator);
+            string = new StringBuilder(String.valueOf(numerator));
         }
+        return string.toString();
     }
 }

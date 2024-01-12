@@ -1,4 +1,3 @@
-
 package set;
 
 import tools.AbstractSubpage;
@@ -12,8 +11,9 @@ public abstract class AbstractSetSubpages extends AbstractSubpage {
     protected AbstractSetSubpages(String name, JDialog jDialog) {
         super(jDialog, name);
     }
+
     @Override
-    public void onOkay(){
+    public void onOkay() {
         save();
         jDialog.dispose();
     }

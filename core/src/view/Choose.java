@@ -1,4 +1,3 @@
-
 package view;
 
 import data.Style;
@@ -10,12 +9,12 @@ import java.util.HashSet;
  * @author wysha
  */
 public class Choose extends JDialog {
+    public boolean choose;
     private JPanel contentPane;
     private JButton buttonOkay;
     private JButton buttonCancel;
     private JTextArea textArea;
     private JScrollPane jScrollPane;
-    public boolean choose;
 
     public Choose(String s) {
         textArea.setText(s);
@@ -32,16 +31,16 @@ public class Choose extends JDialog {
     }
 
     private void onOkay() {
-        choose=true;
+        choose = true;
         dispose();
     }
 
     private void onCancel() {
-        choose=false;
+        choose = false;
         dispose();
     }
 
-    public void setStyle(){
+    public void setStyle() {
         HashSet<JComponent> jPanels = new HashSet<>();
         HashSet<JComponent> buttons = new HashSet<>();
         jPanels.add(contentPane);
@@ -49,6 +48,6 @@ public class Choose extends JDialog {
         buttons.add(textArea);
         buttons.add(buttonCancel);
         buttons.add(buttonOkay);
-        Style.setStyle(jPanels,buttons,null);
+        Style.setStyle(jPanels, buttons, null);
     }
 }

@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Objects;
 
+/**
+ * @author wysha
+ */
 public interface Math extends Serializable {
     static Math valueOf(String string) {
         ArrayList<Math> mathArrayList = new ArrayList<>();

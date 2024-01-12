@@ -1,4 +1,3 @@
-
 package main.edit;
 
 import data.Style;
@@ -14,8 +13,8 @@ import java.util.HashSet;
  * @author wysha
  */
 public class EditMultivariateFunction extends AbstractFunctionCalculatorEdits {
-    private JLabel jLabel;
     public JPanel contentPane;
+    private JLabel jLabel;
     private MathInput mathInput;
 
     public EditMultivariateFunction(JDialog jDialog, MathGroupMainInterface mathGroupMainInterface) {
@@ -50,11 +49,11 @@ public class EditMultivariateFunction extends AbstractFunctionCalculatorEdits {
         jPanels.add(contentPane);
         buttons.add(jLabel);
         buttons.add(mathInput);
-        Style.setStyle(jPanels,buttons,null);
+        Style.setStyle(jPanels, buttons, null);
     }
 
     public void setFunction(MultivariateFunction multivariateFunction) {
-        if (multivariateFunction!=null){
+        if (multivariateFunction != null) {
             mathInput.setValue(multivariateFunction.name + "'=" + multivariateFunction.formula.toString());
         }
     }

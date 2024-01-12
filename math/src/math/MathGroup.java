@@ -8,6 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * @author wysha
+ */
 public class MathGroup {
     public final List<AbstractFunction> functions;
     public final List<AbstractEquation> equations;

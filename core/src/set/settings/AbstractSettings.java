@@ -1,4 +1,3 @@
-
 package set.settings;
 
 import set.AbstractSetSubpages;

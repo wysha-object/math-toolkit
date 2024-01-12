@@ -1,4 +1,3 @@
-
 package view;
 
 import data.Style;
@@ -13,16 +12,16 @@ import java.util.HashSet;
  */
 public class ErrorInterface extends JDialog {
     final boolean report;
+    final Throwable error;
     private JPanel contentPane;
     private JButton buttonOkay;
     private JTextArea textArea;
     private JScrollPane jScrollPane;
-    final Throwable error;
 
     public ErrorInterface(String description, Throwable error, boolean report) {
         error.printStackTrace();
-        this.error=error;
-        this.report=report;
+        this.error = error;
+        this.report = report;
         textArea.setLineWrap(true);
         textArea.setWrapStyleWord(true);
         textArea.setEditable(false);
@@ -48,12 +47,12 @@ public class ErrorInterface extends JDialog {
         jPanels.add(jScrollPane);
         buttons.add(buttonOkay);
         buttons.add(textArea);
-        Style.setStyle(jPanels,buttons,null);
+        Style.setStyle(jPanels, buttons, null);
     }
 
     private void onOkay() {
         dispose();
-        if (report){
+        if (report) {
             throw new RuntimeException(error);
         }
     }
