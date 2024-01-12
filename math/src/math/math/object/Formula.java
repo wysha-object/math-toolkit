@@ -29,7 +29,7 @@ final public class Formula extends MathObject {
         this.braces = braces;
     }
 
-    public static Formula valueOf(String string) throws Throwable {
+    public static Formula valueOf(String string) {
         boolean subtractB = false;
         if (Objects.equals(string.charAt(0), '-')) {
             string = string.substring(1);

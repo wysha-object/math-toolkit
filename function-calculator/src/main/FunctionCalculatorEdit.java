@@ -34,13 +34,11 @@ public class FunctionCalculatorEdit extends MathGroupView {
         up.setLayout(cardLayout);
         if (abstractFunction != null) {
             comboBox.setVisible(false);
-            if (abstractFunction instanceof MultivariateFunction) {
-                MultivariateFunction multivariateFunction = (MultivariateFunction) abstractFunction;
+            if (abstractFunction instanceof MultivariateFunction multivariateFunction) {
                 editMultivariateFunction.setFunction(multivariateFunction);
                 up.add(editMultivariateFunction.contentPane, editMultivariateFunction.name);
                 setCurrent(editMultivariateFunction);
-            } else if (abstractFunction instanceof OneVariableOneDegreeFunction) {
-                OneVariableOneDegreeFunction oneVariableOneDegreeFunction = (OneVariableOneDegreeFunction) abstractFunction;
+            } else if (abstractFunction instanceof OneVariableOneDegreeFunction oneVariableOneDegreeFunction) {
                 editOneVariableOneDegreeFunction.setFunction(oneVariableOneDegreeFunction);
                 up.add(editOneVariableOneDegreeFunction.contentPane, editOneVariableOneDegreeFunction.name);
                 setCurrent(editOneVariableOneDegreeFunction);

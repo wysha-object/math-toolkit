@@ -2,7 +2,7 @@ package math.function.multivariate;
 
 import math.MathGroup;
 import math.function.AbstractFunction;
-import math.math.numberObject.Formula;
+import math.math.object.Formula;
 
 import java.io.Serializable;
 

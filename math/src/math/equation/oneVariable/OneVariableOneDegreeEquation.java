@@ -2,7 +2,7 @@ package math.equation.oneVariable;
 
 import math.MathGroup;
 import math.equation.AbstractOneVariableEquation;
-import math.math.numberObject.Formula;
+import math.math.object.Formula;
 
 /**
  * @author wysha

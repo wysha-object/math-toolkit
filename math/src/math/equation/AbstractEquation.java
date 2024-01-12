@@ -2,8 +2,11 @@ package math.equation;
 
 import math.MathGroup;
 import math.MathObjects;
-import math.math.numberObject.Formula;
+import math.math.object.Formula;
 
+/**
+ * @author wysha
+ */
 public class AbstractEquation extends MathObjects {
     final Formula left;
     final Formula right;

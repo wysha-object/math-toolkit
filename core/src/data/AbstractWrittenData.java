@@ -20,10 +20,8 @@ public abstract class AbstractWrittenData implements Serializable {
 
     /**
      * 读取数据
-     *
-     * @throws Throwable 可能的异常
      */
-    public abstract void read() throws Throwable;
+    public abstract void read();
 
     /**
      * 写入数据

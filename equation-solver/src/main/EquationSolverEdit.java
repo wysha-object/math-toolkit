@@ -34,13 +34,11 @@ public class EquationSolverEdit extends MathGroupView {
         up.setLayout(cardLayout);
         if (abstractFunction != null) {
             comboBox.setVisible(false);
-            if (abstractFunction instanceof MultivariateEquation) {
-                MultivariateEquation multivariateFunction = (MultivariateEquation) abstractFunction;
+            if (abstractFunction instanceof MultivariateEquation multivariateFunction) {
                 editMultivariateFunction.setEquation(multivariateFunction);
                 up.add(editMultivariateFunction.contentPane, editMultivariateFunction.name);
                 setCurrent(editMultivariateFunction);
-            } else if (abstractFunction instanceof OneVariableOneDegreeEquation) {
-                OneVariableOneDegreeEquation oneVariableOneDegreeFunction = (OneVariableOneDegreeEquation) abstractFunction;
+            } else if (abstractFunction instanceof OneVariableOneDegreeEquation oneVariableOneDegreeFunction) {
                 editOneVariableOneDegreeFunction.setEquation(oneVariableOneDegreeFunction);
                 up.add(editOneVariableOneDegreeFunction.contentPane, editOneVariableOneDegreeFunction.name);
                 setCurrent(editOneVariableOneDegreeFunction);

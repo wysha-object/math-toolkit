@@ -10,6 +10,7 @@ import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * @author wysha
@@ -23,11 +24,7 @@ public class GroupData extends MathObjects {
 
     public GroupData(Fraction[] fractions, GroupData[] groupDataArray, String name, MathGroup mathGroup) throws Throwable {
         super(name);
-        if (groupDataArray != null) {
-            this.groupData = groupDataArray;
-        } else {
-            this.groupData = new GroupData[]{};
-        }
+        this.groupData = Objects.requireNonNullElseGet(groupDataArray, () -> new GroupData[]{});
         mathGroup.checkName(this);
         List<Fraction> list = Arrays.asList(fractions);
         list.sort(Fraction::isMoreThan);

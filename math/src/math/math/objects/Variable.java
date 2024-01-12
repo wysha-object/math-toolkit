@@ -1,7 +1,7 @@
 package math.math.objects;
 
 import math.MathObjects;
-import math.math.numberObject.Fraction;
+import math.math.object.Fraction;
 
 import java.util.LinkedList;
 import java.util.List;
