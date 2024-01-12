@@ -2,8 +2,8 @@ package math.function;
 
 import math.MathGroup;
 import math.function.multivariate.MultivariateFunction;
-import math.math.object.Formula;
-import math.math.object.Fraction;
+import math.math.numberObject.Formula;
+import math.math.numberObject.Fraction;
 import math.math.objects.Variable;
 
 import java.util.ArrayList;

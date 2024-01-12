@@ -1,7 +1,7 @@
 package math.equation;
 
 import math.MathGroup;
-import math.math.object.Formula;
+import math.math.numberObject.Formula;
 
 /**
  * @author wysha
