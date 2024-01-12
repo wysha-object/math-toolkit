@@ -18,10 +18,12 @@ public abstract class AbstractSubpages extends AbstractSubpage {
     /**
      * 确认时执行的操作
      */
+    @Override
     public abstract void onOkay();
 
     /**
      * 取消时执行的操作
      */
+    @Override
     public abstract void onCancel();
 }
