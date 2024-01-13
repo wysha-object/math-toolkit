@@ -2,9 +2,9 @@ package main;
 
 import data.Style;
 import math.groupdata.GroupData;
-import math.math.object.Fraction;
+import math.math.object.Formula;
 import view.ErrorInterface;
-import view.FractionEdit;
+import view.FormulaEdit;
 import view.GetAndSetList;
 
 import javax.swing.*;
@@ -26,7 +26,7 @@ public class GroupDataEdit extends MathGroupView {
             (int) (Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 100)
     );
     List<Object> groupDates = new ArrayList<>();
-    FractionEdit[] fractionEdits;
+    FormulaEdit[] formulaEdits;
     private JPanel contentPane;
     private JButton buttonOkay;
     private JButton buttonCancel;
@@ -38,7 +38,7 @@ public class GroupDataEdit extends MathGroupView {
     private JScrollPane right;
     private JTextField textField;
     private JLabel nameLabel;
-    private FractionEdit edit;
+    private FormulaEdit edit;
     private JButton setAdd;
     private JTextArea textArea;
 
@@ -64,40 +64,40 @@ public class GroupDataEdit extends MathGroupView {
             }
         });
         spinner.setModel(new SpinnerNumberModel(1, 1, Integer.MAX_VALUE, 1));
-        fractionEdits = new FractionEdit[1];
-        fractionEdits[0] = new FractionEdit("第1个数据:", edit.getFraction());
+        formulaEdits = new FormulaEdit[1];
+        formulaEdits[0] = new FormulaEdit("第1个数据:", edit.getFormula());
         contentPane.registerKeyboardAction(e -> onCancel(), KeyStroke.getKeyStroke(KeyEvent.VK_ESCAPE, 0), JComponent.WHEN_ANCESTOR_OF_FOCUSED_COMPONENT);
         rightPanel.setLayout(gridLayout);
-        rightPanel.add(fractionEdits[0]);
+        rightPanel.add(formulaEdits[0]);
         if (groupData != null) {
-            for (FractionEdit fractionEdit : fractionEdits) {
-                rightPanel.remove(fractionEdit);
+            for (FormulaEdit formulaEdit : formulaEdits) {
+                rightPanel.remove(formulaEdit);
             }
             textField.setText(groupData.name + "'");
             spinner.setValue(groupData.fractions.length);
-            fractionEdits = new FractionEdit[groupData.fractions.length];
+            formulaEdits = new FormulaEdit[groupData.fractions.length];
             for (int i = 0; i < groupData.fractions.length; i++) {
-                fractionEdits[i] = new FractionEdit("第" + (i + 1) + "个数据:", groupData.fractions[i]);
+                formulaEdits[i] = new FormulaEdit("第" + (i + 1) + "个数据:", groupData.fractions[i]);
             }
-            for (FractionEdit fractionEdit : fractionEdits) {
-                rightPanel.add(fractionEdit);
+            for (FormulaEdit formulaEdit : formulaEdits) {
+                rightPanel.add(formulaEdit);
             }
             pack();
             setSize(getWidth(), getHeight());
         }
         spinner.addChangeListener(e -> {
             try {
-                for (FractionEdit fractionEdit : fractionEdits) {
-                    rightPanel.remove(fractionEdit);
+                for (FormulaEdit formulaEdit : formulaEdits) {
+                    rightPanel.remove(formulaEdit);
                 }
                 int v = (int) spinner.getValue();
-                FractionEdit[] f = new FractionEdit[v];
+                FormulaEdit[] f = new FormulaEdit[v];
                 for (int i = 0; i < f.length; i++) {
-                    f[i] = i < fractionEdits.length ? fractionEdits[i] : new FractionEdit("第" + (i + 1) + "个数据:", edit.getFraction());
+                    f[i] = i < formulaEdits.length ? formulaEdits[i] : new FormulaEdit("第" + (i + 1) + "个数据:", edit.getFormula());
                 }
-                fractionEdits = f;
-                for (FractionEdit fractionEdit : fractionEdits) {
-                    rightPanel.add(fractionEdit);
+                formulaEdits = f;
+                for (FormulaEdit formulaEdit : formulaEdits) {
+                    rightPanel.add(formulaEdit);
                 }
                 int w = getWidth();
                 int h = getHeight();
@@ -127,15 +127,15 @@ public class GroupDataEdit extends MathGroupView {
 
     private void onOkay() {
         try {
-            Fraction[] fractions = new Fraction[fractionEdits.length];
-            for (int i = 0; i < fractions.length; i++) {
-                fractions[i] = fractionEdits[i].getFraction();
+            Formula[] formulas = new Formula[formulaEdits.length];
+            for (int i = 0; i < formulas.length; i++) {
+                formulas[i] = formulaEdits[i].getFormula();
             }
             GroupData[] groupDataArray = new GroupData[groupDates.size()];
             for (int i = 0; i < groupDates.size(); i++) {
                 groupDataArray[i] = (GroupData) groupDates.get(i);
             }
-            new GroupData(fractions, groupDataArray, textField.getText(), mathGroupMainInterface.mathGroup);
+            new GroupData(formulas, groupDataArray, textField.getText(), mathGroupMainInterface.mathGroup);
             dispose();
         } catch (Throwable e) {
             ErrorInterface errorInterface = new ErrorInterface(

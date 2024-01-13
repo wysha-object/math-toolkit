@@ -16,6 +16,6 @@ public class MultivariateFunction extends AbstractFunction implements Serializab
 
     public static void valueOf(String function, MathGroup mathGroup) throws Throwable {
         String[] str = function.split("=");
-        new MultivariateFunction(str[0], Formula.valueOf(str[1]), mathGroup);
+        new MultivariateFunction(str[0], Formula.valueOf(str[1],true), mathGroup);
     }
 }

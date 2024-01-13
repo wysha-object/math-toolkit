@@ -18,6 +18,7 @@ public class GroupDataAnalyzerGet extends JDialog {
     private JButton button;
     private JLabel variance;
     private JLabel median;
+    private JLabel sum;
 
     public GroupDataAnalyzerGet(GroupData groupData) throws Throwable {
         setTitle("详情");
@@ -35,9 +36,10 @@ public class GroupDataAnalyzerGet extends JDialog {
             stringBuilder.append(g.name).append("包含的数据:").append(Arrays.toString(g.fractions)).append('\n');
         }
         values.setText(stringBuilder.toString());
-        average.setText("平均数:" + groupData.getAverage().toString());
-        variance.setText("方差:" + groupData.getVariance().toString());
-        median.setText("中位数:" + groupData.getMedian().toString());
+        sum.setText("总和"+groupData.sum);
+        average.setText("平均数:" + groupData.average.toString());
+        variance.setText("方差:" + groupData.variance.toString());
+        median.setText("中位数:" + groupData.median.toString());
         setStyle();
     }
 
@@ -45,6 +47,7 @@ public class GroupDataAnalyzerGet extends JDialog {
         HashSet<JComponent> jPanels = new HashSet<>();
         HashSet<JComponent> buttons = new HashSet<>();
         jPanels.add(contentPane);
+        buttons.add(sum);
         buttons.add(name);
         buttons.add(values);
         buttons.add(average);

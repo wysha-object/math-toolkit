@@ -1,10 +1,9 @@
 package math.math.math;
 
 import math.Math;
-import math.math.object.Fraction;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
+import java.math.BigInteger;
 
 /**
  * @author wysha
@@ -42,87 +41,38 @@ public enum ArithmeticOperation implements Math {
         Priority = priority;
     }
 
-    public static Fraction operation(ArithmeticOperation arithmeticOperation, Fraction left, Fraction right) throws Throwable {
-        BigDecimal denominator;
-        BigDecimal bigDecimal = new BigDecimal(
-                left.denominator.multiply(right.denominator)
-        );
-        double d;
+    public static BigInteger operation(ArithmeticOperation arithmeticOperation, BigInteger left, BigInteger right) throws Throwable {
         return switch (arithmeticOperation) {
-            case ADD -> {
-                denominator = bigDecimal;
-                yield new Fraction(
-                        new BigDecimal((
-                                left.numerator.multiply(
-                                        right.denominator
-                                )).add((
-                                right.numerator.multiply(
-                                        left.denominator
-                                )))
-                        ),
-                        denominator
-                );
+            case ADD -> left.add(right);
+            case SUBTRACT -> left.subtract(right);
+            case MULTIPLY -> left.multiply(right);
+            case DIVIDE -> {
+                BigInteger[] bigIntegers = left.divideAndRemainder(right);
+                if (bigIntegers[1].compareTo(BigInteger.ZERO)>0){
+                    throw new Throwable();
+                }else {
+                    yield bigIntegers[0];
+                }
             }
-            case SUBTRACT -> {
-                denominator = bigDecimal;
-                yield new Fraction(
-                        new BigDecimal((
-                                left.numerator.multiply(
-                                        right.denominator
-                                )).subtract((
-                                right.numerator.multiply(
-                                        left.denominator
-                                )))
-                        ),
-                        denominator
-                );
-            }
-            case MULTIPLY -> {
-                denominator = bigDecimal;
-                yield new Fraction(
-                        new BigDecimal(
-                                left.numerator.multiply(right.numerator)
-                        )
-                        ,
-                        denominator
-                );
-            }
-            case DIVIDE -> new Fraction(
-                    new BigDecimal(
-                            left.numerator.multiply(right.denominator)
-                    )
-                    ,
-                    new BigDecimal(
-                            left.denominator.multiply(right.numerator)
-                    )
-            );
             case POWERED -> {
-                d = Double.parseDouble(String.valueOf(new BigDecimal(right.numerator).divide(new BigDecimal(right.denominator), 10, RoundingMode.HALF_DOWN)));
-                yield new Fraction(
-                        BigDecimal.valueOf(java.lang.Math.pow(
-                                Double.parseDouble(String.valueOf(left.numerator)),
-                                d
-                        ))
-                        ,
-                        BigDecimal.valueOf(java.lang.Math.pow(
-                                Double.parseDouble(String.valueOf(left.denominator)),
-                                d
-                        ))
-                );
+                double l=left.doubleValue();
+                double r=right.doubleValue();
+                double rs= java.lang.Math.pow(l,r);
+                if (rs%1>0){
+                    throw new Throwable();
+                }else {
+                    yield BigInteger.valueOf((long) rs);
+                }
             }
             case ROOTING -> {
-                d = Double.parseDouble(String.valueOf(new BigDecimal(left.numerator).divide(new BigDecimal(left.denominator), 10, RoundingMode.HALF_DOWN)));
-                yield new Fraction(
-                        BigDecimal.valueOf(java.lang.Math.pow(
-                                Double.parseDouble(String.valueOf(right.numerator)),
-                                1.0 / d
-                        ))
-                        ,
-                        BigDecimal.valueOf(java.lang.Math.pow(
-                                Double.parseDouble(String.valueOf(right.denominator)),
-                                1.0 / d
-                        ))
-                );
+                BigDecimal l=new BigDecimal(left);
+                double r=right.doubleValue();
+                double rs= java.lang.Math.pow(r,BigDecimal.ONE.divide(l).doubleValue());
+                if (rs%1>0){
+                    throw new Throwable();
+                }else {
+                    yield BigInteger.valueOf((long) rs);
+                }
             }
         };
     }

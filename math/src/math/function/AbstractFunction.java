@@ -3,7 +3,6 @@ package math.function;
 import math.MathGroup;
 import math.function.multivariate.MultivariateFunction;
 import math.math.object.Formula;
-import math.math.object.Fraction;
 import math.math.objects.Variable;
 
 import java.util.ArrayList;
@@ -16,7 +15,7 @@ import java.util.List;
  */
 public abstract class AbstractFunction extends Variable {
     public final Formula formula;
-    public final LinkedList<Fraction[]> TheValuesBroughtIn = new LinkedList<>();
+    public final LinkedList<Formula[]> TheValuesBroughtIn = new LinkedList<>();
 
     protected AbstractFunction(
             String name,
@@ -30,7 +29,7 @@ public abstract class AbstractFunction extends Variable {
     }
 
     protected AbstractFunction(String name, MathGroup mathGroup) throws Throwable {
-        this(name, new Formula(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>()), mathGroup);
+        this(name, new Formula(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),false), mathGroup);
     }
 
     public List<Variable> getVariables() {
@@ -66,9 +65,9 @@ public abstract class AbstractFunction extends Variable {
         return String.valueOf(s);
     }
 
-    public Fraction operation(List<Fraction> values) throws Throwable {
-        Fraction rs = formula.operation(values);
-        Fraction[] s = new Fraction[values.size()];
+    public Formula operation(List<Formula> values) throws Throwable {
+        Formula rs = formula.operation(values);
+        Formula[] s = new Formula[values.size()];
         for (int j = 0; j < values.size(); j++) {
             s[j] = values.get(j);
         }

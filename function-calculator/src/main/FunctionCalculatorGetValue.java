@@ -2,7 +2,7 @@ package main;
 
 import data.Style;
 import math.function.AbstractFunction;
-import math.math.object.Fraction;
+import math.math.object.Formula;
 import math.math.objects.Variable;
 import view.ErrorInterface;
 import view.GetOutCome;
@@ -10,7 +10,6 @@ import view.GetOutCome;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyEvent;
-import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
@@ -92,17 +91,10 @@ public class FunctionCalculatorGetValue extends JDialog {
 
     private void onOkay() {
         try {
-            ArrayList<Fraction> fractions = new ArrayList<>();
+            ArrayList<Formula> fractions = new ArrayList<>();
             for (JTextField jTextField : textFields) {
                 String s = jTextField.getText();
-                Fraction fraction;
-                try {
-                    fraction = new Fraction(new BigDecimal(s), BigDecimal.valueOf(1));
-                } catch (Throwable e) {
-                    String[] ss = s.split("/");
-                    fraction = new Fraction(new BigDecimal(ss[0]), new BigDecimal(ss[1]));
-                }
-                fractions.add(fraction);
+                fractions.add(Formula.valueOf(s,false));
             }
             GetOutCome getOutCome = new GetOutCome("计算结果", "计算结果:" + abstractFunction.operation(fractions).toString());
             getOutCome.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 3, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 3);

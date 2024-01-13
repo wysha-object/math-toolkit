@@ -3,10 +3,8 @@ package main;
 import data.Style;
 import main.edit.AbstractFunctionCalculatorEdits;
 import main.edit.EditMultivariateFunction;
-import main.edit.EditOneVariableOneDegreeFunction;
 import math.function.AbstractFunction;
 import math.function.multivariate.MultivariateFunction;
-import math.function.onevariable.OneVariableOneDegreeFunction;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,7 +18,6 @@ import java.util.Objects;
 public class FunctionCalculatorEdit extends MathGroupView {
     final CardLayout cardLayout = new CardLayout();
     final EditMultivariateFunction editMultivariateFunction = new EditMultivariateFunction(this, mathGroupMainInterface);
-    final EditOneVariableOneDegreeFunction editOneVariableOneDegreeFunction = new EditOneVariableOneDegreeFunction(this, mathGroupMainInterface);
     private JPanel contentPane;
     private JButton buttonOkay;
     private JButton buttonCancel;
@@ -29,7 +26,7 @@ public class FunctionCalculatorEdit extends MathGroupView {
     private JPanel up;
     private JComboBox<Functions> comboBox;
 
-    public FunctionCalculatorEdit(MathGroupMainInterface mathGroupMainInterface, AbstractFunction abstractFunction) throws Throwable {
+    public FunctionCalculatorEdit(MathGroupMainInterface mathGroupMainInterface, AbstractFunction abstractFunction) {
         super(mathGroupMainInterface);
         up.setLayout(cardLayout);
         if (abstractFunction != null) {
@@ -38,25 +35,17 @@ public class FunctionCalculatorEdit extends MathGroupView {
                 editMultivariateFunction.setFunction(multivariateFunction);
                 up.add(editMultivariateFunction.contentPane, editMultivariateFunction.name);
                 setCurrent(editMultivariateFunction);
-            } else if (abstractFunction instanceof OneVariableOneDegreeFunction oneVariableOneDegreeFunction) {
-                editOneVariableOneDegreeFunction.setFunction(oneVariableOneDegreeFunction);
-                up.add(editOneVariableOneDegreeFunction.contentPane, editOneVariableOneDegreeFunction.name);
-                setCurrent(editOneVariableOneDegreeFunction);
             }
         } else {
             up.add(editMultivariateFunction.contentPane, editMultivariateFunction.name);
-            up.add(editOneVariableOneDegreeFunction.contentPane, editOneVariableOneDegreeFunction.name);
             Functions[] functions = new Functions[]{
                     Functions.MultivariateFunction,
-                    Functions.OneVariable_OneDegree_Function
             };
             comboBox.setModel(new DefaultComboBoxModel<>(functions));
             comboBox.addActionListener(e -> {
                 Functions requireNonNull = (Functions) Objects.requireNonNull(comboBox.getSelectedItem());
                 if (requireNonNull == Functions.MultivariateFunction) {
                     setCurrent(editMultivariateFunction);
-                } else if (requireNonNull == Functions.OneVariable_OneDegree_Function) {
-                    setCurrent(editOneVariableOneDegreeFunction);
                 }
             });
             comboBox.setSelectedItem(functions[0]);
@@ -94,7 +83,7 @@ public class FunctionCalculatorEdit extends MathGroupView {
         /*
 
          */
-        MultivariateFunction("多元函数/非标准式"), OneVariable_OneDegree_Function("一元一次函数");
+        MultivariateFunction("多元函数/非标准式");
         final String name;
 
         Functions(String name) {

@@ -1,7 +1,7 @@
 package math.math.objects;
 
 import math.MathObjects;
-import math.math.object.Fraction;
+import math.math.object.Formula;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +11,7 @@ import java.util.Objects;
  * @author wysha
  */
 public class Variable extends MathObjects {
-    public final LinkedList<Fraction> valueLL = new LinkedList<>();
+    public final LinkedList<Formula> valueLL = new LinkedList<>();
 
     protected Variable(String name) {
         super(name);

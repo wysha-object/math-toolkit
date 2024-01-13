@@ -43,7 +43,7 @@ public class MathGroupMainInterface extends JFrame {
             @Override
             public void windowClosing(WindowEvent event) {
                 functionCalculatorMainInterface.dispose();
-                groupDataAnalyzerMainInterface.dispose();
+                //groupDataAnalyzerMainInterface.dispose();
                 equationSolverMainInterface.dispose();
             }
         });
