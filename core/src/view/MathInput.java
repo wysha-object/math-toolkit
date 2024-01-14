@@ -30,6 +30,8 @@ public class MathInput extends JPanel {
     private JButton xButton;
     private JButton yButton;
     private JButton zButton;
+    private JButton left;
+    private JButton right;
 
     public MathInput() {
         this.add(panel);
@@ -49,6 +51,8 @@ public class MathInput extends JPanel {
         butDiv.addActionListener(e -> textField.setText(textField.getText() + "/"));
         butPow.addActionListener(e -> textField.setText(textField.getText() + "^"));
         butPoo.addActionListener(e -> textField.setText(textField.getText() + "√"));
+        left.addActionListener(e -> textField.setText(textField.getText() + "("));
+        right.addActionListener(e -> textField.setText(textField.getText() + ")"));
         delButton.addActionListener(e -> {
             String string = textField.getText();
             if (!string.isEmpty()) {

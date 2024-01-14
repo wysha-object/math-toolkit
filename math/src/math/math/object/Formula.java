@@ -7,6 +7,7 @@ import math.math.math.ArithmeticOperation;
 import math.math.math.Braces;
 import math.math.objects.Variable;
 
+import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -16,19 +17,21 @@ import java.util.Objects;
 /**
  * @author wysha
  */
-final public class Formula extends MathObject implements Comparable<Formula>{
+final public class Formula extends MathObject implements Comparable<Formula> {
     public final List<BigInteger> bigIntegers;
     public final List<Variable> variables;
     public final List<ArithmeticOperation> arithmeticOperations;
     public final List<Brace> braces;
-    public Formula(){
-        this(new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),false);
+
+    public Formula() {
+        this(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), false);
     }
+
     public Formula(List<BigInteger> bigIntegers, List<Variable> variables, List<ArithmeticOperation> arithmeticOperations, List<Brace> braces, boolean simplify) {
         List<BigInteger> numbers;
         List<ArithmeticOperation> arithmeticOperationArrayList;
         if (simplify) {
-            arithmeticOperationArrayList=new ArrayList<>(arithmeticOperations);
+            arithmeticOperationArrayList = new ArrayList<>(arithmeticOperations);
             numbers = new ArrayList<>(bigIntegers);
             ArrayList<Boolean> booleans = new ArrayList<>();
             for (int i = 0; i < arithmeticOperationArrayList.size(); i++) {
@@ -40,18 +43,18 @@ final public class Formula extends MathObject implements Comparable<Formula>{
                         ArithmeticOperation arithmeticOperation = arithmeticOperationArrayList.get(j);
                         if (arithmeticOperation.Priority == k) {
                             if (booleans.get(j)) {
-                                if (booleans.size()==j+1||booleans.get(j+1)){
+                                if ((j == 0 || arithmeticOperation.Priority > arithmeticOperationArrayList.get(j - 1).Priority || booleans.get(j - 1)) && (booleans.size() == j + 1 || booleans.get(j + 1))) {
                                     try {
-                                        numbers.set(j, ArithmeticOperation.operation(arithmeticOperation, numbers.get(j), numbers.get(j + 1)));
+                                        numbers.set(j, ArithmeticOperation.operation(arithmeticOperation, numbers.get(j), numbers.get(j + 1), false));
                                         booleans.remove(j);
-                                        numbers.remove(j+1);
+                                        numbers.remove(j + 1);
                                         arithmeticOperationArrayList.remove(arithmeticOperation);
                                         j--;
                                     } catch (Throwable throwable) {
                                         booleans.set(j, false);
                                     }
-                                }else {
-                                    booleans.set(j,false);
+                                } else {
+                                    booleans.set(j, false);
                                 }
                             }
                         }
@@ -59,33 +62,33 @@ final public class Formula extends MathObject implements Comparable<Formula>{
                 }
             }
             for (int k = ArithmeticOperation.MAX; k > 0; k--) {
-                for (int j = 0; j < arithmeticOperationArrayList.size();++j) {
+                for (int j = 0; j < arithmeticOperationArrayList.size(); ++j) {
                     ArithmeticOperation arithmeticOperation = arithmeticOperationArrayList.get(j);
                     if (arithmeticOperation.Priority == k) {
                         if (booleans.get(j)) {
-                            if (booleans.size()==j+1||booleans.get(j+1)){
+                            if ((j == 0 || arithmeticOperation.Priority > arithmeticOperationArrayList.get(j - 1).Priority || booleans.get(j - 1)) && (booleans.size() == j + 1 || booleans.get(j + 1))) {
                                 try {
-                                    numbers.set(j, ArithmeticOperation.operation(arithmeticOperation, numbers.get(j), numbers.get(j + 1)));
+                                    numbers.set(j, ArithmeticOperation.operation(arithmeticOperation, numbers.get(j), numbers.get(j + 1), false));
                                     booleans.remove(j);
-                                    numbers.remove(j+1);
+                                    numbers.remove(j + 1);
                                     arithmeticOperationArrayList.remove(arithmeticOperation);
                                     j--;
                                 } catch (Throwable throwable) {
                                     booleans.set(j, false);
                                 }
-                            }else {
-                                booleans.set(j,false);
+                            } else {
+                                booleans.set(j, false);
                             }
                         }
                     }
                 }
             }
-            if (arithmeticOperationArrayList.size()<=1){
-                braces=new ArrayList<>();
+            if (arithmeticOperationArrayList.size() <= 1) {
+                braces = new ArrayList<>();
             }
-        }else {
-            numbers=bigIntegers;
-            arithmeticOperationArrayList=arithmeticOperations;
+        } else {
+            numbers = bigIntegers;
+            arithmeticOperationArrayList = arithmeticOperations;
         }
         this.bigIntegers = numbers;
         this.variables = variables;
@@ -94,7 +97,7 @@ final public class Formula extends MathObject implements Comparable<Formula>{
     }
 
     public static Formula valueOf(String string, boolean simplify) {
-        if (string.isEmpty()){
+        if (string.isEmpty()) {
             return new Formula();
         }
         boolean subtractB = false;
@@ -165,7 +168,41 @@ final public class Formula extends MathObject implements Comparable<Formula>{
         for (int j = 0; j < leftBrace.size(); j++) {
             bracesArrayList.add(new Brace(leftBrace.get(j) + i, rightBrace.get(j) + i));
         }
-        return new Formula(bigIntegerList, variableArrayList, arithmeticOperationArrayList, bracesArrayList,simplify);
+        return new Formula(bigIntegerList, variableArrayList, arithmeticOperationArrayList, bracesArrayList, simplify);
+    }
+
+    public BigDecimal forcedCalculations(List<Formula> values) throws Throwable {
+        setValues(values);
+        List<BigDecimal> numbers = new ArrayList<>();
+        List<ArithmeticOperation> arithmeticOperationArrayList;
+        arithmeticOperationArrayList = new ArrayList<>(arithmeticOperations);
+        for (BigInteger bigInteger : bigIntegers) {
+            numbers.add(new BigDecimal(bigInteger));
+        }
+        for (Brace b : braces) {
+            for (int k = ArithmeticOperation.MAX; k > 0; k--) {
+                for (int j = b.start; j < b.end && j < arithmeticOperationArrayList.size(); j++) {
+                    j = o(numbers, arithmeticOperationArrayList, k, j);
+                }
+            }
+        }
+        for (int k = ArithmeticOperation.MAX; k > 0; k--) {
+            for (int j = 0; j < arithmeticOperationArrayList.size(); ++j) {
+                j = o(numbers, arithmeticOperationArrayList, k, j);
+            }
+        }
+        return numbers.get(0);
+    }
+
+    private int o(List<BigDecimal> numbers, List<ArithmeticOperation> arithmeticOperationArrayList, int k, int j) {
+        ArithmeticOperation arithmeticOperation = arithmeticOperationArrayList.get(j);
+        if (arithmeticOperation.Priority == k) {
+            numbers.set(j, ArithmeticOperation.operation(arithmeticOperation, numbers.get(j), numbers.get(j + 1), true));
+            numbers.remove(j + 1);
+            arithmeticOperationArrayList.remove(arithmeticOperation);
+            j--;
+        }
+        return j;
     }
 
     public List<Variable> getVariables() {
@@ -191,7 +228,7 @@ final public class Formula extends MathObject implements Comparable<Formula>{
             Variable variable = variableArrayList.get(i);
             if (variable instanceof AbstractFunction function) {
                 variableArrayList.remove(variable);
-                    ArrayList<Formula> bigIntegerArrayList = new ArrayList<>();
+                ArrayList<Formula> bigIntegerArrayList = new ArrayList<>();
                 for (int j = 0; j < bigIntegers.size(); j++) {
                     if (j == i) {
                         for (int n = 0; n < function.formula.getVariables().size(); n++) {
@@ -205,29 +242,29 @@ final public class Formula extends MathObject implements Comparable<Formula>{
             }
         }
         for (int i = 0; i < variableArrayList.size(); i++) {
-            variableArrayList.get(i).valueLL.add(0, bigIntegers.get(i));
+            variableArrayList.get(i).valueLL.add(0, String.valueOf(bigIntegers.get(i)));
         }
     }
 
-    public Formula add(ArithmeticOperation arithmeticOperation,Formula formula){
-        ArrayList<BigInteger> numbers=new ArrayList<>();
+    public Formula add(ArithmeticOperation arithmeticOperation, Formula formula) {
+        ArrayList<BigInteger> numbers = new ArrayList<>();
         numbers.addAll(this.bigIntegers);
         numbers.addAll(formula.bigIntegers);
         ArrayList<ArithmeticOperation> arithmeticOperationArrayList = new ArrayList<>(this.arithmeticOperations);
         arithmeticOperationArrayList.add(arithmeticOperation);
         arithmeticOperationArrayList.addAll(formula.arithmeticOperations);
-        ArrayList<Variable> variableArrayList=new ArrayList<>();
+        ArrayList<Variable> variableArrayList = new ArrayList<>();
         variableArrayList.addAll(this.variables);
         variableArrayList.addAll(formula.variables);
-        ArrayList<Brace> braceArrayList=new ArrayList<>(this.braces);
-        braceArrayList.add(new Brace(0,bigIntegers.size()));
-        int i=this.arithmeticOperations.size();
-        for (Brace brace:formula.braces){
-            braceArrayList.add(new Brace(brace.start+i, brace.end+i));
+        ArrayList<Brace> braceArrayList = new ArrayList<>(this.braces);
+        braceArrayList.add(new Brace(0, bigIntegers.size()));
+        int i = this.arithmeticOperations.size();
+        for (Brace brace : formula.braces) {
+            braceArrayList.add(new Brace(brace.start + i, brace.end + i));
         }
-        braceArrayList.add(new Brace(0,i));
-        braceArrayList.add(new Brace(i+1,i+formula.arithmeticOperations.size()));
-        return new Formula(numbers,variableArrayList,arithmeticOperationArrayList,braceArrayList,true);
+        braceArrayList.add(new Brace(0, i));
+        braceArrayList.add(new Brace(i + 1, i + formula.arithmeticOperations.size()));
+        return new Formula(numbers, variableArrayList, arithmeticOperationArrayList, braceArrayList, true);
     }
 
     public Formula operation(List<Formula> values) throws Throwable {
@@ -239,12 +276,12 @@ final public class Formula extends MathObject implements Comparable<Formula>{
             if (bigInteger != null) {
                 numbers.add(bigInteger);
             } else {
-                Formula formula = variables.get(i).valueLL.get(0);
+                Formula formula = Formula.valueOf(variables.get(i).valueLL.get(0), false);
                 numbers.add(formula.bigIntegers.get(0));
                 i++;
             }
         }
-        return new Formula(numbers,new ArrayList<>(),arithmeticOperations,braces,true);
+        return new Formula(numbers, new ArrayList<>(), arithmeticOperations, braces, true);
     }
 
     @Override

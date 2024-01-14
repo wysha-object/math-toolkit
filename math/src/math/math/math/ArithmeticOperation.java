@@ -4,6 +4,7 @@ import math.Math;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.math.RoundingMode;
 
 /**
  * @author wysha
@@ -41,37 +42,49 @@ public enum ArithmeticOperation implements Math {
         Priority = priority;
     }
 
-    public static BigInteger operation(ArithmeticOperation arithmeticOperation, BigInteger left, BigInteger right) throws Throwable {
+    public static BigInteger operation(ArithmeticOperation arithmeticOperation, BigInteger left, BigInteger right, boolean forcedCalculations) {
+        return operation(arithmeticOperation, new BigDecimal(left), new BigDecimal(right), forcedCalculations).toBigInteger();
+    }
+
+    public static BigDecimal operation(ArithmeticOperation arithmeticOperation, BigDecimal left, BigDecimal right, boolean forcedCalculations) {
         return switch (arithmeticOperation) {
             case ADD -> left.add(right);
             case SUBTRACT -> left.subtract(right);
             case MULTIPLY -> left.multiply(right);
             case DIVIDE -> {
-                BigInteger[] bigIntegers = left.divideAndRemainder(right);
-                if (bigIntegers[1].compareTo(BigInteger.ZERO)>0){
-                    throw new Throwable();
-                }else {
-                    yield bigIntegers[0];
+                BigDecimal bigIntegers = left.divide(right, 10, RoundingMode.HALF_UP);
+                if (forcedCalculations) {
+                    yield bigIntegers;
+                }
+                if (bigIntegers.divideAndRemainder(BigDecimal.ONE)[1].compareTo(BigDecimal.ZERO) > 0) {
+                    throw new RuntimeException();
+                } else {
+                    yield bigIntegers;
                 }
             }
             case POWERED -> {
-                double l=left.doubleValue();
-                double r=right.doubleValue();
-                double rs= java.lang.Math.pow(l,r);
-                if (rs%1>0){
-                    throw new Throwable();
-                }else {
-                    yield BigInteger.valueOf((long) rs);
+                double l = left.doubleValue();
+                double r = right.doubleValue();
+                double rs = java.lang.Math.pow(l, r);
+                if (forcedCalculations) {
+                    yield BigDecimal.valueOf((long) rs);
+                }
+                if (rs % 1 > 0) {
+                    throw new RuntimeException();
+                } else {
+                    yield BigDecimal.valueOf((long) rs);
                 }
             }
             case ROOTING -> {
-                BigDecimal l=new BigDecimal(left);
-                double r=right.doubleValue();
-                double rs= java.lang.Math.pow(r,BigDecimal.ONE.divide(l).doubleValue());
-                if (rs%1>0){
-                    throw new Throwable();
-                }else {
-                    yield BigInteger.valueOf((long) rs);
+                double r = right.doubleValue();
+                double rs = java.lang.Math.pow(r, BigDecimal.ONE.divide(left, 10, RoundingMode.HALF_UP).doubleValue());
+                if (forcedCalculations) {
+                    yield BigDecimal.valueOf((long) rs);
+                }
+                if (rs % 1 > 0) {
+                    throw new RuntimeException();
+                } else {
+                    yield BigDecimal.valueOf((long) rs);
                 }
             }
         };

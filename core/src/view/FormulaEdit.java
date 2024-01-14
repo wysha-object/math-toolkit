@@ -15,7 +15,7 @@ public class FormulaEdit extends JPanel {
     private JTextField textField;
 
     public FormulaEdit() throws Throwable {
-        this(null,new Formula());
+        this(null, new Formula());
     }
 
     public FormulaEdit(String s, Formula formula) {
@@ -44,7 +44,7 @@ public class FormulaEdit extends JPanel {
     }
 
     public Formula getFormula() {
-        return Formula.valueOf(textField.getText(),false);
+        return Formula.valueOf(textField.getText(), false);
     }
 
     public void setFormula(Formula formula) {

@@ -12,6 +12,23 @@ import java.awt.event.KeyEvent;
 import java.util.HashSet;
 import java.util.Objects;
 
+enum Functions {
+    /*
+
+     */
+    MultivariateFunction("多元函数/非标准式");
+    final String name;
+
+    Functions(String name) {
+        this.name = name;
+    }
+
+    @Override
+    public String toString() {
+        return name;
+    }
+}
+
 /**
  * @author wysha
  */
@@ -77,22 +94,5 @@ public class FunctionCalculatorEdit extends MathGroupView {
         buttons.add(buttonCancel);
         buttons.add(comboBox);
         Style.setStyle(jPanels, buttons, null);
-    }
-
-    enum Functions {
-        /*
-
-         */
-        MultivariateFunction("多元函数/非标准式");
-        final String name;
-
-        Functions(String name) {
-            this.name = name;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
     }
 }

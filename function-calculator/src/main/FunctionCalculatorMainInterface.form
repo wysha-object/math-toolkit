@@ -77,8 +77,8 @@
                   <hideActionText value="true"/>
                   <horizontalAlignment value="0"/>
                   <horizontalTextPosition value="0"/>
-                  <label value="带值计算"/>
-                  <text value="带值计算"/>
+                  <label value="计算"/>
+                  <text value="计算"/>
                 </properties>
                 <clientProperties>
                   <html.disable class="java.lang.Boolean" value="false"/>

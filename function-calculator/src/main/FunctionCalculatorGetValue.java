@@ -32,16 +32,13 @@ public class FunctionCalculatorGetValue extends JDialog {
     private JButton buttonCancel;
     private JPanel jTextFields;
     private JScrollPane js;
+    private JCheckBox checkBox;
 
     public FunctionCalculatorGetValue(AbstractFunction abstractFunction) {
         this.abstractFunction = abstractFunction;
         List<Variable> variables = abstractFunction.getVariables();
         jLabels = new JLabel[variables.size()];
         textFields = new JTextField[variables.size()];
-        if (abstractFunction.formula.variables.isEmpty()) {
-            onOkay();
-            return;
-        }
         List<AbstractFunction> abstractFunctions = new ArrayList<>();
         abstractFunctions.add(abstractFunction);
         abstractFunctions.addAll(abstractFunction.getFunctions());
@@ -94,9 +91,15 @@ public class FunctionCalculatorGetValue extends JDialog {
             ArrayList<Formula> fractions = new ArrayList<>();
             for (JTextField jTextField : textFields) {
                 String s = jTextField.getText();
-                fractions.add(Formula.valueOf(s,false));
+                fractions.add(Formula.valueOf(s, false));
             }
-            GetOutCome getOutCome = new GetOutCome("计算结果", "计算结果:" + abstractFunction.operation(fractions).toString());
+            String rs;
+            if (checkBox.isSelected()) {
+                rs = abstractFunction.forcedCalculations(fractions).toString();
+            } else {
+                rs = abstractFunction.operation(fractions).toString();
+            }
+            GetOutCome getOutCome = new GetOutCome("计算结果", "计算结果:" + rs);
             getOutCome.setSize((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() / 3, (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() / 3);
             getOutCome.setVisible(true);
         } catch (Throwable exception) {

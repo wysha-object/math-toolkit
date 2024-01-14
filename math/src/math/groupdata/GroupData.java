@@ -36,27 +36,27 @@ public class GroupData extends MathObjects {
             all.addAll(Arrays.asList(g.fractions));
         }
 
-        Formula formula = new Formula(new ArrayList<>(List.of(BigInteger.ZERO)),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),false);
+        Formula formula = new Formula(new ArrayList<>(List.of(BigInteger.ZERO)), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), false);
         for (Formula f : all) {
-            formula=formula.add(ArithmeticOperation.ADD,f);
+            formula = formula.add(ArithmeticOperation.ADD, f);
         }
-        sum=formula.operation(new ArrayList<>());
+        sum = formula.operation(new ArrayList<>());
 
-        average = sum.add(ArithmeticOperation.DIVIDE,new Formula(List.of(BigInteger.valueOf(all.size())),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),false));
+        average = sum.add(ArithmeticOperation.DIVIDE, new Formula(List.of(BigInteger.valueOf(all.size())), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), false));
 
-        Formula rs = new Formula(new ArrayList<>(List.of(BigInteger.ZERO)),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),false);
+        Formula rs = new Formula(new ArrayList<>(List.of(BigInteger.ZERO)), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), false);
         for (Formula f : all) {
-            Formula s = f.add(ArithmeticOperation.SUBTRACT,average);
-            rs = rs.add(ArithmeticOperation.ADD,s.add(ArithmeticOperation.MULTIPLY,s));
+            Formula s = f.add(ArithmeticOperation.SUBTRACT, average);
+            rs = rs.add(ArithmeticOperation.ADD, s.add(ArithmeticOperation.MULTIPLY, s));
         }
-        rs = rs.add(ArithmeticOperation.DIVIDE,new Formula(List.of(BigInteger.valueOf(all.size())),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),false));
+        rs = rs.add(ArithmeticOperation.DIVIDE, new Formula(List.of(BigInteger.valueOf(all.size())), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), false));
         variance = rs;
 
         if (all.size() % 2 == 0) {
-            int s=all.size()/ 2;
-            median = all.get(s).add(ArithmeticOperation.ADD,all.get(s - 1)).add(
+            int s = all.size() / 2;
+            median = all.get(s).add(ArithmeticOperation.ADD, all.get(s - 1)).add(
                     ArithmeticOperation.DIVIDE,
-                    new Formula(List.of(BigInteger.valueOf(2)),new ArrayList<>(),new ArrayList<>(),new ArrayList<>(),false)
+                    new Formula(List.of(BigInteger.valueOf(2)), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), false)
             );
         } else {
             median = all.get((all.size() - 1) / 2);

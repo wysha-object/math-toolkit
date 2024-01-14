@@ -36,7 +36,7 @@ public class GroupDataAnalyzerGet extends JDialog {
             stringBuilder.append(g.name).append("包含的数据:").append(Arrays.toString(g.fractions)).append('\n');
         }
         values.setText(stringBuilder.toString());
-        sum.setText("总和"+groupData.sum);
+        sum.setText("总和" + groupData.sum);
         average.setText("平均数:" + groupData.average.toString());
         variance.setText("方差:" + groupData.variance.toString());
         median.setText("中位数:" + groupData.median.toString());

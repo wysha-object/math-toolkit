@@ -2,6 +2,9 @@ package main;
 
 import javax.swing.*;
 
+/**
+ * @author wysha
+ */
 public abstract class MathGroupView extends JDialog {
     public final MathGroupMainInterface mathGroupMainInterface;
 

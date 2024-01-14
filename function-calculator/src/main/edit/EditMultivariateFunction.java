@@ -16,6 +16,7 @@ public class EditMultivariateFunction extends AbstractFunctionCalculatorEdits {
     public JPanel contentPane;
     private JLabel jLabel;
     private MathInput mathInput;
+    private JCheckBox checkBox;
 
     public EditMultivariateFunction(JDialog jDialog, MathGroupMainInterface mathGroupMainInterface) {
         super(EditMultivariateFunction.class.toString(), jDialog, mathGroupMainInterface);
@@ -26,7 +27,7 @@ public class EditMultivariateFunction extends AbstractFunctionCalculatorEdits {
     @Override
     public void onOkay() {
         try {
-            MultivariateFunction.valueOf(mathInput.getValue(), mathGroupMainInterface.mathGroup);
+            MultivariateFunction.valueOf(mathInput.getValue(), mathGroupMainInterface.mathGroup, checkBox.isSelected());
             jDialog.dispose();
         } catch (Throwable e) {
             ErrorInterface errorInterface = new ErrorInterface(

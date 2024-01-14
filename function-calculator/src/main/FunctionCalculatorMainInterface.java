@@ -3,7 +3,6 @@ package main;
 import data.MathToolkitNecessaryData;
 import data.Style;
 import math.function.AbstractFunction;
-import math.math.object.Formula;
 import view.ErrorInterface;
 import view.GetAndSetList;
 
@@ -243,10 +242,10 @@ public class FunctionCalculatorMainInterface extends MathGroupView {
 }
 
 class ValueAndFractions {
-    final Formula value;
-    final Formula[] fractions;
+    final String value;
+    final String[] fractions;
 
-    ValueAndFractions(Formula value, Formula[] fraction) {
+    ValueAndFractions(String value, String[] fraction) {
         this.value = value;
         this.fractions = fraction;
     }

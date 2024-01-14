@@ -5,6 +5,7 @@ import math.function.multivariate.MultivariateFunction;
 import math.math.object.Formula;
 import math.math.objects.Variable;
 
+import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
@@ -15,7 +16,7 @@ import java.util.List;
  */
 public abstract class AbstractFunction extends Variable {
     public final Formula formula;
-    public final LinkedList<Formula[]> TheValuesBroughtIn = new LinkedList<>();
+    public final LinkedList<String[]> TheValuesBroughtIn = new LinkedList<>();
 
     protected AbstractFunction(
             String name,
@@ -29,7 +30,7 @@ public abstract class AbstractFunction extends Variable {
     }
 
     protected AbstractFunction(String name, MathGroup mathGroup) throws Throwable {
-        this(name, new Formula(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(),false), mathGroup);
+        this(name, new Formula(new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), new ArrayList<>(), false), mathGroup);
     }
 
     public List<Variable> getVariables() {
@@ -65,14 +66,35 @@ public abstract class AbstractFunction extends Variable {
         return String.valueOf(s);
     }
 
+    public BigDecimal forcedCalculations(List<Formula> values) throws Throwable {
+        BigDecimal rs = formula.forcedCalculations(values);
+        Formula[] s = new Formula[values.size()];
+        for (int j = 0; j < values.size(); j++) {
+            s[j] = values.get(j);
+        }
+        valueLL.add(0, String.valueOf(rs));
+        String[] ss = new String[s.length];
+        for (int i = 0; i < s.length; i++) {
+            Formula f = s[i];
+            ss[i] = f.toString();
+        }
+        TheValuesBroughtIn.add(0, ss);
+        return rs;
+    }
+
     public Formula operation(List<Formula> values) throws Throwable {
         Formula rs = formula.operation(values);
         Formula[] s = new Formula[values.size()];
         for (int j = 0; j < values.size(); j++) {
             s[j] = values.get(j);
         }
-        valueLL.add(0, rs);
-        TheValuesBroughtIn.add(0, s);
+        valueLL.add(0, rs.toString());
+        String[] ss = new String[s.length];
+        for (int i = 0; i < s.length; i++) {
+            Formula f = s[i];
+            ss[i] = f.toString();
+        }
+        TheValuesBroughtIn.add(0, ss);
         return rs;
     }
 
