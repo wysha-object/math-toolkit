@@ -1,7 +1,7 @@
-import data.MathToolkitNecessaryData;
-import main.MainInterface;
-import main.MathGroupMainInterface;
-import view.ErrorInterface;
+import wysha.math_toolkit.data.MathToolkitNecessaryData;
+import wysha.math_toolkit.main.MainInterface;
+import wysha.math_toolkit.main.MathGroupMainInterface;
+import wysha.math_toolkit.view.ErrorInterface;
 
 public class Main {
     public static void main(String[] args) {
